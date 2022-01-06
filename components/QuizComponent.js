@@ -2,13 +2,27 @@ import React, { Component } from 'react';
 import { ScrollView,TouchableOpacity,Text, View,StyleSheet,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 class QuizComponent extends Component {
+  state = {
+    data: ''
+ }
+ componentDidMount = () => {
+    fetch('https://6788-2405-201-8012-1026-9c70-32e0-a340-6a31.ngrok.io/api/get-question-and-asnwer/test', {
+       method: 'GET'
+    })
+    .then(response =>{
+      this.state.data = response.data.question
+    })
+    .catch((error) => {
+       console.error(error);
+    });
+ }
   render() {
     return (
         <ScrollView style = {styles.scroll}>
         <View style = {styles.box2}>
           <View style = {styles.box4}>
           <View style = {styles.box5}>
-           <Text style = {styles.boxfont}>Q:Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</Text>
+           <Text style = {styles.boxfont}>Q: {this.state.data}</Text>
            <TouchableOpacity>
            <Icon name="volume-up" size={30} />
            </TouchableOpacity>
@@ -28,7 +42,7 @@ class QuizComponent extends Component {
             <Text style = {styles.boxsubfont}>b ) sample answer 1</Text>  
           </TouchableOpacity >
           <TouchableOpacity style = {styles.box1}>
-            <Text style = {styles.boxsubfont}>c ) sample answer 2</Text>  
+            <Text style = {styles.boxsubfont}>c)</Text>  
           </TouchableOpacity>
           <TouchableOpacity style = {styles.box1}>
             <Text style = {styles.boxsubfont}>d ) sample answer 3</Text>  
@@ -45,6 +59,10 @@ class QuizComponent extends Component {
             : 0</Text>
            </View>
           </View> 
+          <TouchableOpacity>
+          <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
+           style={{width: 50, height: 50}} />
+           </TouchableOpacity>
            <TouchableOpacity style = {styles.box3}>
            <Text style = {styles.boxbutton}>Next</Text>  
           </TouchableOpacity>
