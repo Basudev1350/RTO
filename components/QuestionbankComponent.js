@@ -1,51 +1,37 @@
 import React, { Component } from 'react';
 import { ScrollView,Text, View,StyleSheet } from 'react-native';
-
+import axios from 'axios';
 
 class QuestionbankComponent extends Component {
+  
+  state = {
+    questions: []
+   }
+   componentDidMount() {
+    axios.get(`http://588c-2405-201-8012-1026-cc62-eb07-fc9e-2064.ngrok.io/api/get-question-and-asnwer/test`)
+   .then(res => {
+      const questions = res.data;
+      this.setState({ questions });
+     })
+   }
   render() {
     return (
         <ScrollView style = {styles.scroll} >
-        <View  style = {styles.box1} >
-        <View  style = {styles.box12} >
-         <Text style = {styles.boxfont} >Q.1:</Text>
-        <Text  style = {styles.boxfont} >Lorem ipsum lorem ipsum</Text>
+        {this.state.questions.map((data, key) => {
+         return (
+           <View style = {styles.box1}>
+          <View  style = {styles.box12} >
+             <Text style = {styles.boxfont} >{data.id} :</Text>
+             <Text  style = {styles.boxfont} >{data.question}</Text>
+          </View>
+          <View style = {styles.box12} >
+        <Text style = {styles.boxsubfont} >Ans :</Text>
+        <Text style = {styles.boxsubfont} >{data.getcorrectansid.answer}</Text>
         </View>
-        <View style = {styles.box12} >
-        <Text style = {styles.boxsubfont} >Ans : </Text>
-        <Text style = {styles.boxsubfont} >Lorem ipsum lorem ipsum Lorem ipsum </Text>
-        </View>
-        </View>
-         <View style = {styles.box1} >
-        <View  style = {styles.box12} >
-         <Text style = {styles.boxfont} >Q.2:</Text>
-        <Text  style = {styles.boxfont} >Lorem ipsum lorem ipsum</Text>
-        </View>
-        <View style = {styles.box12} >
-        <Text style = {styles.boxsubfont} >Ans : </Text>
-        <Text style = {styles.boxsubfont} >Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum</Text>
-        </View>
-        </View>
-         <View style = {styles.box1} >
-        <View  style = {styles.box12} >
-         <Text style = {styles.boxfont} >Q.3:</Text>
-        <Text  style = {styles.boxfont} >Lorem ipsum lorem ipsum</Text>
-        </View>
-        <View style = {styles.box12} >
-        <Text style = {styles.boxsubfont} >Ans : </Text>
-        <Text style = {styles.boxsubfont} >Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum</Text>
-        </View>
-        </View>
-         <View style = {styles.box1} >
-        <View  style = {styles.box12} >
-         <Text style = {styles.boxfont} >Q.4:</Text>
-        <Text  style = {styles.boxfont} >Lorem ipsum lorem ipsum</Text>
-        </View>
-        <View style = {styles.box12} >
-        <Text style = {styles.boxsubfont} >Ans : </Text>
-        <Text style = {styles.boxsubfont} >Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum</Text>
-        </View>
-        </View>   
+          </View>
+         );
+      })}
+        
 </ScrollView>
        
     );

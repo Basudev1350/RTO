@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
 import { ScrollView,TouchableOpacity,Text, View,StyleSheet,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+// import {Speech} from 'expo';
+// import Tts from 'react-native-tts';
 class QuizComponent extends Component {
+  
   state = {
-    data: ''
- }
- componentDidMount = () => {
-    fetch('https://6788-2405-201-8012-1026-9c70-32e0-a340-6a31.ngrok.io/api/get-question-and-asnwer/test', {
-       method: 'GET'
-    })
-    .then(response =>{
-      this.state.data = response.data.question
-    })
-    .catch((error) => {
-       console.error(error);
-    });
- }
+    posts: []
+   }
+   componentDidMount() {
+    axios.get(`https://583a-2405-201-8012-1026-cc62-eb07-fc9e-2064.ngrok.io/api/get-question-and-asnwer/test`)
+   .then(res => {
+      const posts = res.data;
+      this.setState({ posts });
+     })
+   }
+  
   render() {
     return (
         <ScrollView style = {styles.scroll}>
         <View style = {styles.box2}>
           <View style = {styles.box4}>
           <View style = {styles.box5}>
-           <Text style = {styles.boxfont}>Q: {this.state.data}</Text>
-           <TouchableOpacity>
+           <Text style = {styles.boxfont}>{ this.state.posts.map(post => <Text>{post.question}</Text>)}</Text>
+           <TouchableOpacity >
            <Icon name="volume-up" size={30} />
            </TouchableOpacity>
           </View>
