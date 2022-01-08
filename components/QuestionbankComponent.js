@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView,Text, View,StyleSheet } from 'react-native';
 import axios from 'axios';
 
-class QuestionbankComponent extends Component {
-  
+class QuestionbankComponent extends Component { 
   state = {
     questions: [],
     noOfQuestion: 0,
