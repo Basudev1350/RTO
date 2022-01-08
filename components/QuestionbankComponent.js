@@ -5,23 +5,25 @@ import axios from 'axios';
 class QuestionbankComponent extends Component {
   
   state = {
-    questions: []
+    questions: [],
+    noOfQuestion: 0,
    }
    componentDidMount() {
-    axios.get(`http://588c-2405-201-8012-1026-cc62-eb07-fc9e-2064.ngrok.io/api/get-question-and-asnwer/test`)
+    axios.get(`https://877c-2405-201-8012-1026-2532-a5e9-4c36-f1c4.ngrok.io/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
-      this.setState({ questions });
+      const noOfQuestion = res.length;
+      this.setState({ questions, noOfQuestion});
      })
    }
   render() {
     return (
         <ScrollView style = {styles.scroll} >
-        {this.state.questions.map((data, key) => {
+        {this.state.questions.map((data, index) => {
          return (
            <View style = {styles.box1}>
           <View  style = {styles.box12} >
-             <Text style = {styles.boxfont} >{data.id} :</Text>
+             <Text style = {styles.boxfont} >Q.: {index}</Text>
              <Text  style = {styles.boxfont} >{data.question}</Text>
           </View>
           <View style = {styles.box12} >
@@ -30,8 +32,7 @@ class QuestionbankComponent extends Component {
         </View>
           </View>
          );
-      })}
-        
+      })}  
 </ScrollView>
        
     );
@@ -70,5 +71,18 @@ const styles = StyleSheet.create ({
           box12:{
             display:'flex',
             flexDirection:'row'
-        }
+        },
+        box3:{
+          borderRadius:10,
+          width:'40%',
+          backgroundColor:'#008080'
+        },
+        boxbutton:{
+          fontSize:18,
+          color:'rgb(241, 226, 226)',
+          fontWeight:'800',
+          textAlign:'center',
+          margin:10,
+          color:'#fff'
+          }
  })

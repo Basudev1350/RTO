@@ -5,73 +5,83 @@ import axios from 'axios';
 // import {Speech} from 'expo';
 // import Tts from 'react-native-tts';
 class QuizComponent extends Component {
-  
-  state = {
-    posts: []
-   }
+  constructor(props) {
+    super(props);
+    this.state = { index: 0,
+       questions:  [],
+       noOfQuestion: 0, };
+  }
+  onPress = () => {
+    let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
+    this.setState({ index: i });
+  };
    componentDidMount() {
-    axios.get(`https://583a-2405-201-8012-1026-cc62-eb07-fc9e-2064.ngrok.io/api/get-question-and-asnwer/test`)
+    axios.get(`https://877c-2405-201-8012-1026-2532-a5e9-4c36-f1c4.ngrok.io/api/get-question-and-asnwer/test`)
    .then(res => {
-      const posts = res.data;
-      this.setState({ posts });
+      const questions = res.data;
+      this.setState({ questions:questions});
      })
    }
-  
-  render() {
-    return (
+   render() {
+      return (
         <ScrollView style = {styles.scroll}>
-        <View style = {styles.box2}>
-          <View style = {styles.box4}>
-          <View style = {styles.box5}>
-           <Text style = {styles.boxfont}>{ this.state.posts.map(post => <Text>{post.question}</Text>)}</Text>
-           <TouchableOpacity >
-           <Icon name="volume-up" size={30} />
-           </TouchableOpacity>
+          {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
+          return (
+            <View style = {styles.box2}>
+            <View style = {styles.box4}>
+            <View style = {styles.box5}>
+            <Text style = {styles.boxfont}>{data.question}</Text>
+            <TouchableOpacity >
+            <Icon name="volume-up" size={30} />
+            </TouchableOpacity>
+            </View>
+            <View style = {styles.box5}>
+            <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
+            style={{width: 100,height:100}} />
+            <TouchableOpacity style = {styles.languagebutton} >
+            <Icon name="language" size={30} color={'#fff'}/>
+            </TouchableOpacity>
+            </View>
+            </View>
+            <TouchableOpacity style = {styles.box1}>
+                <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.box1}>
+              <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+            </TouchableOpacity >
+            <TouchableOpacity style = {styles.box1}>
+              <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.box1}>
+              <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
+            </TouchableOpacity>
           </View>
-          <View style = {styles.box5}>
-           <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
-           style={{width: 100,height:100}} />
-           <TouchableOpacity style = {styles.languagebutton} >
-           <Icon name="language" size={30} color={'#fff'}/>
-           </TouchableOpacity>
-           </View>
-           </View>
-          <TouchableOpacity style = {styles.box1}>
-               <Text style = {styles.boxsubfont}>a ) sample answer 0</Text>  
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.box1}>
-            <Text style = {styles.boxsubfont}>b ) sample answer 1</Text>  
-          </TouchableOpacity >
-          <TouchableOpacity style = {styles.box1}>
-            <Text style = {styles.boxsubfont}>c)</Text>  
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.box1}>
-            <Text style = {styles.boxsubfont}>d ) sample answer 3</Text>  
-          </TouchableOpacity>
-        </View>
-        <View style = {styles.box12}>
-          <View style = {styles.show}>
-          <View style = {styles.right}>
-           <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
-           : 0</Text>
-           </View>  
-          <View style = {styles.wrong}>
-          <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
+          );
+        })}
+         
+          <View style = {styles.box12}>
+            <View style = {styles.show}>
+            <View style = {styles.right}>
+            <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
             : 0</Text>
-           </View>
-          </View> 
-          <TouchableOpacity>
-          <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
-           style={{width: 50, height: 50}} />
-           </TouchableOpacity>
-           <TouchableOpacity style = {styles.box3}>
-           <Text style = {styles.boxbutton}>Next</Text>  
-          </TouchableOpacity>
+            </View>  
+            <View style = {styles.wrong}>
+            <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
+              : 0</Text>
+            </View>
+            </View> 
+            <TouchableOpacity>
+            <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
+            style={{width: 50, height: 50}} />
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.box3} onPress={this.onPress} >
+            <Text style = {styles.boxbutton}>Next</Text>  
+            </TouchableOpacity>
           </View>
-     </ScrollView>
-    );
+        </ScrollView>
+      );
+    }
   }
-}
 export default QuizComponent;
 
 const styles = StyleSheet.create ({
