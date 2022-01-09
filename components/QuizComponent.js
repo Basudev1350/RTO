@@ -1,83 +1,167 @@
-import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Text, View,StyleSheet,Image } from 'react-native';
+import React, { Component} from 'react';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
+import * as Speech from 'expo-speech';
+// import React, { useState } from "react";
 // import {Speech} from 'expo';
 // import Tts from 'react-native-tts';
 class QuizComponent extends Component {
+  state = { index: 0,
+    questions:  [],
+    noOfQuestion: 0,
+    writeAnswer: 0,
+    wrongAnswer: 0,
+    explain:"",
+    modalVisible: false,
+    answeredOption: 0,
+    correctOption:  0
+  };
   constructor(props) {
     super(props);
     this.state = { index: 0,
-       questions:  [],
-       noOfQuestion: 0, };
-  }
+      questions:  [],
+      noOfQuestion: 0,
+      writeAnswer: 0,
+      wrongAnswer: 0,
+      explain:"",
+      modalVisible: false,
+      answeredOption: 0,
+      correctOption:  0
+    };
+  };
+  // readOut = () => {
+  //   Tts.getInitStatus().then(() => {
+  //     // ...
+  //   }, (err) => {
+  //     if (err.code === 'no_engine') {
+  //       Tts.requestInstallEngine();
+  //     }
+  //   });
+  // };
   onPress = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
-    this.setState({ index: i });
+    this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
-   componentDidMount() {
-    axios.get(`https://877c-2405-201-8012-1026-2532-a5e9-4c36-f1c4.ngrok.io/api/get-question-and-asnwer/test`)
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  };
+  checkAnswer = (answerId,questionId,explain,answeredOption) =>{
+    var explain = explain;
+    var correctOption = this.state.correctOption;
+    var getAnsweredOption = this.state.answeredOption;
+    var writeAnswer = this.state.writeAnswer;
+    var wrongAnswer = this.state.wrongAnswer;
+    if(getAnsweredOption === 0)
+    {
+      this.state.answeredOption = answeredOption;
+      if(answerId === questionId){
+        correctOption = answerId;
+        writeAnswer = this.state.writeAnswer + 1;
+      }else{
+        correctOption = answerId;
+        explain = explain;
+        wrongAnswer = this.state.wrongAnswer + 1;
+      }
+    }
+    this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId});
+  };
+  componentDidMount() {
+    axios.get(`http://192.168.1.191:8001/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
       this.setState({ questions:questions});
      })
-   }
+  };
+  
    render() {
+    const speak = (data) => {
+      const thingToSay = data;
+      Speech.speak(thingToSay);
+    };
+    const { modalVisible } = this.state.modalVisible;
       return (
         <ScrollView style = {styles.scroll}>
           {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
           return (
             <View style = {styles.box2}>
-            <View style = {styles.box4}>
-            <View style = {styles.box5}>
-            <Text style = {styles.boxfont}>{data.question}</Text>
-            <TouchableOpacity >
-            <Icon name="volume-up" size={30} />
-            </TouchableOpacity>
-            </View>
-            <View style = {styles.box5}>
-            <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
-            style={{width: 100,height:100}} />
-            <TouchableOpacity style = {styles.languagebutton} >
-            <Icon name="language" size={30} color={'#fff'}/>
-            </TouchableOpacity>
-            </View>
-            </View>
-            <TouchableOpacity style = {styles.box1}>
+              <View style = {styles.box4}>
+                <View style = {styles.box5}>
+                  <Text style = {styles.boxfont}>{data.question}</Text>
+                  <TouchableOpacity onPress={() => speak(data.question)}>
+                  <Icon name="volume-up" size={30} />
+                  </TouchableOpacity>
+                </View>
+                <View style = {styles.box5}>
+                  <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
+                  style={{width: 100,height:100}} />
+                  <TouchableOpacity style = {styles.languagebutton} >
+                  <Icon name="language" size={30} color={'#fff'}/>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <TouchableOpacity style = {this.state.correctOption === data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
                 <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.box1}>
-              <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
-            </TouchableOpacity >
-            <TouchableOpacity style = {styles.box1}>
-              <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.box1}>
-              <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
-            </TouchableOpacity>
-          </View>
+              </TouchableOpacity>
+              <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
+                <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+              </TouchableOpacity >
+              <TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
+                <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
+              </TouchableOpacity>
+              <TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
+                <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
+              </TouchableOpacity>
+              {/* <View style= {styles.box2}>
+                <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
+              </View> */}
+            </View>
           );
         })}
-         
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                this.setModalVisible(!this.state.modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>{this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}</Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => this.setModalVisible(!this.state.modalVisible)}
+                  >
+                    <Text style={styles.textStyle}>Hide Explanation</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
+          </View>
           <View style = {styles.box12}>
             <View style = {styles.show}>
             <View style = {styles.right}>
             <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
-            : 0</Text>
+            : {this.state.writeAnswer}</Text>
             </View>  
             <View style = {styles.wrong}>
             <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
-              : 0</Text>
+              : {this.state.wrongAnswer}</Text>
             </View>
             </View> 
-            <TouchableOpacity>
+            <TouchableOpacity 
+        onPress={() => this.setModalVisible(true)}>
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
-            style={{width: 50, height: 50}} />
+            style={{width: 50, height: 50}}/>
             </TouchableOpacity>
             <TouchableOpacity style = {styles.box3} onPress={this.onPress} >
             <Text style = {styles.boxbutton}>Next</Text>  
             </TouchableOpacity>
           </View>
+
         </ScrollView>
       );
     }
@@ -112,11 +196,26 @@ const styles = StyleSheet.create ({
             padding:10
           },
           box1:{
-              borderTopColor:'#000',
-              borderTopWidth:1,
-              backgroundColor:'#fff',
-              paddingRight:'10%',
-              paddingTop:'2%'
+            borderTopColor:'#000',
+            borderTopWidth:1,
+            backgroundColor:'#fff',
+            paddingRight:'10%',
+            paddingTop:'2%',
+         },
+         boxCorrect:{
+          borderTopColor:'#000',
+          borderTopWidth:1,
+          backgroundColor:'#008000',
+          paddingRight:'10%',
+          paddingTop:'2%',
+
+          // borderTopColor:'#000',
+          // borderTopWidth:1,
+          // backgroundColor:'#008000',
+          // paddingRight:'10%',
+          // paddingTop:'2%',
+          // borderWidth: 5,
+          // borderColor: '#008000',
          },
          box4:{
           backgroundColor:'#fff',
@@ -173,5 +272,48 @@ const styles = StyleSheet.create ({
       textAlign:'center',
       margin:10,
       color:'#fff'
+      },
+      centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+      },
+      buttonOpen: {
+        backgroundColor: "#F194FF",
+      },
+      buttonClose: {
+        backgroundColor: "#2196F3",
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+      modalText: {
+        fontSize:18,
+        marginBottom: 15,
+        fontWeight: "bold",
+        textAlign: "left"
       }
  })

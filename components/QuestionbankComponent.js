@@ -8,7 +8,7 @@ class QuestionbankComponent extends Component {
     noOfQuestion: 0,
    }
    componentDidMount() {
-    axios.get(`https://877c-2405-201-8012-1026-2532-a5e9-4c36-f1c4.ngrok.io/api/get-question-and-asnwer/test`)
+    axios.get(`http://192.168.1.191:8001/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
       const noOfQuestion = res.length;
