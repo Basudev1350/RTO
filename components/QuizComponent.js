@@ -13,7 +13,8 @@ class QuizComponent extends Component {
     writeAnswer: 0,
     wrongAnswer: 0,
     explain:"",
-    modalVisible: false,
+    explainModalVisible: false,
+    translatorModalVisible: false,
     answeredOption: 0,
     correctOption:  0
   };
@@ -25,7 +26,8 @@ class QuizComponent extends Component {
       writeAnswer: 0,
       wrongAnswer: 0,
       explain:"",
-      modalVisible: false,
+      explainModalVisible: false,
+      translatorModalVisible: false,
       answeredOption: 0,
       correctOption:  0
     };
@@ -43,8 +45,11 @@ class QuizComponent extends Component {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
+  setExplainModalVisible = (visible) => {
+    this.setState({ explainModalVisible: visible });
+  };
+  setTranslatorModalVisible = (visible) => {
+    this.setState({ translatorModalVisible: visible });
   };
   checkAnswer = (answerId,questionId,explain,answeredOption) =>{
     var explain = explain;
@@ -67,7 +72,7 @@ class QuizComponent extends Component {
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId});
   };
   componentDidMount() {
-    axios.get(`http://192.168.1.191:8001/api/get-question-and-asnwer/test`)
+    axios.get(`http://192.168.1.191:8000/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
       this.setState({ questions:questions});
@@ -79,7 +84,8 @@ class QuizComponent extends Component {
       const thingToSay = data;
       Speech.speak(thingToSay);
     };
-    const { modalVisible } = this.state.modalVisible;
+    const { explainModalVisible } = this.state.explainModalVisible;
+    const {translatorModalVisible} = this.state.translatorModalVisible;
       return (
         <ScrollView style = {styles.scroll}>
           {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
@@ -95,7 +101,7 @@ class QuizComponent extends Component {
                 <View style = {styles.box5}>
                   <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
                   style={{width: 100,height:100}} />
-                  <TouchableOpacity style = {styles.languagebutton} >
+                  <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
                   <Icon name="language" size={30} color={'#fff'}/>
                   </TouchableOpacity>
                 </View>
@@ -118,14 +124,16 @@ class QuizComponent extends Component {
             </View>
           );
         })}
+
+          {/** Expanation modal */}
           <View style={styles.centeredView}>
             <Modal
               animationType="slide"
               transparent={true}
-              visible={this.state.modalVisible}
+              visible={this.state.explainModalVisible}
               onRequestClose={() => {
                 Alert.alert("Modal has been closed.");
-                this.setModalVisible(!this.state.modalVisible);
+                this.setExplainModalVisible(!this.state.explainModalVisible);
               }}
             >
               <View style={styles.centeredView}>
@@ -133,7 +141,7 @@ class QuizComponent extends Component {
                   <Text style={styles.modalText}>{this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}</Text>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => this.setModalVisible(!this.state.modalVisible)}
+                    onPress={() => this.setExplainModalVisible(!this.state.explainModalVisible)}
                   >
                     <Text style={styles.textStyle}>Hide Explanation</Text>
                   </Pressable>
@@ -141,6 +149,36 @@ class QuizComponent extends Component {
               </View>
             </Modal>
           </View>
+          {/** End of Expanation modal */}
+
+          {/** Translator modal */}
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.translatorModalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                this.setTranslatorModalVisible(!this.state.translatorModalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>{this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}</Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
+                  >
+                    <Text style={styles.textStyle}>Hide Translator</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
+          </View>
+          {/** End of Translator modal */}
+
+          
+
           <View style = {styles.box12}>
             <View style = {styles.show}>
             <View style = {styles.right}>
@@ -153,7 +191,7 @@ class QuizComponent extends Component {
             </View>
             </View> 
             <TouchableOpacity 
-        onPress={() => this.setModalVisible(true)}>
+        onPress={() => this.setExplainModalVisible(true)}>
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
             style={{width: 50, height: 50}}/>
             </TouchableOpacity>
