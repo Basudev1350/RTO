@@ -3,6 +3,8 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
+import LocalizedStrings from 'react-native-localization';
+
 // import React, { useState } from "react";
 // import {Speech} from 'expo';
 // import Tts from 'react-native-tts';
@@ -31,7 +33,38 @@ class QuizComponent extends Component {
       answeredOption: 0,
       correctOption:  0
     };
+    this.lang = [
+      { shortName: 'hi', longName: 'Hindi' },
+      { shortName: 'en', longName: 'English' },
+      { shortName: 'fr', longName: 'French' },
+      { shortName: 'sp', longName: 'Spanish' },
+    ];
   };
+  All_Language_Strings = new LocalizedStrings({
+    "hi": {
+      text_1: "हैलो दोस्तों.",
+      text_2: "हमारी वैबसाइट पर आपका स्वागत है.",
+    },
+    "en": {
+      text_1: "Hello Guys.",
+      text_2: "Welcome to our Website.",
+    },
+    "fr": {
+      text_1: "Bonjour les gars.",
+      text_2: "Bienvenue sur notre site.",
+    },
+    "sp": {
+      text_1: "Hola chicos.",
+      text_2: "Bienvenido a nuestro sitio web.",
+    }
+  });
+  navigate_To_Next_Activity(item) {
+ 
+    All_Language_Strings.setLanguage(item);
+ 
+    this.props.navigation.navigate('QuizComponent', { Language_Code: item });
+ 
+  }
   // readOut = () => {
   //   Tts.getInitStatus().then(() => {
   //     // ...
@@ -72,7 +105,7 @@ class QuizComponent extends Component {
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId});
   };
   componentDidMount() {
-    axios.get(`http://192.168.1.191:8000/api/get-question-and-asnwer/test`)
+    axios.get(`http://192.168.29.22:8000/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
       this.setState({ questions:questions});
