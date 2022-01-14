@@ -8,7 +8,7 @@ class QuestionbankComponent extends Component {
     noOfQuestion: 0,
    }
    componentDidMount() {
-    axios.get(`http://192.168.29.22:8000/api/get-question-and-asnwer/test`)
+    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
       const noOfQuestion = res.length;

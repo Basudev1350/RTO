@@ -105,7 +105,7 @@ class QuizComponent extends Component {
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId});
   };
   componentDidMount() {
-    axios.get(`http://192.168.29.22:8000/api/get-question-and-asnwer/test`)
+    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test`)
    .then(res => {
       const questions = res.data;
       this.setState({ questions:questions});
