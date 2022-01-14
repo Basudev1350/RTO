@@ -33,38 +33,38 @@ class QuizComponent extends Component {
       answeredOption: 0,
       correctOption:  0
     };
-    this.lang = [
-      { shortName: 'hi', longName: 'Hindi' },
-      { shortName: 'en', longName: 'English' },
-      { shortName: 'fr', longName: 'French' },
-      { shortName: 'sp', longName: 'Spanish' },
-    ];
+    // this.lang = [
+    //   { shortName: 'hi', longName: 'Hindi' },
+    //   { shortName: 'en', longName: 'English' },
+    //   { shortName: 'fr', longName: 'French' },
+    //   { shortName: 'sp', longName: 'Spanish' },
+    // ];
   };
-  All_Language_Strings = new LocalizedStrings({
-    "hi": {
-      text_1: "हैलो दोस्तों.",
-      text_2: "हमारी वैबसाइट पर आपका स्वागत है.",
-    },
-    "en": {
-      text_1: "Hello Guys.",
-      text_2: "Welcome to our Website.",
-    },
-    "fr": {
-      text_1: "Bonjour les gars.",
-      text_2: "Bienvenue sur notre site.",
-    },
-    "sp": {
-      text_1: "Hola chicos.",
-      text_2: "Bienvenido a nuestro sitio web.",
-    }
-  });
-  navigate_To_Next_Activity(item) {
+  // All_Language_Strings = new LocalizedStrings({
+  //   "hi": {
+  //     text_1: "हैलो दोस्तों.",
+  //     text_2: "हमारी वैबसाइट पर आपका स्वागत है.",
+  //   },
+  //   "en": {
+  //     text_1: "Hello Guys.",
+  //     text_2: "Welcome to our Website.",
+  //   },
+  //   "fr": {
+  //     text_1: "Bonjour les gars.",
+  //     text_2: "Bienvenue sur notre site.",
+  //   },
+  //   "sp": {
+  //     text_1: "Hola chicos.",
+  //     text_2: "Bienvenido a nuestro sitio web.",
+  //   }
+  // });
+  // navigate_To_Next_Activity(item) {
  
-    All_Language_Strings.setLanguage(item);
+  //   All_Language_Strings.setLanguage(item);
  
-    this.props.navigation.navigate('QuizComponent', { Language_Code: item });
+  //   this.props.navigation.navigate('QuizComponent', { Language_Code: item });
  
-  }
+  // }
   // readOut = () => {
   //   Tts.getInitStatus().then(() => {
   //     // ...
@@ -228,9 +228,9 @@ class QuizComponent extends Component {
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
             style={{width: 50, height: 50}}/>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.box3} onPress={this.onPress} >
+            <Pressable style = {styles.box3} onPress={this.onPress} >
             <Text style = {styles.boxbutton}>Next</Text>  
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
         </ScrollView>
@@ -244,8 +244,9 @@ const styles = StyleSheet.create ({
             backgroundColor:'#ccc'
          },
          box3:{
-           borderRadius:10,
-           width:'40%',
+           borderRadius:5,
+           width:'30%',
+           height:'90%',
            backgroundColor:'#008080'
          },
          languagebutton:{
@@ -294,12 +295,12 @@ const styles = StyleSheet.create ({
           paddingTop:'2%'
          },
          boxfont:{
-            fontSize: 20,
+            fontSize: 16,
             fontWeight:'800',
             margin: 10
           },
           boxfontcolor:{
-            fontSize: 20,
+            fontSize: 16,
             fontWeight:'800',
             color:'#fff',
             margin: 10
@@ -337,12 +338,12 @@ const styles = StyleSheet.create ({
           justifyContent:'center'
       },
       boxbutton:{
-      fontSize:18,
-      color:'rgb(241, 226, 226)',
-      fontWeight:'800',
-      textAlign:'center',
-      margin:10,
-      color:'#fff'
+        fontSize:18,
+        color:'rgb(241, 226, 226)',
+        fontWeight:'800',
+        textAlign:'center',
+        margin: 10,
+        color:'#fff'
       },
       centeredView: {
         flex: 1,
