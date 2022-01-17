@@ -28,7 +28,7 @@ class HomeComponent extends Component {
           <Text style = {styles.boxsubfont}>Test Your Knowledge without worrying about time</Text>
           </View>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('QuizComponent')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('ChapterComponent')}>
           <View style = {styles.box1} >
           <View style = {styles.box12}>
           <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}

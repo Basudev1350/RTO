@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeComponent from './components/HomeComponent';
 import QuizComponent from './components/QuizComponent';
 import QuestionbankComponent from './components/QuestionbankComponent';
+import ChapterComponent from './components/ChapterComponent'
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,11 @@ function StackRoutes() {
         name="QuestionbankComponent" 
         component={QuestionbankComponent} 
         options={{ title: 'Question Bank' }}
+      />
+       <Stack.Screen 
+        name="ChapterComponent" 
+        component={ChapterComponent} 
+        options={{ title: 'Chapter' }}
       />
     </Stack.Navigator>
   );
