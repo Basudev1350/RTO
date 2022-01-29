@@ -3,7 +3,7 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
-import LocalizedStrings from 'react-native-localization';
+// import LocalizedStrings from 'react-native-localization';
 
 // import React, { useState } from "react";
 // import {Speech} from 'expo';
