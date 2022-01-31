@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet } from 'react-native';
 
 
-class HomeComponent extends Component {
+class Home extends Component {
   render() {
     return (
        <ScrollView style = {styles.scroll}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionbankComponent')}>
+
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
           <View style = {styles.box1} >
           <View style = {styles.box12}>
            <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
@@ -17,7 +18,9 @@ class HomeComponent extends Component {
           <Text style = {styles.boxsubfont}>List of questions & answers and meaning of road signs</Text>
           </View>
           </View>
-          </TouchableOpacity>
+        </TouchableOpacity >
+
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
           <View style = {styles.box1}>
           <View style = {styles.box12}>
            <Image source={{uri: 'https://image.flaticon.com/icons/png/512/1205/1205526.png'}}
@@ -28,7 +31,9 @@ class HomeComponent extends Component {
           <Text style = {styles.boxsubfont}>Test Your Knowledge without worrying about time</Text>
           </View>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ChapterComponent')}>
+        </TouchableOpacity >
+
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Exam')}>
           <View style = {styles.box1} >
           <View style = {styles.box12}>
           <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}
@@ -39,12 +44,13 @@ class HomeComponent extends Component {
           <Text style = {styles.boxsubfont}>Time and question bound test exactly same as actual RTO test</Text>
           </View>
           </View>    
-          </TouchableOpacity>
+        </TouchableOpacity>
+
        </ScrollView>
     );
   }
 }
-export default HomeComponent;
+export default Home;
 
 const styles = StyleSheet.create ({
     box1:{

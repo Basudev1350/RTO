@@ -2,33 +2,35 @@ import React, { Component } from 'react';
 import { ScrollView,Text, View,StyleSheet } from 'react-native';
 import axios from 'axios';
 
-class QuestionbankComponent extends Component { 
+class Questionbank extends Component { 
   state = {
     questions: [],
     noOfQuestion: 0,
    }
    componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test`)
-   .then(res => {
-      const questions = res.data;
-      const noOfQuestion = res.length;
-      this.setState({ questions, noOfQuestion});
-     })
+    const { chapterId } = this.props.route.params;
+    console.log(chapterId);
+    axios.get(`http://192.168.1.191:8000/api/get-question-and-asnwer/test/`+chapterId)
+      .then(res => {
+        const questions = res.data;
+        const noOfQuestion = res.length;
+        this.setState({ questions, noOfQuestion});
+      })
    }
   render() {
     return (
         <ScrollView style = {styles.scroll} >
         {this.state.questions.map((data, index) => {
          return (
-           <View style = {styles.box1}>
-          <View  style = {styles.box12} >
-             <Text style = {styles.boxfont} >Q.: {index}</Text>
-             <Text  style = {styles.boxfont} >{data.question}</Text>
-          </View>
-          <View style = {styles.box12} >
-        <Text style = {styles.boxsubfont} >Ans :</Text>
-        <Text style = {styles.boxsubfont} >{data.getcorrectansid.answer}</Text>
-        </View>
+          <View style = {styles.box1}>
+            <View  style = {styles.box12} >
+              <Text style = {styles.boxfont} >Q.: {index+1}</Text>
+              <Text  style = {styles.boxfont} >{data.question}</Text>
+            </View>
+            <View style = {styles.box12} >
+              <Text style = {styles.boxsubfont} >Ans :</Text>
+              <Text style = {styles.boxsubfont} >{data.getcorrectansid.answer}</Text>
+            </View>
           </View>
          );
       })}  
@@ -37,7 +39,7 @@ class QuestionbankComponent extends Component {
     );
   }
 }
-export default QuestionbankComponent;
+export default Questionbank;
 
 const styles = StyleSheet.create ({
     box1:{

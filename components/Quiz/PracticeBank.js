@@ -8,7 +8,7 @@ import * as Speech from 'expo-speech';
 // import React, { useState } from "react";
 // import {Speech} from 'expo';
 // import Tts from 'react-native-tts';
-class QuizComponent extends Component {
+class PracticeBank extends Component {
   state = { index: 0,
     questions:  [],
     noOfQuestion: 0,
@@ -105,11 +105,13 @@ class QuizComponent extends Component {
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId});
   };
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test`)
-   .then(res => {
-      const questions = res.data;
-      this.setState({ questions:questions});
-     })
+    const { chapterId ,totalQ} = this.props.route.params;
+    console.log(chapterId);
+    axios.get(`http://192.168.1.191:8000/api/get-question-and-asnwer/test/`+chapterId)
+      .then(res => {
+        const questions = res.data;
+        this.setState({ questions:questions});
+      })
   };
   
    render() {
@@ -119,43 +121,67 @@ class QuizComponent extends Component {
     };
     const { explainModalVisible } = this.state.explainModalVisible;
     const {translatorModalVisible} = this.state.translatorModalVisible;
+    const { chapterId ,totalQ} = this.props.route.params;
       return (
         <ScrollView style = {styles.scroll}>
           {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
-          return (
-            <View style = {styles.box2}>
-              <View style = {styles.box4}>
-                <View style = {styles.box5}>
-                  <Text style = {styles.boxfont}>{data.question}</Text>
-                  <TouchableOpacity onPress={() => speak(data.question)}>
-                  <Icon name="volume-up" size={30} />
-                  </TouchableOpacity>
-                </View>
-                <View style = {styles.box5}>
-                  <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
-                  style={{width: 100,height:100}} />
-                  <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
-                  <Icon name="language" size={30} color={'#fff'}/>
-                  </TouchableOpacity>
+          console.log(totalQ - 1)
+          if(this.state.index == (totalQ - 1))
+          {
+            return(
+              <View style = {styles.box2}>
+                <View style = {styles.box4}>
+                  <View style = {styles.box5}>
+                    <View style = {styles.show}>
+                        <View style = {styles.right}>
+                          <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
+                          : {this.state.writeAnswer}</Text>
+                          </View>  
+                        <View style = {styles.wrong}>
+                          <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
+                            : {this.state.wrongAnswer}</Text>
+                        </View>
+                    </View> 
+                  </View>
                 </View>
               </View>
-              <TouchableOpacity style = {this.state.correctOption === data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
-                <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
-              </TouchableOpacity>
-              <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
-                <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
-              </TouchableOpacity >
-              <TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
-                <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
-              </TouchableOpacity>
-              <TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
-                <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
-              </TouchableOpacity>
-              {/* <View style= {styles.box2}>
-                <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
-              </View> */}
-            </View>
-          );
+            )
+          }else{
+            return (
+              <View style = {styles.box2}>
+                <View style = {styles.box4}>
+                  <View style = {styles.box5}>
+                    <Text style = {styles.boxfont}>{data.question}</Text>
+                    <TouchableOpacity onPress={() => speak(data.question)}>
+                    <Icon name="volume-up" size={30} />
+                    </TouchableOpacity>
+                  </View>
+                  <View style = {styles.box5}>
+                    <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
+                    style={{width: 100,height:100}} />
+                    <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
+                    <Icon name="language" size={30} color={'#fff'}/>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <TouchableOpacity style = {this.state.correctOption === data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
+                  <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
+                </TouchableOpacity>
+                <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
+                  <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+                </TouchableOpacity >
+                <TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
+                  <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
+                </TouchableOpacity>
+                <TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
+                  <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
+                </TouchableOpacity>
+                {/* <View style= {styles.box2}>
+                  <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
+                </View> */}
+              </View>
+            );
+          }
         })}
 
           {/** Expanation modal */}
@@ -228,16 +254,21 @@ class QuizComponent extends Component {
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
             style={{width: 50, height: 50}}/>
             </TouchableOpacity>
-            <Pressable style = {styles.box3} onPress={this.onPress} >
-            <Text style = {styles.boxbutton}>Next</Text>  
-            </Pressable>
+            {this.state.index == (totalQ -1) ? 
+              <Pressable style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')} >
+              <Text style = {styles.boxbutton}>Home</Text>  
+              </Pressable>:
+              <Pressable style = {styles.box3} onPress={this.onPress} >
+              <Text style = {styles.boxbutton}>Next</Text>  
+              </Pressable>
+            }
           </View>
 
         </ScrollView>
       );
     }
   }
-export default QuizComponent;
+export default PracticeBank;
 
 const styles = StyleSheet.create ({
         scroll:{

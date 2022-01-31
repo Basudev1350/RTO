@@ -3,11 +3,23 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-import HomeComponent from './components/HomeComponent';
-import QuizComponent from './components/QuizComponent';
-import QuestionbankComponent from './components/QuestionbankComponent';
-import ChapterComponent from './components/ChapterComponent';
-import TranslatorComponent from './components/TranslatorComponent';
+import Home from './components/Home';
+/**
+ * Import all
+ * chapter components
+ */
+import Exam from './components/Chapters/Exam';
+import Practice from './components/Chapters/Practice';
+import Questions from './components/Chapters/Questions';
+/**
+ * Import all
+ * Quiz components
+ */
+import ExamBank from './components/Quiz/ExamBank';
+import PracticeBank from './components/Quiz/PracticeBank';
+import QuestionBank from './components/Quiz/QuestionBank';
+
+// import TranslatorComponent from './components/TranslatorComponent';
 
 const Stack = createStackNavigator();
 
@@ -24,31 +36,65 @@ function StackRoutes() {
           },
         }}
       >
+      {
+        /**
+         * Home component
+         */
+      }
       <Stack.Screen 
-        name="HomeComponent" 
-        component={HomeComponent} 
+        name="Home" 
+        component={Home}
         options={{ title: 'Home' }}
       />
+      {
+        /**
+         * Set all chapter
+         * components
+         */
+      }
       <Stack.Screen 
-        name="QuizComponent" 
-        component={QuizComponent} 
-        options={{ title: 'Quiz' }}
-      />
-       <Stack.Screen 
-        name="QuestionbankComponent" 
-        component={QuestionbankComponent} 
-        options={{ title: 'Question Bank' }}
-      />
-       <Stack.Screen 
-        name="ChapterComponent" 
-        component={ChapterComponent} 
-        options={{ title: 'Chapter' }}
+        name="Questions" 
+        component={Questions} 
+        options={{ title: 'Questions Chapters' }}
       />
       <Stack.Screen 
+        name="Practice" 
+        component={Practice} 
+        options={{ title: 'Practice Question Bank' }}
+      />
+      <Stack.Screen 
+        name="Exam" 
+        component={Exam} 
+        options={{ title: 'Exam Quiz Chapters' }}
+      />
+      {
+        /**
+         * Set all Quiz
+         * components
+         */
+      }
+      <Stack.Screen 
+        name="QuestionBank" 
+        component={QuestionBank}
+        options={{ title: 'Questions Chapters' }}
+      />
+      <Stack.Screen 
+        name="PracticeBank" 
+        component={PracticeBank} 
+        options={{ title: 'Practice Question Bank' }}
+      />
+      <Stack.Screen 
+        name="ExamBank" 
+        component={ExamBank} 
+        options={{ title: 'Exam Question Bank' }}
+      />
+      
+       
+      {/* <Stack.Screen 
         name="TranslatorComponent" 
         component={TranslatorComponent} 
         options={{ title: 'Translator' }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
