@@ -132,30 +132,52 @@ class ExamBank extends Component {
           console.log(totalQ - 1)
           if(this.state.index == (totalQ - 1))
           {
-            return(
-              <ScrollView style = {styles.scroll2}>
-                <TouchableOpacity>
-                  <View style = {styles.resultbox1} >
-                  <Text style= {styles.oops} > Oops !!! </Text>
-                    {/* <Image source={require('../assets/oops.jpg')}
-                      style={styles.win} /> */}
-                    <Text style={styles.score}> You Lose The Quiz </Text>
-                    <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
-                    <View style = {styles.resultbox}>
-                      <TouchableOpacity style = {styles.button}>
-                        <Text style = {styles.buttonText}> Restart </Text> 
-                      </TouchableOpacity>
+            if(this.state.scorePercentage > 40)
+            {
+              return(
+                <ScrollView style = {styles.scroll2}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionbankComponent')}>
+                    <View style = {styles.resultbox1} >
+                    <Text style= {styles.congo} > Congratulations !!! </Text>
+                    <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
+                      style={styles.win} />
+                      <Text style={styles.score}> You Win The Quiz </Text>
+                      <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
+                      <View style = {styles.box12}>
+                        <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+                          <Text style = {styles.boxbutton}> Home </Text> 
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            )
+                    </TouchableOpacity>
+                </ScrollView>
+              )
+            }else{
+              return(
+                <ScrollView style = {styles.scroll2}>
+                  <TouchableOpacity>
+                    <View style = {styles.resultbox1} >
+                    <Text style= {styles.oops} > Oops !!! </Text>
+                      <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
+                        style={styles.win} />
+                      <Text style={styles.score}> You Lose The Quiz </Text>
+                      <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
+                      <View style = {styles.box12}>
+                        <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+                          <Text style = {styles.boxbutton}> Home </Text> 
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </ScrollView>
+              )
+            }
           }else{
             return (
               <View style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box5}>
-                    <Text style = {styles.boxfont}>{data.question}</Text>
+                    <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1} {data.question}</Text>
                     <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
@@ -213,17 +235,12 @@ class ExamBank extends Component {
             </Modal>
           </View>
           {/** End of Translator modal */}
-
-          <View style = {styles.box12}>
-            {this.state.index == (totalQ -1) ? 
-              <Pressable style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')} >
-              <Text style = {styles.boxbutton}>Home</Text>  
-              </Pressable>:
+          {this.state.index == (totalQ -1) ? <View></View> : 
+          <View style = {styles.box12}> 
               <Pressable style = {styles.box3} onPress={this.onPress} >
               <Text style = {styles.boxbutton}>Next</Text>  
-              </Pressable>
-            }
-          </View>
+              </Pressable> 
+          </View>} 
 
         </ScrollView>
       );
@@ -388,11 +405,6 @@ const styles = StyleSheet.create ({
         padding:20,
         width:'100%'
       },
-      resultbox:{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop:30
-      },
       oops:{
         fontSize:40,
         textAlign:'center',
@@ -415,5 +427,10 @@ const styles = StyleSheet.create ({
       buttonText:{
           color:'#fff',
           fontSize:18
-      }
+      },
+      congo:{
+        fontSize:30,
+        textAlign:'center',
+        color:'green'
+       },
  })

@@ -14,6 +14,7 @@ class PracticeBank extends Component {
     noOfQuestion: 0,
     writeAnswer: 0,
     wrongAnswer: 0,
+    scorePercentage:0,
     explain:"",
     explainModalVisible: false,
     translatorModalVisible: false,
@@ -27,6 +28,7 @@ class PracticeBank extends Component {
       noOfQuestion: 0,
       writeAnswer: 0,
       wrongAnswer: 0,
+      scorePercentage:0,
       explain:"",
       explainModalVisible: false,
       translatorModalVisible: false,
@@ -102,11 +104,13 @@ class PracticeBank extends Component {
         wrongAnswer = this.state.wrongAnswer + 1;
       }
     }
-    this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId});
+    var scorePercentage = (this.state.writeAnswer / this.state.noOfQuestion)*100 ;
+    this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId,scorePercentage :scorePercentage});
   };
   componentDidMount() {
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(chapterId);
+    this.state.noOfQuestion = totalQ;
     axios.get(`http://192.168.1.191:8000/api/get-question-and-asnwer/test/`+chapterId)
       .then(res => {
         const questions = res.data;
@@ -128,30 +132,52 @@ class PracticeBank extends Component {
           console.log(totalQ - 1)
           if(this.state.index == (totalQ - 1))
           {
-            return(
-              <View style = {styles.box2}>
-                <View style = {styles.box4}>
-                  <View style = {styles.box5}>
-                    <View style = {styles.show}>
-                        <View style = {styles.right}>
-                          <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
-                          : {this.state.writeAnswer}</Text>
-                          </View>  
-                        <View style = {styles.wrong}>
-                          <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
-                            : {this.state.wrongAnswer}</Text>
-                        </View>
-                    </View> 
-                  </View>
-                </View>
-              </View>
-            )
+            if(this.state.scorePercentage > 40)
+            {
+              return(
+                <ScrollView style = {styles.scroll2}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionbankComponent')}>
+                    <View style = {styles.resultbox1} >
+                    <Text style= {styles.congo} > Congratulations !!! </Text>
+                    <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
+                      style={styles.win} />
+                      <Text style={styles.score}> You Win The Quiz </Text>
+                      <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
+                      <View style = {styles.box12}>
+                        <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+                          <Text style = {styles.boxbutton}> Home </Text> 
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    </TouchableOpacity>
+                </ScrollView>
+              )
+            }else{
+              return(
+                <ScrollView style = {styles.scroll2}>
+                  <TouchableOpacity>
+                    <View style = {styles.resultbox1} >
+                    <Text style= {styles.oops} > Oops !!! </Text>
+                      <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
+                        style={styles.win} />
+                      <Text style={styles.score}> You Lose The Quiz </Text>
+                      <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
+                      <View style = {styles.box12}>
+                        <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+                          <Text style = {styles.boxbutton}> Home </Text> 
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </ScrollView>
+              )
+            }
           }else{
             return (
               <View style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box5}>
-                    <Text style = {styles.boxfont}>{data.question}</Text>
+                    <Text style = {styles.boxfont}>Q{this.state.index + 1} {data.question}</Text>
                     <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
@@ -418,5 +444,41 @@ const styles = StyleSheet.create ({
         marginBottom: 15,
         fontWeight: "bold",
         textAlign: "left"
-      }
+      },
+      resultbox1:{
+        marginTop: 10,
+        borderRadius:5,
+        height:550,
+        backgroundColor:'#fff',
+        padding:20,
+        width:'100%'
+      },
+      oops:{
+        fontSize:40,
+        textAlign:'center',
+        color:'red'
+      },
+      win:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 300,
+        height: 300,
+      },
+      score:{
+        textAlign:'center',
+        fontSize:22,
+        marginTop:5
+      },
+      scroll2:{
+        padding: 10
+      },
+      buttonText:{
+          color:'#fff',
+          fontSize:18
+      },
+      congo:{
+        fontSize:30,
+        textAlign:'center',
+        color:'green'
+       },
  })
