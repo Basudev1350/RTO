@@ -137,7 +137,7 @@ class ExamBank extends Component {
             {
               return(
                 <ScrollView style = {styles.scroll2}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionbankComponent')}>
+                  <TouchableOpacity>
                     <View style = {styles.resultbox1} >
                     <Text style= {styles.congo} > Congratulations !!! </Text>
                     <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
@@ -405,7 +405,7 @@ const styles = StyleSheet.create ({
       resultbox1:{
         marginTop: 10,
         borderRadius:5,
-        height:550,
+        height:600,
         backgroundColor:'#fff',
         padding:20,
         width:'100%'
