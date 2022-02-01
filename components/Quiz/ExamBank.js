@@ -182,7 +182,7 @@ class ExamBank extends Component {
               <View style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box5}>
-                    <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1} {data.question}</Text>
+                    <Text style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
                     <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
