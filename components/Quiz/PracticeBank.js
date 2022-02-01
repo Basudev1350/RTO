@@ -143,7 +143,9 @@ class PracticeBank extends Component {
                     <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
                       style={styles.win} />
                       <Text style={styles.score}> You Win The Quiz </Text>
-                      <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
+                      <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
+                      <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
+                      <Text style={styles.score}>Your Score     :{this.state.scorePercentage}%</Text>
                       <View style = {styles.box12}>
                         <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
                           <Text style = {styles.boxbutton}> Home </Text> 
@@ -162,7 +164,9 @@ class PracticeBank extends Component {
                       <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
                         style={styles.win} />
                       <Text style={styles.score}> You Lose The Quiz </Text>
-                      <Text style={styles.score}> Your Score :  {this.state.scorePercentage}%</Text>
+                      <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
+                      <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
+                      <Text style={styles.score}>Your Score {this.state.scorePercentage}%</Text>
                       <View style = {styles.box12}>
                         <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
                           <Text style = {styles.boxbutton}> Home </Text> 
@@ -178,13 +182,13 @@ class PracticeBank extends Component {
               <View style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box5}>
-                    <Text style = {styles.boxfont}>Q{this.state.index + 1} {data.question}</Text>
+                    <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1} {data.question}</Text>
                     <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
                   </View>
                   <View style = {styles.box5}>
-                    <Image source={{uri: 'https://icon2.cleanpng.com/20180129/cve/kisspng-traffic-light-road-transport-vehicle-icon-traffic-light-5a6edd7da83ee4.9381976715172151016891.jpg'}}
+                    <Image source={{uri: data.getcorrectansid.filePath}}
                     style={{width: 100,height:100}} />
                     <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
                     <Icon name="language" size={30} color={'#fff'}/>
@@ -482,4 +486,14 @@ const styles = StyleSheet.create ({
         textAlign:'center',
         color:'green'
        },
+      correctScore:{
+        fontSize:20,
+        textAlign: 'center',
+        color:'green'
+      },
+      wrongScore:{
+        fontSize:18,
+        textAlign: 'center',
+        color:'red'
+      }
  })

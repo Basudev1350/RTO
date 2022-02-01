@@ -21,7 +21,7 @@ class Exam extends Component {
       <ScrollView style = {styles.scroll}>
         {this.state.chapters.map((data, index) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ExamBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
                   <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}

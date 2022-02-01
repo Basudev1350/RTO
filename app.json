@@ -4,9 +4,9 @@
     "slug": "RTO",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/rto1.png",
+    "icon": "./assets/RTO.jpg",
     "splash": {
-      "image": "./assets/rto1.png",
+      "image": "./assets/RTO.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/rto1.png",
+        "foregroundImage": "./assets/RTO.jpg",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/rto1.png"
+      "favicon": "./assets/RTO.jpg"
     },
     "description": ""
   }
