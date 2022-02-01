@@ -111,7 +111,7 @@ class ExamBank extends Component {
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(chapterId);
     this.state.noOfQuestion = totalQ;
-    axios.get(`http://192.168.1.191:8000/api/get-question-and-asnwer/test/`+chapterId)
+    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test/`+chapterId)
       .then(res => {
         const questions = res.data;
         this.setState({ questions:questions});

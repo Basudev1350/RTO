@@ -9,7 +9,7 @@ class Questions extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`http://192.168.1.191:8000/api/get-all-chapters`)
+    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters`)
    .then(res => {
       const chapters     = res.data;
       const noOfChapters = res.length;
