@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "RTO",
-    "slug": "RTO",
+    "name": "LM Bangla Patente",
+    "slug": "LMBanglaPatente",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/RTO.jpg",
+    "icon": "./assets/RTO.png",
     "splash": {
-      "image": "./assets/RTO.jpg",
+      "image": "./assets/RTO.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,16 +17,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.SrkpTechnologies.LMBanglaPatente",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/RTO.jpg",
+        "foregroundImage": "./assets/RTO.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.SrkpTechnologies.LMBanglaPatente",
+      "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/RTO.jpg"
+      "favicon": "./assets/RTO.png"
     },
     "description": ""
   }
