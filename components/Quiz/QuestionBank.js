@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { ScrollView,Text, View,StyleSheet } from 'react-native';
+import { ScrollView,Text, View,StyleSheet,ActivityIndicator } from 'react-native';
 import axios from 'axios';
 
 class Questionbank extends Component { 
+  constructor(){
+    super();
+    this.state={
+      loader:true
+    }
+  }
   state = {
     questions: [],
     noOfQuestion: 0,
@@ -16,10 +22,17 @@ class Questionbank extends Component {
         const noOfQuestion = res.length;
         this.setState({ questions, noOfQuestion});
       })
+      setTimeout(()=>{
+        this.setState({loader:false})
+      },3000)
    }
   render() {
     return (
-        <ScrollView style = {styles.scroll} >
+      <ScrollView  style = {styles.scroll}>
+      {
+      this.state.loader ?
+      <ActivityIndicator size={100} color="green" marginTop={200} /> :
+        <ScrollView>
         {this.state.questions.map((data, index) => {
          return (
           <View style = {styles.box1}>
@@ -34,8 +47,9 @@ class Questionbank extends Component {
           </View>
          );
       })}  
-</ScrollView>
-       
+        </ScrollView>
+         }
+         </ScrollView>    
     );
   }
 }

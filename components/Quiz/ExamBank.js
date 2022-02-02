@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
@@ -33,7 +33,8 @@ class ExamBank extends Component {
       explainModalVisible: false,
       translatorModalVisible: false,
       answeredOption: 0,
-      correctOption:  0
+      correctOption:  0,
+      loader:true
     };
     // this.lang = [
     //   { shortName: 'hi', longName: 'Hindi' },
@@ -117,6 +118,9 @@ class ExamBank extends Component {
         const questions = res.data;
         this.setState({ questions:questions});
       })
+      setTimeout(()=>{
+        this.setState({loader:false})
+      },3000)
   };
   
    render() {
@@ -128,7 +132,11 @@ class ExamBank extends Component {
     const {translatorModalVisible} = this.state.translatorModalVisible;
     const { chapterId ,totalQ} = this.props.route.params;
       return (
-        <ScrollView style = {styles.scroll}>
+        <ScrollView  style = {styles.scroll}>
+          {
+          this.state.loader ?
+          <ActivityIndicator size={100} color="green" marginTop={200} /> :
+          <ScrollView>
           {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
           console.log(totalQ - 1)
           if(this.state.index == (totalQ - 1))
@@ -247,6 +255,8 @@ class ExamBank extends Component {
               </Pressable> 
           </View>} 
 
+          </ScrollView>
+        }
         </ScrollView>
       );
     }
