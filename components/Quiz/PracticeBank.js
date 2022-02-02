@@ -144,7 +144,7 @@ class PracticeBank extends Component {
             {
               return(
                 <ScrollView style = {styles.scroll2}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionbankComponent')}>
+                  <TouchableOpacity>
                     <View style = {styles.resultbox1} >
                     <Text style= {styles.congo} > Congratulations !!! </Text>
                     <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
@@ -189,7 +189,7 @@ class PracticeBank extends Component {
               <View style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box5}>
-                    <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1} {data.question}</Text>
+                    <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
                     <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
@@ -462,7 +462,7 @@ const styles = StyleSheet.create ({
       resultbox1:{
         marginTop: 10,
         borderRadius:5,
-        height:550,
+        height:600,
         backgroundColor:'#fff',
         padding:20,
         width:'100%'
