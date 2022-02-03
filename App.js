@@ -8,9 +8,9 @@ import Home from './components/Home';
  * Import all
  * chapter components
  */
-import Exam from './components/Chapters/Exam';
-import Practice from './components/Chapters/Practice';
-import Questions from './components/Chapters/Questions';
+import Exam from './components/ChapterContents/Exam';
+import Practice from './components/ChapterContents/Practice';
+import Questions from './components/ChapterContents/Questions';
 /**
  * Import all
  * Quiz components
@@ -90,11 +90,11 @@ function StackRoutes() {
       />
       
        
-      <Stack.Screen 
+      {/* <Stack.Screen 
         name="Chapter" 
         component={Chapter} 
         options={{ title: 'Chapter' }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
