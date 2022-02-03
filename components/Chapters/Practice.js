@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
 class Practice extends Component {
+  constructor(){
+    super();
+    this.state={
+      loader:true
+    }
+  }
   state = {
     chapters: [],
     noOfChapters: 0,
@@ -15,10 +21,17 @@ class Practice extends Component {
       const noOfChapters = res.length;
       this.setState({ chapters, noOfChapters});
      })
+     setTimeout(()=>{
+      this.setState({loader:false})
+    },3000)
   }
   render() {
     return (
-      <ScrollView style = {styles.scroll}>
+      <ScrollView  style = {styles.scroll}>
+      {
+      this.state.loader ?
+      <ActivityIndicator size={100} color="green" marginTop={200} /> :
+      <ScrollView>
         {this.state.chapters.map((data, index) => {
           return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('PracticeBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
@@ -44,6 +57,8 @@ class Practice extends Component {
           );
         })}  
       </ScrollView>
+       }
+       </ScrollView> 
     );
   }
 }

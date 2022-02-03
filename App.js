@@ -18,7 +18,7 @@ import Questions from './components/Chapters/Questions';
 import ExamBank from './components/Quiz/ExamBank';
 import PracticeBank from './components/Quiz/PracticeBank';
 import QuestionBank from './components/Quiz/QuestionBank';
-
+import Chapter from './components/Chapter';
 // import TranslatorComponent from './components/TranslatorComponent';
 
 const Stack = createStackNavigator();
@@ -90,11 +90,11 @@ function StackRoutes() {
       />
       
        
-      {/* <Stack.Screen 
-        name="TranslatorComponent" 
-        component={TranslatorComponent} 
-        options={{ title: 'Translator' }}
-      /> */}
+      <Stack.Screen 
+        name="Chapter" 
+        component={Chapter} 
+        options={{ title: 'Chapter' }}
+      />
     </Stack.Navigator>
   );
 }
