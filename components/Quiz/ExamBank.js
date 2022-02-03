@@ -188,8 +188,8 @@ class ExamBank extends Component {
                     </TouchableOpacity>
                   </View>
                   <View style = {styles.box5}>
-                    <Image source={{uri: data.getcorrectansid.filePath}}
-                    style={{width: 100,height:100}} />
+                    {data.getcorrectansid.filePath == '' ? <Text></Text>:<Image source={{uri: data.getcorrectansid.filePath}}
+                    style={{width: 100,height:100}} />}
                     <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
                     <Icon name="language" size={30} color={'#fff'}/>
                     </TouchableOpacity>
@@ -201,12 +201,13 @@ class ExamBank extends Component {
                 <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
                   <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
                 </TouchableOpacity >
-                <TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
+                {data.getchoice3rdid == null ? <Text></Text>:<TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
                   <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
-                </TouchableOpacity>
-                <TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
+                </TouchableOpacity>}
+                {data.getchoice4thid == null ? <Text></Text>:<TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
                   <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
-                </TouchableOpacity>
+                </TouchableOpacity>}
+                
                 {/* <View style= {styles.box2}>
                   <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
                 </View> */}
