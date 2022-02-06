@@ -3,7 +3,7 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
-class Practice extends Component {
+class PracticeContent extends Component {
   constructor(){
     super();
     this.state={
@@ -62,7 +62,7 @@ class Practice extends Component {
     );
   }
 }
-export default Practice;
+export default PracticeContent;
 
 const styles = StyleSheet.create ({
   box1:{

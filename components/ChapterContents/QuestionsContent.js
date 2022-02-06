@@ -3,7 +3,7 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
-class Questions extends Component {
+class QuestionsContent extends Component {
   constructor(){
     super();
     this.state={
@@ -67,7 +67,7 @@ class Questions extends Component {
     );
   }
 }
-export default Questions
+export default QuestionsContent
 
 const styles = StyleSheet.create ({
     box1:{

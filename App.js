@@ -6,11 +6,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './components/Home';
 /**
  * Import all
+ * Chapters
+ */
+ import Exam from './components/Chapters/Exam';
+ import Practice from './components/Chapters/Practice';
+ import Questions from './components/Chapters/Questions';
+/**
+ * Import all
  * chapter components
  */
-import Exam from './components/ChapterContents/Exam';
-import Practice from './components/ChapterContents/Practice';
-import Questions from './components/ChapterContents/Questions';
+import ExamContent from './components/ChapterContents/ExamContent';
+import PracticeContent from './components/ChapterContents/PracticeContent';
+import QuestionsContent from './components/ChapterContents/QuestionsContent';
 /**
  * Import all
  * Quiz components
@@ -18,7 +25,6 @@ import Questions from './components/ChapterContents/Questions';
 import ExamBank from './components/Quiz/ExamBank';
 import PracticeBank from './components/Quiz/PracticeBank';
 import QuestionBank from './components/Quiz/QuestionBank';
-import Chapter from './components/Chapter';
 // import TranslatorComponent from './components/TranslatorComponent';
 
 const Stack = createStackNavigator();
@@ -65,6 +71,27 @@ function StackRoutes() {
       <Stack.Screen 
         name="Exam" 
         component={Exam} 
+        options={{ title: 'Exam Quiz Chapters' }}
+      />
+      {
+        /**
+         * Set all chapter
+         * components
+         */
+      }
+      <Stack.Screen 
+        name="QuestionsContent" 
+        component={QuestionsContent} 
+        options={{ title: 'Questions Chapters' }}
+      />
+      <Stack.Screen 
+        name="Practice" 
+        component={PracticeContent} 
+        options={{ title: 'Practice Question Bank' }}
+      />
+      <Stack.Screen 
+        name="ExamContent" 
+        component={ExamContent} 
         options={{ title: 'Exam Quiz Chapters' }}
       />
       {
