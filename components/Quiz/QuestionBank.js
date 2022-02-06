@@ -73,8 +73,9 @@ const styles = StyleSheet.create ({
             marginTop: 10
           },
           boxfont:{
-            fontSize: 20,
-            margin: 10,
+            flexWrap: 'wrap',
+            fontSize: 18,
+            margin: 5,
             fontWeight: '900'
           },
           boxsubfont:{

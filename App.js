@@ -66,7 +66,7 @@ function StackRoutes() {
       <Stack.Screen 
         name="Practice" 
         component={Practice} 
-        options={{ title: 'Practice Question Bank' }}
+        options={{ title: 'Practice Chapters' }}
       />
       <Stack.Screen 
         name="Exam" 
@@ -82,17 +82,17 @@ function StackRoutes() {
       <Stack.Screen 
         name="QuestionsContent" 
         component={QuestionsContent} 
-        options={{ title: 'Questions Chapters' }}
+        options={{ title: 'Questions Centent' }}
       />
       <Stack.Screen 
-        name="Practice" 
+        name="PracticeContent" 
         component={PracticeContent} 
-        options={{ title: 'Practice Question Bank' }}
+        options={{ title: 'Practice Content' }}
       />
       <Stack.Screen 
         name="ExamContent" 
         component={ExamContent} 
-        options={{ title: 'Exam Quiz Chapters' }}
+        options={{ title: 'Exam Quiz Content' }}
       />
       {
         /**

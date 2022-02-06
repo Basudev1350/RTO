@@ -15,7 +15,8 @@ class PracticeContent extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters`)
+    const { chapterId } = this.props.route.params;
+    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapte-content/`+chapterId)
    .then(res => {
       const chapters     = res.data;
       const noOfChapters = res.length;
@@ -79,6 +80,8 @@ const styles = StyleSheet.create ({
           
        },
         boxfont:{
+          flex: 1, 
+          flexWrap: 'wrap',
           fontSize: 20,
           color: '#000',
           fontWeight:'800',

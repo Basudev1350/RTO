@@ -15,7 +15,8 @@ class QuestionsContent extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters`)
+    const { chapterId } = this.props.route.params;
+    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapte-content/`+chapterId)
    .then(res => {
       const chapters     = res.data;
       const noOfChapters = res.length;
@@ -34,7 +35,7 @@ class QuestionsContent extends Component {
       <ScrollView>
         {this.state.chapters.map((data, index) => {
           return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionBank',{chapterId:data.id})}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionBank',{chapterId:data.id,totalQ:data.noOfQuestions})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
                   <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}
@@ -43,7 +44,7 @@ class QuestionsContent extends Component {
                 </View>
                 <View  style = {styles.box13} >
                   <Text  style = {styles.boxsubfont} numberOfLines={4}>{data.chapterSubTitle}</Text>
-                  <Pressable onPress={() => this.props.navigation.navigate('QuestionBank',{chapterId:data.id})}>
+                  <Pressable onPress={() => this.props.navigation.navigate('QuestionBank',{chapterId:data.id,totalQ:data.noOfQuestions})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
                 </View>
@@ -51,11 +52,11 @@ class QuestionsContent extends Component {
                   <View  style = {styles.box14} >
                     <Text  style = {styles.boxbutton} >{data.noOfQuestions} Questions</Text>
                   </View>
-                  <Pressable>
+                  {/* <Pressable>
                   <View  style = {styles.box15} >
                     <Text  style = {styles.boxbutton} >Open chapter</Text>
                   </View>
-                  </Pressable>
+                  </Pressable> */}
                 </View>
               </View>
             </TouchableOpacity>
@@ -84,6 +85,8 @@ const styles = StyleSheet.create ({
             
          },
           boxfont:{
+            flex: 1, 
+            flexWrap: 'wrap',
             fontSize: 20,
             color: '#000',
             fontWeight:'800',
