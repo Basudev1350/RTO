@@ -109,6 +109,53 @@ class PracticeBank extends Component {
     var scorePercentage = (this.state.writeAnswer / totalQ)*100 ;
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId,scorePercentage :scorePercentage});
   };
+  renderResult(){
+    const { chapterId ,totalQ} = this.props.route.params;
+    console.log(this.state.index+1);
+    if(this.state.index+1 == (totalQ+1))
+    {
+      if(this.state.scorePercentage > 40)
+      {
+        return(
+          <TouchableOpacity>
+            <View style = {styles.resultbox1} >
+            <Text style= {styles.congo} > Congratulations !!! </Text>
+            <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
+              style={styles.win} />
+              <Text style={styles.score}> You Win The Quiz </Text>
+              <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
+              <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
+              <Text style={styles.score}>Your Score     :{this.state.scorePercentage}%</Text>
+              <View style = {styles.box12}>
+                <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+                  <Text style = {styles.boxbutton}> Home </Text> 
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
+      }else{
+        return(
+          <TouchableOpacity>
+            <View style = {styles.resultbox1} >
+            <Text style= {styles.oops} > Oops !!! </Text>
+              <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
+                style={styles.win} />
+              <Text style={styles.score}> You Lose The Quiz </Text>
+              <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
+              <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
+              <Text style={styles.score}>Your Score {this.state.scorePercentage}%</Text>
+              <View style = {styles.box12}>
+                <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+                  <Text style = {styles.boxbutton}> Home </Text> 
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
+      }
+    }
+  };
   componentDidMount() {
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(chapterId);
@@ -135,55 +182,16 @@ class PracticeBank extends Component {
         <ScrollView  style = {styles.scroll}>
         {
         this.state.loader ? <ActivityIndicator size={100} color="green" marginTop={200} /> :
-        <ScrollView>
+        <ScrollView style = {styles.scroll}>
+          {/** Result Show */}
+          <View style = {styles.scroll2}>
+           {this.renderResult()}
+          </View>
+          {/** End Result Show */} 
           {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
-          console.log(totalQ - 1)
-          if(this.state.index == (totalQ - 1))
+          if(this.state.index+1 == (totalQ+1))
           {
-            if(this.state.scorePercentage > 40)
-            {
-              return(
-                <ScrollView style = {styles.scroll2}>
-                  <TouchableOpacity>
-                    <View style = {styles.resultbox1} >
-                    <Text style= {styles.congo} > Congratulations !!! </Text>
-                    <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
-                      style={styles.win} />
-                      <Text style={styles.score}> You Win The Quiz </Text>
-                      <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
-                      <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
-                      <Text style={styles.score}>Your Score     :{this.state.scorePercentage}%</Text>
-                      <View style = {styles.box12}>
-                        <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
-                          <Text style = {styles.boxbutton}> Home </Text> 
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                    </TouchableOpacity>
-                </ScrollView>
-              )
-            }else{
-              return(
-                <ScrollView style = {styles.scroll2}>
-                  <TouchableOpacity>
-                    <View style = {styles.resultbox1} >
-                    <Text style= {styles.oops} > Oops !!! </Text>
-                      <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
-                        style={styles.win} />
-                      <Text style={styles.score}> You Lose The Quiz </Text>
-                      <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
-                      <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
-                      <Text style={styles.score}>Your Score {this.state.scorePercentage}%</Text>
-                      <View style = {styles.box12}>
-                        <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
-                          <Text style = {styles.boxbutton}> Home </Text> 
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                </ScrollView>
-              )
-            }
+            return null;
           }else{
             return (
               <View style = {styles.box2}>
@@ -219,9 +227,8 @@ class PracticeBank extends Component {
                 </View> */}
               </View>
             );
-          }
-        })}
-
+          }})}
+          
           {/** Expanation modal */}
           <View style={styles.centeredView}>
             <Modal
@@ -274,8 +281,6 @@ class PracticeBank extends Component {
           </View>
           {/** End of Translator modal */}
 
-          
-
           <View style = {styles.box12}>
             <View style = {styles.show}>
             <View style = {styles.right}>
@@ -287,12 +292,11 @@ class PracticeBank extends Component {
               : {this.state.wrongAnswer}</Text>
             </View>
             </View> 
-            <TouchableOpacity 
-        onPress={() => this.setExplainModalVisible(true)}>
+            <TouchableOpacity onPress={() => this.setExplainModalVisible(true)}>
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
             style={{width: 50, height: 50}}/>
             </TouchableOpacity>
-            {this.state.index == (totalQ -1) ? 
+            {this.state.index+1 == (totalQ+1) ? 
               <Pressable style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')} >
               <Text style = {styles.boxbutton}>Home</Text>  
               </Pressable>:
