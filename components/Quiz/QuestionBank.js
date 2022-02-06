@@ -37,7 +37,7 @@ class Questionbank extends Component {
          return (
           <View style = {styles.box1}>
             <View  style = {styles.box12} >
-              <Text style = {styles.boxfont} >Q.: {index+1}</Text>
+              <Text style = {styles.boxfontNo} >Q.: {index+1}</Text>
               <Text  style = {styles.boxfont} >{data.question}</Text>
             </View>
             <View style = {styles.box12} >
@@ -72,9 +72,14 @@ const styles = StyleSheet.create ({
          box2:{
             marginTop: 10
           },
+          boxfontNo:{
+            fontSize: 16,
+            margin: 5,
+            fontWeight: '900'
+          },
           boxfont:{
-            flexWrap: 'wrap',
-            fontSize: 18,
+            flex:1,
+            fontSize: 16,
             margin: 5,
             fontWeight: '900'
           },

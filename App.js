@@ -82,7 +82,7 @@ function StackRoutes() {
       <Stack.Screen 
         name="QuestionsContent" 
         component={QuestionsContent} 
-        options={{ title: 'Questions Centent' }}
+        options={{ title: 'Questions Content' }}
       />
       <Stack.Screen 
         name="PracticeContent" 
