@@ -1,8 +1,9 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,Flatlist } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
+// import Dots from 'react-native-dots-pagination';
 // import LocalizedStrings from 'react-native-localization';
 
 // import React, { useState } from "react";
@@ -34,6 +35,7 @@ class ExamBank extends Component {
       translatorModalVisible: false,
       answeredOption: 0,
       correctOption:  0,
+      active: 0,
       loader:true
     };
     // this.lang = [
@@ -79,6 +81,10 @@ class ExamBank extends Component {
   // };
   onPress = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
+    this.setState({ index: i ,answeredOption: 0,correctOption: 0});
+  };
+  onPrevious = () => {
+    let i = this.state.index < this.state.questions.length ? this.state.index -=1:1                                           ;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
   setExplainModalVisible = (visible) => {
@@ -224,6 +230,7 @@ class ExamBank extends Component {
                 {data.getchoice4thid == null ? <Text></Text>:<TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
                   <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
                 </TouchableOpacity>}
+              
                 
                 {/* <View style= {styles.box2}>
                   <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
@@ -258,13 +265,18 @@ class ExamBank extends Component {
             </Modal>
           </View>
           {/** End of Translator modal */}
+          <View style={styles.box12}>
+          {this.state.index-1 == (totalQ-1) ? <View></View> : 
+              <Pressable style = {styles.box3} onPress={this.onPrevious} disabled={!this.state.index} >
+              <Text style = {styles.boxbutton}>Previous</Text>  
+              </Pressable> 
+         } 
           {this.state.index+1 == (totalQ+1) ? <View></View> : 
-          <View style = {styles.box12}> 
-              <Pressable style = {styles.box3} onPress={this.onPress} >
+              <Pressable style = {styles.box3} onPress={this.onPress}  >
               <Text style = {styles.boxbutton}>Next</Text>  
               </Pressable> 
-          </View>} 
-
+         } 
+          </View>
           </ScrollView>
         }
         </ScrollView>

@@ -3,11 +3,8 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
-// import LocalizedStrings from 'react-native-localization';
+// import {Picker} from '@react-native-picker/picker';
 
-// import React, { useState } from "react";
-// import {Speech} from 'expo';
-// import Tts from 'react-native-tts';
 class PracticeBank extends Component {
   state = { index: 0,
     questions:  [],
@@ -36,47 +33,11 @@ class PracticeBank extends Component {
       correctOption:  0,
       loader:true
     };
-    // this.lang = [
-    //   { shortName: 'hi', longName: 'Hindi' },
-    //   { shortName: 'en', longName: 'English' },
-    //   { shortName: 'fr', longName: 'French' },
-    //   { shortName: 'sp', longName: 'Spanish' },
-    // ];
   };
-  // All_Language_Strings = new LocalizedStrings({
-  //   "hi": {
-  //     text_1: "हैलो दोस्तों.",
-  //     text_2: "हमारी वैबसाइट पर आपका स्वागत है.",
-  //   },
-  //   "en": {
-  //     text_1: "Hello Guys.",
-  //     text_2: "Welcome to our Website.",
-  //   },
-  //   "fr": {
-  //     text_1: "Bonjour les gars.",
-  //     text_2: "Bienvenue sur notre site.",
-  //   },
-  //   "sp": {
-  //     text_1: "Hola chicos.",
-  //     text_2: "Bienvenido a nuestro sitio web.",
-  //   }
-  // });
-  // navigate_To_Next_Activity(item) {
- 
-  //   All_Language_Strings.setLanguage(item);
- 
-  //   this.props.navigation.navigate('QuizComponent', { Language_Code: item });
- 
-  // }
-  // readOut = () => {
-  //   Tts.getInitStatus().then(() => {
-  //     // ...
-  //   }, (err) => {
-  //     if (err.code === 'no_engine') {
-  //       Tts.requestInstallEngine();
-  //     }
-  //   });
-  // };
+  onPrevious = () => {
+    let i = this.state.index < this.state.questions.length ? this.state.index -=1:1                                           ;
+    this.setState({ index: i ,answeredOption: 0,correctOption: 0});
+  };
   onPress = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
@@ -169,7 +130,6 @@ class PracticeBank extends Component {
         this.setState({loader:false})
       },3000)
   };
-  
    render() {
     const speak = (data) => {
       const thingToSay = data;
@@ -222,9 +182,13 @@ class PracticeBank extends Component {
                 {data.getchoice4thid == null ? <Text></Text>:<TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
                   <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
                 </TouchableOpacity>}
-                {/* <View style= {styles.box2}>
-                  <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
-                </View> */}
+                {/* <Picker
+                selectedValue={this.state.index}
+                onValueChange={(itemValue) => this.setState({PickerValueHolder: itemValue})} >
+                { this.state.questions.map((item, key)=>(
+                 <Picker.Item label={item.index} value={item.index} key={key} />)
+                 )}
+                 </Picker> */}
               </View>
             );
           }})}
@@ -296,12 +260,17 @@ class PracticeBank extends Component {
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
             style={{width: 50, height: 50}}/>
             </TouchableOpacity>
+            {this.state.index-1 == (totalQ-1) ? <View></View> : 
+              <Pressable style = {styles.box3} onPress={this.onPrevious} disabled={!this.state.index} >
+               <Icon name="chevron-left" size={25} color="#fff" />
+              </Pressable> 
+         } 
             {this.state.index+1 == (totalQ+1) ? 
               <Pressable style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')} >
               <Text style = {styles.boxbutton}>Home</Text>  
               </Pressable>:
               <Pressable style = {styles.box3} onPress={this.onPress} >
-              <Text style = {styles.boxbutton}>Next</Text>  
+               <Icon name="chevron-right" size={25} color="#fff" />
               </Pressable>
             }
           </View>
@@ -320,9 +289,13 @@ const styles = StyleSheet.create ({
          },
          box3:{
            borderRadius:5,
-           width:'30%',
+           width:'15%',
            height:'90%',
-           backgroundColor:'#008080'
+           backgroundColor:'#008080',
+           paddingLeft:15,
+           paddingTop:10,
+           paddingBottom:5,
+           paddingRight:5
          },
          languagebutton:{
           backgroundColor:'#008080',
