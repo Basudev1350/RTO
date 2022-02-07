@@ -87,11 +87,11 @@ class PracticeBank extends Component {
               <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
               <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
               <Text style={styles.score}>Your Score     :{this.state.scorePercentage}%</Text>
-              {/* <View style = {styles.box12}>
-                <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+              <View style = {styles.box12}>
+                <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Home </Text> 
                 </TouchableOpacity>
-              </View> */}
+              </View>
             </View>
           </TouchableOpacity>
         )
@@ -106,11 +106,11 @@ class PracticeBank extends Component {
               <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
               <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
               <Text style={styles.score}>Your Score {this.state.scorePercentage}%</Text>
-              {/* <View style = {styles.box12}>
-                <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
+              <View style = {styles.box12}>
+                <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Home </Text> 
                 </TouchableOpacity>
-              </View> */}
+              </View>
             </View>
           </TouchableOpacity>
         )
@@ -244,38 +244,38 @@ class PracticeBank extends Component {
             </Modal>
           </View>
           {/** End of Translator modal */}
-
-          <View style = {styles.box12}>
-            <View style = {styles.show}>
-            <View style = {styles.right}>
-            <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
-            : {this.state.writeAnswer}</Text>
-            </View>  
-            <View style = {styles.wrong}>
-            <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
-              : {this.state.wrongAnswer}</Text>
+          {this.state.index+1 == (totalQ+1) ? <View></View>:
+            <View style = {styles.box12}>
+              <View style = {styles.show}>
+              <View style = {styles.right}>
+              <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
+              : {this.state.writeAnswer}</Text>
+              </View>  
+              <View style = {styles.wrong}>
+              <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
+                : {this.state.wrongAnswer}</Text>
+              </View>
+              </View> 
+              <TouchableOpacity onPress={() => this.setExplainModalVisible(true)}>
+              <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
+              style={{width: 50, height: 50}}/>
+              </TouchableOpacity>
+            
+              {this.state.index-1 == (totalQ-1) ? <View></View> : 
+                <Pressable style = {styles.box3} onPress={this.onPrevious} disabled={!this.state.index} >
+                <Icon name="chevron-left" size={25} color="#fff" />
+                </Pressable> 
+              } 
+              {this.state.index+1 == (totalQ+1) ? 
+                <Pressable style = {styles.box31} onPress={() => this.props.navigation.navigate('Home')} >
+                <Text style = {styles.boxbutton}>Home</Text>  
+                </Pressable>:
+                <Pressable style = {styles.box3} onPress={this.onPress} >
+                <Icon name="chevron-right" size={25} color="#fff" />
+                </Pressable>
+              }
             </View>
-            </View> 
-            <TouchableOpacity onPress={() => this.setExplainModalVisible(true)}>
-            <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
-            style={{width: 50, height: 50}}/>
-            </TouchableOpacity>
-           
-            {this.state.index-1 == (totalQ-1) ? <View></View> : 
-              <Pressable style = {styles.box3} onPress={this.onPrevious} disabled={!this.state.index} >
-               <Icon name="chevron-left" size={25} color="#fff" />
-              </Pressable> 
-         } 
-            {this.state.index+1 == (totalQ+1) ? 
-              <Pressable style = {styles.box31} onPress={() => this.props.navigation.navigate('Home')} >
-              <Text style = {styles.boxbutton}>Home</Text>  
-              </Pressable>:
-              <Pressable style = {styles.box3} onPress={this.onPress} >
-               <Icon name="chevron-right" size={25} color="#fff" />
-              </Pressable>
-            }
-           
-          </View>
+          }
 
         </ScrollView>
         }
@@ -288,6 +288,12 @@ export default PracticeBank;
 const styles = StyleSheet.create ({
         scroll:{
             backgroundColor:'#ccc'
+         },
+         box3End:{
+          borderRadius:5,
+          width:'30%',
+          height:'90%',
+          backgroundColor:'#008080'
          },
          box3:{
            borderRadius:5,
