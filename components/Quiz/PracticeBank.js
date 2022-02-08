@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
@@ -170,7 +170,7 @@ class PracticeBank extends Component {
                     </TouchableOpacity>
                   </View>
                 </View>
-                <TouchableOpacity style = {this.state.correctOption === data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
+                <TouchableOpacity style = { this.state.correctOption === data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
                   <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
                 </TouchableOpacity>
                 <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
@@ -221,7 +221,7 @@ class PracticeBank extends Component {
 
           {/** Translator modal */}
           <View style={styles.centeredView}>
-            <Modal
+             <Modal
               animationType="slide"
               transparent={true}
               visible={this.state.translatorModalVisible}
@@ -230,9 +230,12 @@ class PracticeBank extends Component {
                 this.setTranslatorModalVisible(!this.state.translatorModalVisible);
               }}
             >
-              <View style={styles.centeredView}>
+              {/* <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                  <Text style={styles.modalText}>{this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}</Text>
+                  <Text style={styles.modalText}> 
+                  {this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}
+                
+                  </Text>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
@@ -240,6 +243,45 @@ class PracticeBank extends Component {
                     <Text style={styles.textStyle}>Hide Translator</Text>
                   </Pressable>
                 </View>
+              </View> */}
+              <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+              {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
+                console.log(totalQ)
+                if(this.state.index+1 == (totalQ+1))
+                {
+                  return null;
+                }else{
+                return (
+                <View>
+                  <View>
+                    <Text  style = {styles.boxfont} >{this.state.index + 1}) {data.question}</Text>
+                  </View>
+                  <View>
+                  <View style = {this.state.correctOption === data.getchoice1stid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
+                  <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
+                  </View>
+                <View style = {this.state.correctOption === data.getchoice2ndid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
+                  <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+                </View >
+                {data.getchoice3rdid == null ? <Text></Text>:<View style = {this.state.correctOption === data.getchoice3rdid.id ? styles.box12:styles.box12} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
+                  <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
+                </View>}
+                {data.getchoice4thid == null ? <Text></Text>:<View style = {this.state.correctOption === data.getchoice4thid.id ? styles.box12:styles.box12} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
+                  <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
+                </View>}
+                  </View>
+                 
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
+                  >
+                     <Text style={styles.textStyle}>Hide Translator</Text>
+                  </Pressable>
+                   </View>
+                 );}
+               })}
+              </View>
               </View>
             </Modal>
           </View>
@@ -337,6 +379,12 @@ const styles = StyleSheet.create ({
             paddingRight:'10%',
             paddingTop:'2%',
          },
+      //    box12:{
+      //     backgroundColor:'#fff',
+      //     paddingRight:'10%',
+      //     paddingTop:'2%',
+      //     borderTopWidth:1
+      //  },
          boxCorrect:{
           borderTopColor:'#000',
           borderTopWidth:1,

@@ -3,12 +3,7 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
-// import Dots from 'react-native-dots-pagination';
-// import LocalizedStrings from 'react-native-localization';
 
-// import React, { useState } from "react";
-// import {Speech} from 'expo';
-// import Tts from 'react-native-tts';
 class ExamBank extends Component {
   state = { index: 0,
     questions:  [],
@@ -38,47 +33,9 @@ class ExamBank extends Component {
       active: 0,
       loader:true
     };
-    // this.lang = [
-    //   { shortName: 'hi', longName: 'Hindi' },
-    //   { shortName: 'en', longName: 'English' },
-    //   { shortName: 'fr', longName: 'French' },
-    //   { shortName: 'sp', longName: 'Spanish' },
-    // ];
+    
   };
-  // All_Language_Strings = new LocalizedStrings({
-  //   "hi": {
-  //     text_1: "हैलो दोस्तों.",
-  //     text_2: "हमारी वैबसाइट पर आपका स्वागत है.",
-  //   },
-  //   "en": {
-  //     text_1: "Hello Guys.",
-  //     text_2: "Welcome to our Website.",
-  //   },
-  //   "fr": {
-  //     text_1: "Bonjour les gars.",
-  //     text_2: "Bienvenue sur notre site.",
-  //   },
-  //   "sp": {
-  //     text_1: "Hola chicos.",
-  //     text_2: "Bienvenido a nuestro sitio web.",
-  //   }
-  // });
-  // navigate_To_Next_Activity(item) {
- 
-  //   All_Language_Strings.setLanguage(item);
- 
-  //   this.props.navigation.navigate('QuizComponent', { Language_Code: item });
- 
-  // }
-  // readOut = () => {
-  //   Tts.getInitStatus().then(() => {
-  //     // ...
-  //   }, (err) => {
-  //     if (err.code === 'no_engine') {
-  //       Tts.requestInstallEngine();
-  //     }
-  //   });
-  // };
+  
   onPress = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
@@ -204,13 +161,13 @@ class ExamBank extends Component {
             return (
               <View style = {styles.box2}>
                 <View style = {styles.box4}>
-                  <View style = {styles.box5}>
+                  <View style = {styles.box53}>
                     <Text style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
                     <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
                   </View>
-                  <View style = {styles.box5}>
+                  <View style = {styles.box53}>
                     {data.getcorrectansid.filePath == '' ? <Text></Text>:<Image source={{uri: data.getcorrectansid.filePath}}
                     style={{width: 100,height:100}} />}
                     <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
@@ -218,7 +175,7 @@ class ExamBank extends Component {
                     </TouchableOpacity>
                   </View>
                 </View>
-                <TouchableOpacity style = {this.state.correctOption === data.getchoice1stid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
+                <TouchableOpacity  style = {styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
                   <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
                 </TouchableOpacity>
                 <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
@@ -251,9 +208,12 @@ class ExamBank extends Component {
                 this.setTranslatorModalVisible(!this.state.translatorModalVisible);
               }}
             >
-              <View style={styles.centeredView}>
+              {/* <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                  <Text style={styles.modalText}>{this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}</Text>
+                  <Text style={styles.modalText}> 
+                  {this.state.explain === '' ? 'Please Select an Answer' : this.state.explain}
+                
+                  </Text>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
@@ -261,19 +221,64 @@ class ExamBank extends Component {
                     <Text style={styles.textStyle}>Hide Translator</Text>
                   </Pressable>
                 </View>
+              </View> */}
+              <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+              {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
+                console.log(totalQ)
+                if(this.state.index+1 == (totalQ+1))
+                {
+                  return null;
+                }else{
+                return (
+                <View>
+                  <View  style = {styles.box12} >
+                    <Text  style = {styles.boxfont} >{this.state.index + 1}) {data.question}</Text>
+                  </View>
+                  <View >
+                  <View style = {this.state.correctOption === data.getchoice1stid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
+                  <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
+                  </View>
+                <View style = {this.state.correctOption === data.getchoice2ndid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
+                  <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+                </View >
+                {data.getchoice3rdid == null ? <Text></Text>:<View style = {this.state.correctOption === data.getchoice3rdid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
+                  <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
+                </View>}
+                {data.getchoice4thid == null ? <Text></Text>:<View style = {this.state.correctOption === data.getchoice4thid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
+                  <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
+                </View>}
+                  </View>
+                 
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
+                  >
+                     <Text style={styles.textStyle}>Hide Translator</Text>
+                  </Pressable>
+                   </View>
+                 );}
+               })}
+              </View>
               </View>
             </Modal>
           </View>
           {/** End of Translator modal */}
           <View style={styles.box12}>
           {this.state.index-1 == (totalQ-1) ? <View></View> : 
-              <Pressable style = {styles.box3} onPress={this.onPrevious} disabled={!this.state.index} >
-              <Text style = {styles.boxbutton}>Previous</Text>  
+              <Pressable style = {styles.box31} onPress={this.onPrevious} disabled={!this.state.index} >
+              <View style = {styles.box5}>
+               <Icon name="chevron-left" size={20} color="#fff" style={styles.icon1} />
+               <Text style = {styles.boxbutton}>Previous</Text> 
+               </View>
               </Pressable> 
          } 
           {this.state.index+1 == (totalQ+1) ? <View></View> : 
-              <Pressable style = {styles.box3} onPress={this.onPress}  >
-              <Text style = {styles.boxbutton}>Next</Text>  
+              <Pressable style = {styles.box31} onPress={this.onPress}  >
+               <View style = {styles.box5}>
+               <Text style = {styles.boxbutton}>Next</Text> 
+               <Icon name="chevron-right" size={20} color="#fff" style={styles.icon2} />
+               </View>
               </Pressable> 
          } 
           </View>
@@ -295,19 +300,19 @@ const styles = StyleSheet.create ({
            height:'90%',
            backgroundColor:'#008080'
          },
+         box31:{
+          borderRadius:5,
+          width:'35%',
+          height:'95%',
+          backgroundColor:'#008080',
+          padding:5
+        },
          languagebutton:{
           backgroundColor:'#008080',
           borderRadius:30,
           padding:10,
           height:50,
           width:50,
-          // shadowOffset:{
-          //   width:30,
-          //   height:30
-          // },
-          // shadowOpacity:5,
-          // shadowRadius:25,
-          // shadowColor:'blue'
          },
          box2:{
             marginTop: 20,
@@ -320,20 +325,15 @@ const styles = StyleSheet.create ({
             paddingRight:'10%',
             paddingTop:'2%',
          },
+         boxxx:{
+          backgroundColor:'#000',
+         },
          boxCorrect:{
           borderTopColor:'#000',
           borderTopWidth:1,
           backgroundColor:'#008000',
           paddingRight:'10%',
-          paddingTop:'2%',
-
-          // borderTopColor:'#000',
-          // borderTopWidth:1,
-          // backgroundColor:'#008000',
-          // paddingRight:'10%',
-          // paddingTop:'2%',
-          // borderWidth: 5,
-          // borderColor: '#008000',
+          paddingTop:'2%'
          },
          box4:{
           backgroundColor:'#fff',
@@ -357,6 +357,10 @@ const styles = StyleSheet.create ({
             margin: 10
           },
           box5:{
+            flexDirection:'row',
+            justifyContent:'space-evenly',
+          },
+          box53:{
             flexDirection:'row',
             justifyContent:'space-between',
           },
@@ -388,8 +392,16 @@ const styles = StyleSheet.create ({
         color:'rgb(241, 226, 226)',
         fontWeight:'800',
         textAlign:'center',
-        margin: 10,
+        margin: 12,
         color:'#fff'
+      },
+      icon1:{
+        marginTop:16,
+        marginLeft:8
+      },
+      icon2:{
+        marginTop:16,
+        marginRight:8
       },
       centeredView: {
         flex: 1,
@@ -405,8 +417,8 @@ const styles = StyleSheet.create ({
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2
+        width: 0,
+        height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
