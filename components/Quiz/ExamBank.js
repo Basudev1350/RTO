@@ -1,10 +1,13 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,Flatlist } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet, Image,Modal,ActivityIndicator,Flatlist } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
+import { RadioButton } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-class ExamBank extends Component {
+
+class ExamBank extends Component  {
   state = { index: 0,
     questions:  [],
     noOfQuestion: 0,
@@ -15,7 +18,9 @@ class ExamBank extends Component {
     explainModalVisible: false,
     translatorModalVisible: false,
     answeredOption: 0,
-    correctOption:  0
+    correctOption:  0,
+    toggle:true,
+   
   };
   constructor(props) {
     super(props);
@@ -31,11 +36,26 @@ class ExamBank extends Component {
       answeredOption: 0,
       correctOption:  0,
       active: 0,
-      loader:true
+      loader:true,
+      pressed:false,
+      checked:'',
     };
     
   };
-  
+  saveUserDetails =() =>{
+    let check = this.state.checked;
+    AsyncStorage.setItem('check',check);
+    this.setState({"check": check});
+    };
+    // displayuserDetail = async ()=>{
+    //   try{
+    //   let check = await AsyncStorage.getItem('username');
+    //   alert(check);
+    //   }
+    //   catch(error){
+    //   alert(error)
+    //   }
+    //   }
   onPress = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
@@ -132,12 +152,23 @@ class ExamBank extends Component {
         this.setState({loader:false})
       },3000)
   };
-  
+  // onPresscolor(){
+  //   const newstate = !this.state.toggle;
+  //   this.setState({toggle:newstate})
+  // }
+  // onPresscolor1(){
+  //   const newstate = !this.state.toggle;
+  //   this.setState({toggle:newstate})
+  // }
    render() {
     const speak = (data) => {
       const thingToSay = data;
       Speech.speak(thingToSay);
     };
+    const { checked } = this.state;
+    // const {toggle} = this.state;
+    // const buttonBg = toggle ? "blue" : "white";
+  
     const { explainModalVisible } = this.state.explainModalVisible;
     const {translatorModalVisible} = this.state.translatorModalVisible;
     const { chapterId ,totalQ} = this.props.route.params;
@@ -175,10 +206,12 @@ class ExamBank extends Component {
                     </TouchableOpacity>
                   </View>
                 </View>
-                <TouchableOpacity  style = {styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
+                {/* style = {this.state.correctOption === data.getchoice1stid.id ? styles.box1:styles.box1} */}
+                {/* <TouchableOpacity  style = {{backgroundColor:buttonBg}} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)} onPressOut={()=>this.onPresscolor()}>
                   <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
-                </TouchableOpacity>
-                <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
+                </TouchableOpacity> */}
+                {/* style = {{backgroundColor:buttonBg}} */}
+                {/* <TouchableOpacity style = {{backgroundColor:buttonBg}} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)} onPressIn={()=>this.onPresscolor1()}>
                   <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
                 </TouchableOpacity >
                 {data.getchoice3rdid == null ? <Text></Text>:<TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
@@ -186,8 +219,55 @@ class ExamBank extends Component {
                 </TouchableOpacity>}
                 {data.getchoice4thid == null ? <Text></Text>:<TouchableOpacity style = {this.state.correctOption === data.getchoice4thid.id ? styles.box1:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4)}>
                   <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
-                </TouchableOpacity>}
-              
+                </TouchableOpacity>} */}
+                <View style={styles.boxyy}>
+                <View style = {styles.box534}>
+                <RadioButton
+                 text = {data.getchoice1stid.answer}   
+                 value={data.getchoice1stid.answer}
+                 status={checked === data.getchoice1stid.id ? 'checked' : 'unchecked'}
+                 onPress={() => { this.setState({ checked: data.getchoice1stid.id});  
+                 this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1);
+                //  this.saveUserDetails
+                  }}
+                 ></RadioButton>
+                  <Text style = {styles.box543}>{data.getchoice1stid.answer}</Text>
+                  </View>
+                  <View style = {styles.box534}>
+                 <RadioButton
+                  text = {data.getchoice2ndid.answer}
+                 value = {data.getchoice2ndid.answer}
+                 status={checked === data.getchoice2ndid.id ? 'checked'  : 'unchecked'}
+                 onPress={() => { this.setState({ checked: data.getchoice2ndid.id });
+                 this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2);
+                //  this.saveUserDetails
+                 }}
+                />
+                 {data.getchoice3rdid == null ? <Text></Text>:
+                  <RadioButton
+                  text = {data.getchoice3rdid.answer}
+                  value = {data.getchoice3rdid.answer}
+                  status={checked === data.getchoice3rdid.id ? 'checked'  : 'unchecked'}
+                  onPress={() => { this.setState({ checked: data.getchoice3rdid.id });
+                  this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3);
+                  // this.saveUserDetails
+                 }}
+                />
+                 }
+                 {data.getchoice4thid == null ? <Text></Text>:
+                   <RadioButton
+                   text =  {data.getchoice4thid.answer}
+                   value = {data.getchoice4thid.answer}
+                   status={checked === data.getchoice4thid.id ? 'checked'  : 'unchecked'}
+                   onPress={() => { this.setState({ checked: data.getchoice4thid.id });
+                   this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4);
+                  //  this.saveUserDetails
+                  }}
+                 />
+                 }
+                 <Text style = {styles.box543}>{data.getchoice2ndid.answer}</Text>
+                 </View>
+                </View>
                 
                 {/* <View style= {styles.box2}>
                   <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
@@ -325,8 +405,11 @@ const styles = StyleSheet.create ({
             paddingRight:'10%',
             paddingTop:'2%',
          },
-         boxxx:{
-          backgroundColor:'#000',
+        //  boxxx:{
+        //   backgroundColor:'#000',
+        //  },
+         boxyy:{
+          backgroundColor:'#fff',
          },
          boxCorrect:{
           borderTopColor:'#000',
@@ -363,6 +446,12 @@ const styles = StyleSheet.create ({
           box53:{
             flexDirection:'row',
             justifyContent:'space-between',
+          },
+          box534:{
+            flexDirection:'row',
+          },
+          box543:{
+           marginTop:8
           },
           box12:{
             backgroundColor:'#fff',

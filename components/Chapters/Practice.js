@@ -23,7 +23,7 @@ class Practice extends Component {
      })
      setTimeout(()=>{
       this.setState({loader:false})
-    },3000)
+    },5000)
   }
   render() {
     return (
