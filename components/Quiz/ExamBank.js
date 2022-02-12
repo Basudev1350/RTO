@@ -38,7 +38,7 @@ class ExamBank extends Component  {
       active: 0,
       loader:true,
       pressed:false,
-      checked:'',
+      checked:true,
     };
     
   };
@@ -226,7 +226,7 @@ class ExamBank extends Component  {
                 <RadioButton.Item label={data.getchoice1stid.answer}   
                  value={data.getchoice1stid.answer}
                  style = {styles.box534}
-                 status={checked === data.getchoice1stid.id ? 'checked' : 'unchecked'}
+                 status={data.getchoice1stid.id === checked ? 'checked' : 'unchecked'}
                  onPress={() => { this.setState({ checked: data.getchoice1stid.id});  
                  this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1);
                 //  this.saveUserDetails
@@ -235,7 +235,7 @@ class ExamBank extends Component  {
                  <RadioButton.Item label={data.getchoice2ndid.answer}
                  value = {data.getchoice2ndid.answer}
                  style = {styles.box534}
-                 status={checked === data.getchoice2ndid.id ? 'checked'  : 'unchecked'}
+                 status={data.getchoice2ndid.id === checked? 'checked'  : 'unchecked'}
                  onPress={() => { this.setState({ checked: data.getchoice2ndid.id });
                  this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2);
                 //  this.saveUserDetails
@@ -245,7 +245,7 @@ class ExamBank extends Component  {
                    <RadioButton.Item label={data.getchoice3rdid.answer}
                    style = {styles.box534}
                    value = {data.getchoice3rdid.answer}
-                   status={checked === data.getchoice3rdid.id ? 'checked'  : 'unchecked'}
+                   status={data.getchoice3rdid.id === checked ? 'checked'  : 'unchecked'}
                    onPress={() => { this.setState({ checked: data.getchoice3rdid.id });
                    this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3);
                   //  this.saveUserDetails
@@ -256,7 +256,7 @@ class ExamBank extends Component  {
                    <RadioButton.Item label={data.getchoice4thid.answer}
                    style = {styles.box534}
                    value = {data.getchoice4thid.answer}
-                   status={checked === data.getchoice4thid.id ? 'checked'  : 'unchecked'}
+                   status={data.getchoice4thid.id === checked ? 'checked'  : 'unchecked'}
                    onPress={() => { this.setState({ checked: data.getchoice4thid.id });
                    this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4);
                   //  this.saveUserDetails
