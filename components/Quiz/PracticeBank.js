@@ -38,7 +38,7 @@ class PracticeBank extends Component {
     let i = this.state.index < this.state.questions.length ? this.state.index -=1:1                                           ;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
-  onPress = () => {
+  onNext = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
@@ -83,13 +83,13 @@ class PracticeBank extends Component {
             <Text style= {styles.congo} > Congratulations !!! </Text>
             <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
               style={styles.win} />
-              <Text style={styles.score}> You Win The Quiz </Text>
-              <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Your Score     :{this.state.scorePercentage}%</Text>
+              <Text style={styles.score}> Vinci il quiz </Text>
+              <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
+              <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
+              <Text style={styles.score}>Il tuo punteggio     :{this.state.scorePercentage}%</Text>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
-                  <Text style = {styles.boxbutton}> Home </Text> 
+                  <Text style = {styles.boxbutton}> Casa </Text> 
                 </TouchableOpacity>
               </View>
             </View>
@@ -99,16 +99,16 @@ class PracticeBank extends Component {
         return(
           <TouchableOpacity>
             <View style = {styles.resultbox1} >
-            <Text style= {styles.oops} > Oops !!! </Text>
+            <Text style= {styles.oops} > Ops!!! </Text>
               <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
                 style={styles.win} />
-              <Text style={styles.score}> You Lose The Quiz </Text>
-              <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Your Score {this.state.scorePercentage}%</Text>
+              <Text style={styles.score}> Hai perso il quiz </Text>
+              <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
+              <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
+              <Text style={styles.score}>Il tuo punteggio {this.state.scorePercentage}%</Text>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
-                  <Text style = {styles.boxbutton}> Home </Text> 
+                  <Text style = {styles.boxbutton}> Casa </Text> 
                 </TouchableOpacity>
               </View>
             </View>
@@ -211,7 +211,7 @@ class PracticeBank extends Component {
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => this.setExplainModalVisible(!this.state.explainModalVisible)}
                   >
-                    <Text style={styles.textStyle}>Hide Explanation</Text>
+                    <Text style={styles.textStyle}>Nascondi spiegazione</Text>
                   </Pressable>
                 </View>
               </View>
@@ -276,7 +276,7 @@ class PracticeBank extends Component {
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
                   >
-                     <Text style={styles.textStyle}>Hide Translator</Text>
+                     <Text style={styles.textStyle}>Nascondi traduttore</Text>
                   </Pressable>
                    </View>
                  );}
