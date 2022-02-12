@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
 import { RadioButton } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 class ExamBank extends Component  {
@@ -42,11 +42,11 @@ class ExamBank extends Component  {
     };
     
   };
-  saveUserDetails =() =>{
-    let check = this.state.checked;
-    AsyncStorage.setItem('check',check);
-    this.setState({"check": check});
-    };
+  // saveUserDetails =() =>{
+  //   let check = this.state.checked;
+  //   AsyncStorage.setItem('check',check);
+  //   this.setState({"check": check});
+  //   };
     // displayuserDetail = async ()=>{
     //   try{
     //   let check = await AsyncStorage.getItem('username');
@@ -221,42 +221,40 @@ class ExamBank extends Component  {
                   <Text style = {styles.boxsubfont}>d ) {data.getchoice4thid.answer}</Text>  
                 </TouchableOpacity>} */}
                 <View style={styles.boxyy}>
-                <View style = {styles.box534}>
-                <RadioButton
-                 text = {data.getchoice1stid.answer}   
+
+                <RadioButton.Group>
+                <RadioButton.Item label={data.getchoice1stid.answer}   
                  value={data.getchoice1stid.answer}
+                 style = {styles.box534}
                  status={checked === data.getchoice1stid.id ? 'checked' : 'unchecked'}
                  onPress={() => { this.setState({ checked: data.getchoice1stid.id});  
                  this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1);
                 //  this.saveUserDetails
                   }}
-                 ></RadioButton>
-                  <Text style = {styles.box543}>{data.getchoice1stid.answer}</Text>
-                  </View>
-                  <View style = {styles.box534}>
-                 <RadioButton
-                  text = {data.getchoice2ndid.answer}
+                 />
+                 <RadioButton.Item label={data.getchoice2ndid.answer}
                  value = {data.getchoice2ndid.answer}
+                 style = {styles.box534}
                  status={checked === data.getchoice2ndid.id ? 'checked'  : 'unchecked'}
                  onPress={() => { this.setState({ checked: data.getchoice2ndid.id });
                  this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2);
                 //  this.saveUserDetails
                  }}
                 />
-                 {data.getchoice3rdid == null ? <Text></Text>:
-                  <RadioButton
-                  text = {data.getchoice3rdid.answer}
-                  value = {data.getchoice3rdid.answer}
-                  status={checked === data.getchoice3rdid.id ? 'checked'  : 'unchecked'}
-                  onPress={() => { this.setState({ checked: data.getchoice3rdid.id });
-                  this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3);
-                  // this.saveUserDetails
-                 }}
-                />
+                {data.getchoice3rdid == null ? null:
+                   <RadioButton.Item label={data.getchoice3rdid.answer}
+                   style = {styles.box534}
+                   value = {data.getchoice3rdid.answer}
+                   status={checked === data.getchoice3rdid.id ? 'checked'  : 'unchecked'}
+                   onPress={() => { this.setState({ checked: data.getchoice3rdid.id });
+                   this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3);
+                  //  this.saveUserDetails
+                  }}
+                 />
                  }
-                 {data.getchoice4thid == null ? <Text></Text>:
-                   <RadioButton
-                   text =  {data.getchoice4thid.answer}
+                 {data.getchoice4thid == null ? null:
+                   <RadioButton.Item label={data.getchoice4thid.answer}
+                   style = {styles.box534}
                    value = {data.getchoice4thid.answer}
                    status={checked === data.getchoice4thid.id ? 'checked'  : 'unchecked'}
                    onPress={() => { this.setState({ checked: data.getchoice4thid.id });
@@ -265,8 +263,7 @@ class ExamBank extends Component  {
                   }}
                  />
                  }
-                 <Text style = {styles.box543}>{data.getchoice2ndid.answer}</Text>
-                 </View>
+                 </RadioButton.Group>
                 </View>
                 
                 {/* <View style= {styles.box2}>
@@ -446,9 +443,12 @@ const styles = StyleSheet.create ({
           box53:{
             flexDirection:'row',
             justifyContent:'space-between',
+            marginBottom:5
           },
           box534:{
-            flexDirection:'row',
+            borderTopColor:'#000',
+            borderTopWidth:1,
+            backgroundColor:'#fff',
           },
           box543:{
            marginTop:8
