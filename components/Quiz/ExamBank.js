@@ -56,7 +56,7 @@ class ExamBank extends Component  {
     //   alert(error)
     //   }
     //   }
-  onPress = () => {
+  onNext = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
@@ -102,16 +102,16 @@ class ExamBank extends Component  {
         return(
           <TouchableOpacity>
             <View style = {styles.resultbox1} >
-            <Text style= {styles.congo} > Congratulations !!! </Text>
+            <Text style= {styles.congo} > Congratulazioni!!! </Text>
             <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
               style={styles.win} />
-              <Text style={styles.score}> You Win The Quiz </Text>
-              <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Your Score     :{this.state.scorePercentage}%</Text>
+              <Text style={styles.score}> Vinci il quiz </Text>
+              <Text style={styles.correctScore}>Risposta corretta    :{this.state.writeAnswer}</Text>
+              <Text style={styles.wrongScore}>  Risposta sbagliata   :{this.state.wrongAnswer}</Text>
+              <Text style={styles.score}>Il tuo punteggio :{this.state.scorePercentage}%</Text>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
-                  <Text style = {styles.boxbutton}> Home </Text> 
+                  <Text style = {styles.boxbutton}> Casa </Text> 
                 </TouchableOpacity>
               </View>
             </View>
@@ -121,16 +121,16 @@ class ExamBank extends Component  {
         return(
           <TouchableOpacity>
             <View style = {styles.resultbox1} >
-            <Text style= {styles.oops} > Oops !!! </Text>
+            <Text style= {styles.oops} > Ops!!! </Text>
               <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
                 style={styles.win} />
-              <Text style={styles.score}> You Lose The Quiz </Text>
-              <Text style={styles.correctScore}>Correct answer :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Wrong Answer   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Your Score {this.state.scorePercentage}%</Text>
+              <Text style={styles.score}> Hai perso il quiz </Text>
+              <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
+              <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
+              <Text style={styles.score}>Il tuo punteggio {this.state.scorePercentage}%</Text>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
-                  <Text style = {styles.boxbutton}> Home </Text> 
+                  <Text style = {styles.boxbutton}> Casa </Text> 
                 </TouchableOpacity>
               </View>
             </View>
@@ -228,7 +228,7 @@ class ExamBank extends Component  {
                  style = {styles.box534}
                  status={data.getchoice1stid.id === checked ? 'checked' : 'unchecked'}
                  onPress={() => { this.setState({ checked: data.getchoice1stid.id});  
-                 this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1);
+                 this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,1);
                 //  this.saveUserDetails
                   }}
                  />
@@ -237,7 +237,7 @@ class ExamBank extends Component  {
                  style = {styles.box534}
                  status={data.getchoice2ndid.id === checked? 'checked'  : 'unchecked'}
                  onPress={() => { this.setState({ checked: data.getchoice2ndid.id });
-                 this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2);
+                 this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,2);
                 //  this.saveUserDetails
                  }}
                 />
@@ -247,7 +247,7 @@ class ExamBank extends Component  {
                    value = {data.getchoice3rdid.answer}
                    status={data.getchoice3rdid.id === checked ? 'checked'  : 'unchecked'}
                    onPress={() => { this.setState({ checked: data.getchoice3rdid.id });
-                   this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3);
+                   this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,3);
                   //  this.saveUserDetails
                   }}
                  />
@@ -258,7 +258,7 @@ class ExamBank extends Component  {
                    value = {data.getchoice4thid.answer}
                    status={data.getchoice4thid.id === checked ? 'checked'  : 'unchecked'}
                    onPress={() => { this.setState({ checked: data.getchoice4thid.id });
-                   this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,data.getcorrectansid.explanation,4);
+                   this.checkAnswer(data.getcorrectansid.id,data.getchoice4thid.id,4);
                   //  this.saveUserDetails
                   }}
                  />
@@ -331,7 +331,7 @@ class ExamBank extends Component  {
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => this.setTranslatorModalVisible(!this.state.translatorModalVisible)}
                   >
-                     <Text style={styles.textStyle}>Hide Translator</Text>
+                     <Text style={styles.textStyle}>Nascondi traduttore</Text>
                   </Pressable>
                    </View>
                  );}
@@ -346,14 +346,14 @@ class ExamBank extends Component  {
               <Pressable style = {styles.box31} onPress={this.onPrevious} disabled={!this.state.index} >
               <View style = {styles.box5}>
                <Icon name="chevron-left" size={20} color="#fff" style={styles.icon1} />
-               <Text style = {styles.boxbutton}>Previous</Text> 
+               <Text style = {styles.boxbutton}>Precedente</Text> 
                </View>
               </Pressable> 
          } 
           {this.state.index+1 == (totalQ+1) ? <View></View> : 
-              <Pressable style = {styles.box31} onPress={this.onPress}  >
+              <Pressable style = {styles.box31} onPress={this.onNext}  >
                <View style = {styles.box5}>
-               <Text style = {styles.boxbutton}>Next</Text> 
+               <Text style = {styles.boxbutton}>Prossima</Text> 
                <Icon name="chevron-right" size={20} color="#fff" style={styles.icon2} />
                </View>
               </Pressable> 

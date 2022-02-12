@@ -25,10 +25,10 @@ class Home extends Component {
            <View style = {styles.box12}>
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
             style={{width: 50, height: 50}} />
-           <Text style = {styles.boxfont}>Question Bank</Text>
+           <Text style = {styles.boxfont}>Banca delle domande</Text>
            </View>
            <View style = {styles.box2}>
-           <Text style = {styles.boxsubfont}>List of questions & answers and meaning of road signs</Text>
+           <Text style = {styles.boxsubfont}>Elenco di domande e risposte e significato dei segnali stradali</Text>
            </View>
            </View>
          </TouchableOpacity >
@@ -37,10 +37,10 @@ class Home extends Component {
            <View style = {styles.box12}>
             <Image source={{uri: 'https://image.flaticon.com/icons/png/512/1205/1205526.png'}}
             style={{width: 50, height: 50}} />
-           <Text style = {styles.boxfont}>Practice</Text>
+           <Text style = {styles.boxfont}>Pratica</Text>
            </View>
            <View style = {styles.box2}>
-           <Text style = {styles.boxsubfont}>Test Your Knowledge without worrying about time</Text>
+           <Text style = {styles.boxsubfont}>Metti alla prova le tue conoscenze senza preoccuparti del tempo</Text>
            </View>
            </View>
          </TouchableOpacity >
@@ -49,10 +49,10 @@ class Home extends Component {
            <View style = {styles.box12}>
            <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}
             style={{width: 50, height: 50}} />
-           <Text style = {styles.boxfont}>Exam</Text>
+           <Text style = {styles.boxfont}>Esame</Text>
            </View>
            <View style = {styles.box2}>
-           <Text style = {styles.boxsubfont}>Time and question bound test exactly same as actual RTO test</Text>
+           <Text style = {styles.boxsubfont}>Il test legato al tempo e alle domande è esattamente lo stesso del test RTO effettivo</Text>
            </View>
            </View>    
          </TouchableOpacity>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create ({
             margin: 10
           },
           boxsubfont:{
-            fontSize: 16,
+            fontSize: 15,
             color: '#000',
             textAlign: 'left',
             marginTop: 5

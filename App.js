@@ -50,7 +50,7 @@ function StackRoutes() {
       <Stack.Screen 
         name="Home" 
         component={Home}
-        options={{ title: 'Home' }}
+        options={{ title: 'Casa' }}
       />
       {
         /**
@@ -61,17 +61,17 @@ function StackRoutes() {
       <Stack.Screen 
         name="Questions" 
         component={Questions} 
-        options={{ title: 'Questions Chapters' }}
+        options={{ title: 'Capitoli di domande' }}
       />
       <Stack.Screen 
         name="Practice" 
         component={Practice} 
-        options={{ title: 'Practice Chapters' }}
+        options={{ title: 'Capitoli di pratica' }}
       />
       <Stack.Screen 
         name="Exam" 
         component={Exam} 
-        options={{ title: 'Exam Quiz Chapters' }}
+        options={{ title: "Capitoli del quiz d' esame" }}
       />
       {
         /**
@@ -82,17 +82,17 @@ function StackRoutes() {
       <Stack.Screen 
         name="QuestionsContent" 
         component={QuestionsContent} 
-        options={{ title: 'Questions Content' }}
+        options={{ title: 'Contenuto delle domande' }}
       />
       <Stack.Screen 
         name="PracticeContent" 
         component={PracticeContent} 
-        options={{ title: 'Practice Content' }}
+        options={{ title: 'Contenuti pratici' }}
       />
       <Stack.Screen 
         name="ExamContent" 
         component={ExamContent} 
-        options={{ title: 'Exam Quiz Content' }}
+        options={{ title: "Contenuto del quiz d'esame " }}
       />
       {
         /**
@@ -103,17 +103,17 @@ function StackRoutes() {
       <Stack.Screen 
         name="QuestionBank" 
         component={QuestionBank}
-        options={{ title: 'Questions Chapters' }}
+        options={{ title: 'Capitoli di domande' }}
       />
       <Stack.Screen 
         name="PracticeBank" 
         component={PracticeBank} 
-        options={{ title: 'Practice Question Bank' }}
+        options={{ title: 'Pratica banca delle domande' }}
       />
       <Stack.Screen 
         name="ExamBank" 
         component={ExamBank} 
-        options={{ title: 'Exam Question Bank' }}
+        options={{ title: "Banca delle domande d'esame " }}
       />
       
        
