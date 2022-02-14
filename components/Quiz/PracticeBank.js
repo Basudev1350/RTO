@@ -78,7 +78,7 @@ class PracticeBank extends Component {
       if(this.state.scorePercentage > 40)
       {
         return(
-          <TouchableOpacity>
+          <View>
             <View style = {styles.resultbox1} >
             <Text style= {styles.congo} > Congratulations !!! </Text>
             <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
@@ -93,14 +93,14 @@ class PracticeBank extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </TouchableOpacity>
+          </View>
         )
       }else{
         return(
-          <TouchableOpacity>
+          <View>
             <View style = {styles.resultbox1} >
             <Text style= {styles.oops} > Ops!!! </Text>
-              <Image source={{uri: 'https://www.vhv.rs/dpng/d/524-5243967_oops-sign-transparent-background-clipart-png-download-traffic.png'}}
+              <Image source={{uri: 'http://1.bp.blogspot.com/-1T2uTBQ-5RQ/VAxRDK2ApSI/AAAAAAAALxA/FAkzLN1K_sU/s1600/oops-smiley.jpg'}}
                 style={styles.win} />
               <Text style={styles.score}> Hai perso il quiz </Text>
               <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
@@ -112,7 +112,7 @@ class PracticeBank extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </TouchableOpacity>
+          </View>
         )
       }
     }
@@ -128,7 +128,7 @@ class PracticeBank extends Component {
       })
       setTimeout(()=>{
         this.setState({loader:false})
-      },5000)
+      },3000)
   };
    render() {
     const speak = (data) => {
@@ -312,7 +312,7 @@ class PracticeBank extends Component {
                 <Pressable style = {styles.box31} onPress={() => this.props.navigation.navigate('Home')} >
                 <Text style = {styles.boxbutton}>Home</Text>  
                 </Pressable>:
-                <Pressable style = {styles.box3} onPress={this.onPress} >
+                <Pressable style = {styles.box3} onPress={this.onNext} >
                 <Icon name="chevron-right" size={25} color="#fff" />
                 </Pressable>
               }

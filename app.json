@@ -27,7 +27,12 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.SrkpTechnologies.LMBanglaPatente",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/RTO.png"
