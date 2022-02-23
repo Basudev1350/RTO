@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+// import * as Location from "expo-location";
 
 import Home from './components/Home';
 /**
@@ -30,6 +31,7 @@ import QuestionBank from './components/Quiz/QuestionBank';
 const Stack = createStackNavigator();
 
 function StackRoutes() {
+ 
   return (
     <Stack.Navigator
       screenOptions={{
@@ -51,6 +53,7 @@ function StackRoutes() {
         name="Home" 
         component={Home}
         options={{ title: 'Casa' }}
+       
       />
       {
         /**
