@@ -1,17 +1,39 @@
 import React, { Component } from 'react';
 import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator } from 'react-native';
+// import {Location,Permissions} from 'expo';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
 
 class Home extends Component {
   constructor(){
     super();
     this.state={
-      loader:true
+      loader:true,
+      errorMessage: '',
+      location: {}
     }
   }
   componentDidMount(){
     setTimeout(()=>{
       this.setState({loader:false})
     },3000)
+    this._getLocation();
+  }
+  _getLocation = async () =>{
+    const { status} = await Permissions.askAsync(Permissions.LOCATION);
+
+    if(status !== 'granted'){
+      console.log('Permissions Not Granted!');
+      this.setState(
+        {
+          errorMessage: 'Permissions Not Granted!'
+        }
+      )
+    }
+    const location = await Location.getCurrentPositionAsync();
+    this.setState({
+      location
+    })
   }
   render() {
     return (
