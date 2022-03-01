@@ -27,7 +27,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.srkptech.lmbanglapatente",
-      "versionCode": 1
+      "versionCode": 1.1
     },
     "web": {
       "favicon": "./assets/RTO.png"
