@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.LMBanglaPatenteSRKP",
+      "bundleIdentifier": "com.srkptech.lmbanglapatente",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/RTO.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.LMBanglaPatenteSRKP",
+      "package": "com.srkptech.lmbanglapatente",
       "versionCode": 1
     },
     "web": {
