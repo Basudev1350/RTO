@@ -16,14 +16,13 @@ class Exam extends Component {
    }
   componentDidMount() {
     axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters/`)
-   .then(res => {
-      const chapters     = res.data;
-      const noOfChapters = res.length;
-      this.setState({ chapters, noOfChapters});
-     })
-     setTimeout(()=>{
-      this.setState({loader:false})
-    },3000)
+      .then(res => {
+        const chapters     = res.data;
+        const noOfChapters = res.length;
+        this.setState({ chapters, noOfChapters,loader:false});
+      }).catch(error => {
+        this.props.navigation.navigate('Home');
+      });
   }
   render() {
     return (
