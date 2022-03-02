@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
@@ -15,12 +15,16 @@ class Exam extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters/`)
+    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters3/`)
       .then(res => {
-        const chapters     = res.data;
-        const noOfChapters = res.length;
-        this.setState({ chapters, noOfChapters,loader:false});
+        if(!res)
+        {
+          const chapters     = res.data;
+          const noOfChapters = res.length;
+          this.setState({ chapters, noOfChapters,loader:false});
+        }
       }).catch(error => {
+        Alert.alert("OOps ! Server issue");
         this.props.navigation.navigate('Home');
       });
   }
