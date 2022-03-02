@@ -15,7 +15,7 @@ class Exam extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters3/`)
+    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters/`)
       .then(res => {
         if(!res)
         {
