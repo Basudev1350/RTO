@@ -26,7 +26,7 @@ class Home extends Component {
            <View style = {styles.box12}>
              <Image
             style={{width: 50, height: 50}} 
-            source={require('../assets/study.png')}
+            source={require('./img/study.png')}
            />
            <Text style = {styles.boxfont}>Banca delle domande</Text>
            </View>
@@ -40,7 +40,7 @@ class Home extends Component {
            <View style = {styles.box12}>
            <Image
             style={{width: 50, height: 50}} 
-            source={require('../assets/testicon.png')}
+            source={require('./img/testicon.png')}
            />
            <Text style = {styles.boxfont}>Pratica</Text>
            </View>
@@ -54,7 +54,7 @@ class Home extends Component {
            <View style = {styles.box12}>
            <Image
             style={{width: 50, height: 50}} 
-            source={require('../assets/exam.png')}
+            source={require('./img/study.png')}
            />
            <Text style = {styles.boxfont}>Esame</Text>
            </View>
