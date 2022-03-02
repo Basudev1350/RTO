@@ -68,7 +68,7 @@ class PracticeBank extends Component {
     }
     const { chapterId ,totalQ} = this.props.route.params;
     var scorePercentage = (this.state.writeAnswer / totalQ)*100 ;
-    this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId,scorePercentage :scorePercentage});
+    this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId,scorePercentage :Math.round(scorePercentage)});
   };
   renderResult(){
     const { chapterId ,totalQ} = this.props.route.params;
