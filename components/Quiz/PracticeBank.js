@@ -162,6 +162,11 @@ class PracticeBank extends Component {
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
                   </View>
+                  {data.getcorrectansid.filePath == '' ? <Text></Text>: 
+                  <Text></Text>}
+                  {/* {data.filePath == null? 
+                  <View></View>:
+                  <Image source={{uri:data.filePath}} style={{ width: 75, height: 75, backgroundColor:'#000' }}  />} */}
                   <View style = {styles.box5}>
                     {data.getcorrectansid.filePath == '' ? <Text></Text>:<Image source={{uri: data.getcorrectansid.filePath}}
                     style={{width: 100,height:100}} />}

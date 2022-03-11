@@ -198,6 +198,8 @@ class ExamBank extends Component  {
                     <Icon name="volume-up" size={30} />
                     </TouchableOpacity>
                   </View>
+                  {data.getcorrectansid.filePath == '' ? <Text></Text>: 
+                  <Text></Text>}
                   <View style = {styles.box53}>
                     {data.getcorrectansid.filePath == '' ? <Text></Text>:<Image source={{uri: data.getcorrectansid.filePath}}
                     style={{width: 100,height:100}} />}
