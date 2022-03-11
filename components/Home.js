@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator } from 'react-native';
+import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator,StatusBar } from 'react-native';
 class Home extends Component {
   constructor(){
     super();
@@ -21,6 +21,12 @@ class Home extends Component {
            this.state.loader ?
             <ActivityIndicator size={100} color="green" marginTop={200} /> 
            :<ScrollView>
+               <StatusBar  
+                    backgroundColor = "#73df55"  
+                    barStyle = "dark-content"   
+                    hidden = {false}    
+                    translucent = {true}  
+                />  
            <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
            <View style = {styles.box1} >
            <View style = {styles.box12}>
