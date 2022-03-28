@@ -35,6 +35,20 @@ class Home extends Component {
            <Text style = {styles.boxsubfont}>Elenco di domande e risposte e significato dei segnali stradali</Text>
            </View>
            </View>
+           </TouchableOpacity>
+         <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
+           <View style = {styles.box1} >
+           <View style = {styles.box12}>
+             <Image
+            style={{width: 50, height: 50}} 
+            source={require('./img/s967.png')}
+           />
+           <Text style = {styles.boxfont}>Segnali stradali</Text>
+           </View>
+           <View style = {styles.box2}>
+           <Text style = {styles.boxsubfont}>Elenco dei significati dei segnali stradali</Text>
+           </View>
+           </View>
          </TouchableOpacity>
          <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
            <View style = {styles.box1}>

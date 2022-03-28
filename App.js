@@ -26,6 +26,7 @@ import QuestionsContent from './components/ChapterContents/QuestionsContent';
 import ExamBank from './components/Quiz/ExamBank';
 import PracticeBank from './components/Quiz/PracticeBank';
 import QuestionBank from './components/Quiz/QuestionBank';
+import Signal from './components/Signal';
 // import TranslatorComponent from './components/TranslatorComponent';
 
 const Stack = createStackNavigator();
@@ -118,7 +119,11 @@ function StackRoutes() {
         component={ExamBank} 
         options={{ title: "Banca delle domande d'esame " }}
       />
-      
+      <Stack.Screen 
+        name="Signal" 
+        component={Signal} 
+        options={{ title: "Segnale" }}
+      />
        
       {/* <Stack.Screen 
         name="Chapter" 
