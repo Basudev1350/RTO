@@ -19,7 +19,6 @@ class signal extends Component {
     return (
     <ScrollView  style = {styles.scroll}>
           <View style = {styles.box1}>
-              <Text style = {styles.boxfontNo} >1.</Text>
               <Image
             style={{width: 100, height: 100}} 
             source={require('./img/s41.png')}
@@ -27,7 +26,6 @@ class signal extends Component {
             <Text style = {styles.boxfontNo} >Stop</Text>
           </View>
           <View style = {styles.box1}>
-              <Text style = {styles.boxfontNo} >2.</Text>
               <Image
             style={{width: 100, height: 100}} 
             source={require('./img/s220.png')}

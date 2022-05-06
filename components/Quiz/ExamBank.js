@@ -190,7 +190,7 @@ class ExamBank extends Component  {
             return null;
           }else{
             return (
-              <View style = {styles.box2}>
+              <View key={index} style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box53}>
                     <Text style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
@@ -310,7 +310,7 @@ class ExamBank extends Component  {
                   return null;
                 }else{
                 return (
-                <View>
+                <View key={index}>
                   <View  style = {styles.box12} >
                     <Text  style = {styles.boxfont} >{this.state.index + 1}) {data.question}</Text>
                   </View>

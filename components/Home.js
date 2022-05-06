@@ -21,7 +21,7 @@ class Home extends Component {
            this.state.loader ?
             <ActivityIndicator size={100} color="green" marginTop={200} /> 
            :<ScrollView>
-            <StatusBar backgroundColor = "#73df55" barStyle = "dark-content" hidden = {false}  translucent = {true} />  
+            <StatusBar backgroundColor = "#228B22" barStyle = "dark-content" hidden = {false}  translucent = {true} />  
            <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
            <View style = {styles.box1} >
            <View style = {styles.box12}>
@@ -36,20 +36,6 @@ class Home extends Component {
            </View>
            </View>
            </TouchableOpacity>
-         <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
-           <View style = {styles.box1} >
-           <View style = {styles.box12}>
-             <Image
-            style={{width: 50, height: 50}} 
-            source={require('./img/s967.png')}
-           />
-           <Text style = {styles.boxfont}>Segnali stradali</Text>
-           </View>
-           <View style = {styles.box2}>
-           <Text style = {styles.boxsubfont}>Elenco dei significati dei segnali stradali</Text>
-           </View>
-           </View>
-         </TouchableOpacity>
          <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
            <View style = {styles.box1}>
            <View style = {styles.box12}>
@@ -77,6 +63,20 @@ class Home extends Component {
            <Text style = {styles.boxsubfont}>Il test legato al tempo e alle domande è esattamente lo stesso del test RTO effettivo</Text>
            </View>
            </View>    
+         </TouchableOpacity>
+         <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
+           <View style = {styles.box1} >
+           <View style = {styles.box12}>
+             <Image
+            style={{width: 50, height: 50}} 
+            source={require('./img/s967.png')}
+           />
+           <Text style = {styles.boxfont}>Segnali stradali</Text>
+           </View>
+           <View style = {styles.box2}>
+           <Text style = {styles.boxsubfont}>Elenco dei significati dei segnali stradali</Text>
+           </View>
+           </View>
          </TouchableOpacity>
           </ScrollView>
          }

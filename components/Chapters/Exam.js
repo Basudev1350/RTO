@@ -15,9 +15,9 @@ class Exam extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters/`)
+    axios.get('https://rto-patente.herokuapp.com/api/get-all-chapters/')
       .then(res => {
-        if(!res)
+        if(res != null)
         {
           const chapters     = res.data;
           const noOfChapters = res.length;
@@ -37,7 +37,7 @@ class Exam extends Component {
       <ScrollView>
         {this.state.chapters.map((data, index) => {
           return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('ExamContent',{chapterId:data.id})}>
+            <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate('ExamContent',{chapterId:data.id})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
                   <View  style = {styles.box14} >

@@ -86,7 +86,7 @@ class PracticeBank extends Component {
               <Text style={styles.score}> Vinci il quiz </Text>
               <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
               <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Il tuo punteggio     :{this.state.scorePercentage}%</Text>
+              <Text style={styles.score}>Il tuo punteggio     :{Math.round(this.state.scorePercentage)}%</Text>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Casa </Text> 
@@ -105,7 +105,7 @@ class PracticeBank extends Component {
               <Text style={styles.score}> Hai perso il quiz </Text>
               <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
               <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Il tuo punteggio {this.state.scorePercentage}%</Text>
+              <Text style={styles.score}>Il tuo punteggio :{Math.round(this.state.scorePercentage)}%</Text>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Casa </Text> 
@@ -154,7 +154,7 @@ class PracticeBank extends Component {
             return null;
           }else{
             return (
-              <View style = {styles.box2}>
+              <View key={index} style = {styles.box2}>
                 <View style = {styles.box4}>
                   <View style = {styles.box5}>
                     <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
@@ -258,7 +258,7 @@ class PracticeBank extends Component {
                   return null;
                 }else{
                 return (
-                <View>
+                <View key={index}>
                   <View>
                     <Text  style = {styles.boxfont} >{this.state.index + 1}) {data.question}</Text>
                   </View>

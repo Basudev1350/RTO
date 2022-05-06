@@ -17,14 +17,17 @@ class ExamContent extends Component {
   componentDidMount() {
     const { chapterId } = this.props.route.params;
     axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapte-content/`+chapterId)
-   .then(res => {
-      const chapters     = res.data;
-      const noOfChapters = res.length;
-      this.setState({ chapters, noOfChapters});
-     })
-     setTimeout(()=>{
-      this.setState({loader:false})
-    },3000)
+    .then(res => {
+      if(res != null)
+      {
+        const chapters     = res.data;
+        const noOfChapters = res.length;
+        this.setState({ chapters, noOfChapters,loader:false});
+      }
+    }).catch(error => {
+      Alert.alert("OOps ! Server issue");
+      this.props.navigation.navigate('Home');
+    });
   }
   render() {
     return (
@@ -35,7 +38,7 @@ class ExamContent extends Component {
       <ScrollView>
         {this.state.chapters.map((data, index) => {
           return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('ExamBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
+            <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate('ExamBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
                   <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}

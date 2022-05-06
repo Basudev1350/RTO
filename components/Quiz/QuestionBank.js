@@ -35,13 +35,13 @@ class Questionbank extends Component {
         <ScrollView>
         {this.state.questions.map((data, index) => {
          return (
-          <View style = {styles.box1}>
+          <View key={index} style = {styles.box1}>
             <View  style = {styles.box12} >
-              <Text style = {styles.boxfontNo} >Q.: {index+1}</Text>
+              <Text style = {styles.boxfontNo} >Q {index+1}:</Text>
               <Text  style = {styles.boxfont} >{data.question}</Text>
             </View>
             <View style = {styles.box12} >
-              <Text style = {styles.boxsubfont} >Ans :</Text>
+              <Text style = {styles.boxsubfontAns} >Ans:</Text>
               <Text style = {styles.boxsubfont} >{data.getcorrectansid.answer}</Text>
             </View>
           </View>
@@ -60,7 +60,8 @@ const styles = StyleSheet.create ({
       marginTop: 5,
       backgroundColor:'#fff',
       width:'100%',
-      paddingRight:'10%',
+      paddingRight:'5%',
+      paddingLeft:'5%',
       paddingTop:'2%',
       paddingBottom:'3%',
       borderRadius:5
@@ -87,6 +88,13 @@ const styles = StyleSheet.create ({
             fontSize: 16,
             textAlign: 'left',
             margin: 5,
+            fontWeight: '900'
+          },
+          boxsubfontAns:{
+            fontSize: 16,
+            textAlign: 'left',
+            margin: 5,
+            color: '#228b22',
             fontWeight: '900'
           },
           box12:{

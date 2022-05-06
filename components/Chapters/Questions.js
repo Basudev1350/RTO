@@ -15,15 +15,18 @@ class Questions extends Component {
     noOfChapters: 0,
    }
   componentDidMount() {
-    axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapters/`)
-   .then(res => {
-      const chapters     = res.data;
-      const noOfChapters = res.length;
-      this.setState({ chapters, noOfChapters});
-     })
-     setTimeout(()=>{
-      this.setState({loader:false})
-    },3000)
+    axios.get('https://rto-patente.herokuapp.com/api/get-all-chapters/')
+    .then(res => {
+      if(res != null)
+      {
+        const chapters     = res.data;
+        const noOfChapters = res.length;
+        this.setState({ chapters, noOfChapters,loader:false});
+      }
+    }).catch(error => {
+      Alert.alert("OOps ! Server issue");
+      this.props.navigation.navigate('Home');
+    });
   }
   render() {
     return (
@@ -34,7 +37,7 @@ class Questions extends Component {
       <ScrollView>
         {this.state.chapters.map((data, index) => {
           return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('QuestionsContent',{chapterId:data.id})}>
+            <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate('QuestionsContent',{chapterId:data.id})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
                   <View  style = {styles.box14} >
