@@ -77,12 +77,13 @@ const styles = StyleSheet.create ({
           
        },
         boxfont:{
+          alignContent:'center',
           flex: 1, 
           flexWrap: 'wrap',
-          fontSize: 20,
+          fontSize: 16,
           color: '#000',
-          fontWeight:'800',
-          margin: 10
+          fontWeight:'500',
+          margin: 5
         },
         boxsubfont:{
           fontSize: 16,
@@ -106,14 +107,14 @@ const styles = StyleSheet.create ({
           flexDirection:'row'
         },
         box13:{
+          padding:0,
           display:'flex',
           justifyContent:'space-between',
           flexDirection:'row'
         },
         box14:{
-          borderRadius: 100,
+          borderRadius: 0,
           backgroundColor:'#4F7942',
-          marginRight:2,
           width: 50,
           height: 50,
           justifyContent: 'center',

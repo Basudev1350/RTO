@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet, Image,Modal,ActivityIndicator,Flatlist } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet, Image,Modal,ActivityIndicator,Flatlist,Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
