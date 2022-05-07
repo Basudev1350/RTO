@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,TouchableHighlight,Alert } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,TouchableHighlight,Alert,ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
@@ -139,6 +139,18 @@ class PracticeBank extends Component {
     const {translatorModalVisible} = this.state.translatorModalVisible;
     const { chapterId ,totalQ} = this.props.route.params;
       return (
+        <ImageBackground
+        style={{
+          flex:1,
+          height: '100%',
+          padding:0,
+          width: '100%',
+          backgroundSize: 'cover',
+          justifyContent:'center',
+          zIndex: -1,
+        }}
+        source={require('../img/bg.jpg')}
+        >
         <ScrollView  style = {styles.scroll}>
         {
         this.state.loader ? <ActivityIndicator size={100} color="green" marginTop={200} /> :
@@ -326,7 +338,8 @@ class PracticeBank extends Component {
 
         </ScrollView>
         }
-        </ScrollView> 
+        </ScrollView>
+        </ImageBackground>
       );
     }
   }
@@ -334,7 +347,7 @@ export default PracticeBank;
 
 const styles = StyleSheet.create ({
         scroll:{
-            backgroundColor:'#ccc'
+            backgroundColor:'transparent'
          },
          box3End:{
           borderRadius:5,

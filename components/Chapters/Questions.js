@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,  Alert } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal,ActivityIndicator,  Alert ,ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
@@ -29,7 +29,20 @@ class Questions extends Component {
     });
   }
   render() {
+    
     return (
+      <ImageBackground
+          style={{
+            flex:1,
+            height: '100%',
+            padding:0,
+            width: '100%',
+            backgroundSize: 'cover',
+            justifyContent:'center',
+            zIndex: -1,
+          }}
+          source={require('../img/bg.jpg')}
+        >
       <ScrollView  style = {styles.scroll}>
       {
       this.state.loader ?
@@ -57,6 +70,7 @@ class Questions extends Component {
       </ScrollView>
        }
        </ScrollView> 
+      </ImageBackground>
     );
   }
 }
@@ -73,8 +87,7 @@ const styles = StyleSheet.create ({
         },
         scroll:{
             padding: 10,
-            backgroundColor:'#ccc'
-            
+            backgroundColor:'transparent'
          },
           boxfont:{
             flex: 1, 

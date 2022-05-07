@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet, Image,Modal,ActivityIndicator,Flatlist,Alert } from 'react-native';
+import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet, Image,Modal,ActivityIndicator,Flatlist,Alert,ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
@@ -173,6 +173,18 @@ class ExamBank extends Component  {
     const {translatorModalVisible} = this.state.translatorModalVisible;
     const { chapterId ,totalQ} = this.props.route.params;
       return (
+        <ImageBackground
+        style={{
+          flex:1,
+          height: '100%',
+          padding:0,
+          width: '100%',
+          backgroundSize: 'cover',
+          justifyContent:'center',
+          zIndex: -1,
+        }}
+        source={require('../img/bg.jpg')}
+        >
         <ScrollView  style = {styles.scroll}>
           {
           this.state.loader ?
@@ -364,6 +376,7 @@ class ExamBank extends Component  {
           </ScrollView>
         }
         </ScrollView>
+        </ImageBackground>
       );
     }
   }
@@ -371,7 +384,7 @@ export default ExamBank;
 
 const styles = StyleSheet.create ({
         scroll:{
-            backgroundColor:'#ccc'
+            backgroundColor:'transparent'
          },
          box3:{
            borderRadius:5,

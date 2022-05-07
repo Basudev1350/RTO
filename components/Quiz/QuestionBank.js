@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,Text, View,StyleSheet,ActivityIndicator } from 'react-native';
+import { ScrollView,Text, View,StyleSheet,ActivityIndicator,ImageBackground } from 'react-native';
 import axios from 'axios';
 
 class Questionbank extends Component { 
@@ -28,6 +28,18 @@ class Questionbank extends Component {
    }
   render() {
     return (
+      <ImageBackground
+        style={{
+          flex:1,
+          height: '100%',
+          padding:0,
+          width: '100%',
+          backgroundSize: 'cover',
+          justifyContent:'center',
+          zIndex: -1,
+        }}
+        source={require('../img/bg.jpg')}
+        >
       <ScrollView  style = {styles.scroll}>
       {
       this.state.loader ?
@@ -49,7 +61,8 @@ class Questionbank extends Component {
       })}  
         </ScrollView>
          }
-         </ScrollView>    
+         </ScrollView>  
+      </ImageBackground>  
     );
   }
 }
@@ -68,7 +81,7 @@ const styles = StyleSheet.create ({
         },
         scroll:{
             padding: 10,
-            backgroundColor:'#ccc'
+            backgroundColor:'transparent'
          },
          box2:{
             marginTop: 10
