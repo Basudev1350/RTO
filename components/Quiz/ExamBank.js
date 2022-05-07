@@ -103,12 +103,14 @@ class ExamBank extends Component  {
           <View>
             <View style = {styles.resultbox1} >
             <Text style= {styles.congo} > Congratulazioni!!! </Text>
-            <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
+            <Image source={require('../img/winner.jpg')}
               style={styles.win} />
-              <Text style={styles.score}> Vinci il quiz </Text>
-              <Text style={styles.correctScore}>Risposta corretta    :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>  Risposta sbagliata   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Il tuo punteggio :{this.state.scorePercentage}%</Text>
+               <View style={styles.scoreboard}>
+                <Text style={styles.score}> Vinci il quiz </Text>
+                <Text style={styles.correctScore}>corretta :{this.state.writeAnswer}</Text>
+                <Text style={styles.wrongScore}>sbagliata  :{this.state.wrongAnswer}</Text>
+                <Text style={styles.score}>{Math.round(this.state.scorePercentage)}%</Text>
+              </View>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Casa </Text> 
@@ -121,13 +123,15 @@ class ExamBank extends Component  {
         return(
           <View>
             <View style = {styles.resultbox1} >
-            <Text style= {styles.oops} > Ops!!! </Text>
-              <Image source={{uri: 'http://1.bp.blogspot.com/-1T2uTBQ-5RQ/VAxRDK2ApSI/AAAAAAAALxA/FAkzLN1K_sU/s1600/oops-smiley.jpg'}}
+            <Text style= {styles.oops} > Lavorare Duramente! </Text>
+              <Image source={require('../img/looser.jpg')}
                 style={styles.win} />
-              <Text style={styles.score}> Hai perso il quiz </Text>
-              <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Il tuo punteggio {this.state.scorePercentage}%</Text>
+              <View style={styles.scoreboard}>
+                <Text style={styles.score}> Vinci il quiz </Text>
+                <Text style={styles.correctScore}>corretta :{this.state.writeAnswer}</Text>
+                <Text style={styles.wrongScore}>sbagliata  :{this.state.wrongAnswer}</Text>
+                <Text style={styles.score}>{Math.round(this.state.scorePercentage)}%</Text>
+              </View>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Casa </Text> 
@@ -204,20 +208,24 @@ class ExamBank extends Component  {
             return (
               <View key={index} style = {styles.box2}>
                 <View style = {styles.box4}>
-                  <View style = {styles.box53}>
-                    <Text style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
-                    <TouchableOpacity onPress={() => speak(data.question)}>
-                    <Icon name="volume-up" size={30} />
-                    </TouchableOpacity>
+                  <View style={styles.numberbox}>
+                    <Text style = {styles.numberq}>{this.state.index + 1}</Text>
                   </View>
+                  <View style = {styles.box53}>
+                    <Image  source={require('../img/qsymbol.jpg')} style={{width: 30 , height: 30}}></Image>
+                    <Text style = {styles.boxfont}>{data.question}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => speak(data.question)}>
+                    <Icon name="volume-up" size={30} style = {{ marginStart: 2 }} />
+                  </TouchableOpacity>
                   {data.getcorrectansid.filePath == '' ? <Text></Text>: 
                   <Text></Text>}
                   <View style = {styles.box53}>
                     {data.getcorrectansid.filePath == '' ? <Text></Text>:<Image source={{uri: data.getcorrectansid.filePath}}
                     style={{width: 100,height:100}} />}
-                    <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
+                    {/* <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
                     <Icon name="language" size={30} color={'#fff'}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 </View>
                 {/* style = {this.state.correctOption === data.getchoice1stid.id ? styles.box1:styles.box1} */}
@@ -355,11 +363,11 @@ class ExamBank extends Component  {
             </Modal>
           </View>
           {/** End of Translator modal */}
-          <View style={styles.box12}>
+          <View style={styles.footerBox}>
           {this.state.index-1 == (totalQ-1) ? <View></View> : 
               <Pressable style = {styles.box31} onPress={this.onPrevious} disabled={!this.state.index} >
               <View style = {styles.box5}>
-               <Icon name="chevron-left" size={20} color="#fff" style={styles.icon1} />
+               <Icon name="chevron-left" size={14} color="#fff" style={styles.icon1} />
                <Text style = {styles.boxbutton}>Precedente</Text> 
                </View>
               </Pressable> 
@@ -368,7 +376,7 @@ class ExamBank extends Component  {
               <Pressable style = {styles.box31} onPress={this.onNext}  >
                <View style = {styles.box5}>
                <Text style = {styles.boxbutton}>Prossima</Text> 
-               <Icon name="chevron-right" size={20} color="#fff" style={styles.icon2} />
+               <Icon name="chevron-right" size={14} color="#fff" style={styles.icon2} />
                </View>
               </Pressable> 
          } 
@@ -390,14 +398,24 @@ const styles = StyleSheet.create ({
            borderRadius:5,
            width:'30%',
            height:'90%',
-           backgroundColor:'#008080'
+           backgroundColor:'#008080',
+           borderColor:'#96271f',
+          borderWidth:0.5,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
          },
          box31:{
           borderRadius:5,
-          width:'35%',
-          height:'95%',
+          width:'40%',
+          height: 50,
           backgroundColor:'#008080',
-          padding:5
+          padding:0,
+          borderColor:'#96271f',
+          borderWidth:0.5,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
         },
          languagebutton:{
           backgroundColor:'#008080',
@@ -407,8 +425,15 @@ const styles = StyleSheet.create ({
           width:50,
          },
          box2:{
-            marginTop: 20,
-            padding:10
+          backgroundColor:'#fff',
+          borderRadius:5,
+          margin:4,
+          padding:4,
+          borderColor:'#96271f',
+          borderWidth:0.5,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
           },
           box1:{
             borderTopColor:'#000',
@@ -456,6 +481,7 @@ const styles = StyleSheet.create ({
             justifyContent:'space-evenly',
           },
           box53:{
+            flex: 1,
             flexDirection:'row',
             justifyContent:'space-between',
             marginBottom:5
@@ -553,15 +579,23 @@ const styles = StyleSheet.create ({
       resultbox1:{
         marginTop: 10,
         borderRadius:5,
-        height:600,
+        height:'auto',
         backgroundColor:'#fff',
         padding:20,
-        width:'100%'
+        width:'100%',
+        borderColor:'#96271f',
+        borderWidth:0.5,
+        shadowColor:'#96271f',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
+        alignContent:'center',
+        alignItems:'center'
       },
       oops:{
-        fontSize:40,
+        fontSize:20,
         textAlign:'center',
-        color:'red'
+        color:'red',
+        fontWeight:'800'
       },
       win:{
         justifyContent: 'center',
@@ -571,8 +605,9 @@ const styles = StyleSheet.create ({
       },
       score:{
         textAlign:'center',
-        fontSize:22,
-        marginTop:5
+        fontSize:18,
+        marginTop:5,
+        fontWeight:'900'
       },
       scroll2:{
         padding: 10
@@ -582,18 +617,63 @@ const styles = StyleSheet.create ({
           fontSize:18
       },
       congo:{
-        fontSize:30,
+        fontSize:20,
         textAlign:'center',
-        color:'green'
+        color:'green',
+        fontWeight:'800'
        },
       correctScore:{
-        fontSize:20,
+        fontSize:18,
         textAlign: 'center',
-        color:'green'
+        color:'green',
+        fontWeight:'800'
       },
       wrongScore:{
         fontSize:18,
         textAlign: 'center',
-        color:'red'
+        color:'red',
+        fontWeight:'800'
+      },
+      footerBox:{
+        borderBottomColor:'#96271f',
+        borderTopColor:'#008000',
+        borderWidth:0.5,
+        shadowColor:'#008000',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
+        backgroundColor:'#fff',
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent:'space-around',
+        paddingTop:'5%',
+        paddingBottom:'5%',
+        position: 'relative',
+        bottom: 0
+      },
+      numberq:{
+        textAlign:'center',
+        fontSize:20,
+        color: '#fff',
+        fontWeight:'800'
+      },
+      numberbox:{
+        alignContent:'flex-end',
+        borderRadius:80,
+        padding:8,
+        width:40,
+        backgroundColor: "#96271f",
+      },
+      scoreboard:{
+        marginTop: 5,
+        borderRadius:5,
+        height:'auto',
+        backgroundColor:'#fff',
+        padding:4,
+        width:'60%',
+        borderColor:'#96271f',
+        borderWidth:0.5,
+        shadowColor:'#96271f',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
       }
  })

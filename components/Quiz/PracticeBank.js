@@ -362,7 +362,12 @@ const styles = StyleSheet.create ({
           borderRadius:5,
           width:'30%',
           height:'90%',
-          backgroundColor:'#008080'
+          backgroundColor:'#008080',
+          borderColor:'#96271f',
+          borderWidth:0.5,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
          },
          box3:{
            borderRadius:5,
@@ -504,7 +509,7 @@ const styles = StyleSheet.create ({
         fontWeight:'800',
         textAlign:'center',
         margin: 10,
-        color:'#fff'
+        color:'#fff',
       },
       centeredView: {
         flex: 1,
