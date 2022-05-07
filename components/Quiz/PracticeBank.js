@@ -3,6 +3,7 @@ import { ScrollView,TouchableOpacity,Text,Pressable, View,StyleSheet,Image,Modal
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import * as Speech from 'expo-speech';
+import { textShadowColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 // import {Picker} from '@react-native-picker/picker';
 
 class PracticeBank extends Component {
@@ -81,12 +82,14 @@ class PracticeBank extends Component {
           <View>
             <View style = {styles.resultbox1} >
             <Text style= {styles.congo} > Congratulations !!! </Text>
-            <Image source={{uri:'https://freepngimg.com/thumb/winner/9-2-winner-png-clipart.png'}}
+            <Image source={require('../img/winner.jpg')}
               style={styles.win} />
-              <Text style={styles.score}> Vinci il quiz </Text>
-              <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Il tuo punteggio     :{Math.round(this.state.scorePercentage)}%</Text>
+              <View style={styles.scoreboard}>
+                <Text style={styles.score}> Vinci il quiz </Text>
+                <Text style={styles.correctScore}>corretta :{this.state.writeAnswer}</Text>
+                <Text style={styles.wrongScore}>sbagliata  :{this.state.wrongAnswer}</Text>
+                <Text style={styles.score}>{Math.round(this.state.scorePercentage)}%</Text>
+              </View>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Casa </Text> 
@@ -99,13 +102,15 @@ class PracticeBank extends Component {
         return(
           <View>
             <View style = {styles.resultbox1} >
-            <Text style= {styles.oops} > Ops!!! </Text>
-              <Image source={{uri: 'http://1.bp.blogspot.com/-1T2uTBQ-5RQ/VAxRDK2ApSI/AAAAAAAALxA/FAkzLN1K_sU/s1600/oops-smiley.jpg'}}
+            <Text style= {styles.oops} > Lavorare Duramente! </Text>
+              <Image source={require('../img/looser.jpg')}
                 style={styles.win} />
-              <Text style={styles.score}> Hai perso il quiz </Text>
-              <Text style={styles.correctScore}>Risposta corretta :{this.state.writeAnswer}</Text>
-              <Text style={styles.wrongScore}>Risposta sbagliata   :{this.state.wrongAnswer}</Text>
-              <Text style={styles.score}>Il tuo punteggio :{Math.round(this.state.scorePercentage)}%</Text>
+              <View style={styles.scoreboard}>
+                <Text style={styles.score}> Hai perso il quiz </Text>
+                <Text style={styles.correctScore}>corretta :{this.state.writeAnswer}</Text>
+                <Text style={styles.wrongScore}>sbagliata  :{this.state.wrongAnswer}</Text>
+                <Text style={styles.score}>{Math.round(this.state.scorePercentage)}%</Text>
+              </View>
               <View style = {styles.box12}>
                 <TouchableOpacity style = {styles.box3End} onPress={() => this.props.navigation.navigate('Home')}>
                   <Text style = {styles.boxbutton}> Casa </Text> 
@@ -319,10 +324,10 @@ class PracticeBank extends Component {
                {this.state.wrongAnswer}</Text>
               </View>
               </View> 
-              <TouchableOpacity onPress={() => this.setExplainModalVisible(true)}>
+              {/* <TouchableOpacity onPress={() => this.setExplainModalVisible(true)}>
               <Image source={{uri: 'https://image.flaticon.com/icons/png/512/224/224641.png'}}
               style={{width: 50, height: 50}}/>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             
               {this.state.index-1 == (totalQ-1) ? <View></View> : 
                 <Pressable style = {styles.box3} onPress={this.onPrevious} disabled={!this.state.index} >
@@ -547,15 +552,23 @@ const styles = StyleSheet.create ({
       resultbox1:{
         marginTop: 10,
         borderRadius:5,
-        height:600,
+        height:'auto',
         backgroundColor:'#fff',
         padding:20,
-        width:'100%'
+        width:'100%',
+        borderColor:'#96271f',
+        borderWidth:0.5,
+        shadowColor:'#96271f',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
+        alignContent:'center',
+        alignItems:'center'
       },
       oops:{
-        fontSize:40,
+        fontSize:20,
         textAlign:'center',
-        color:'red'
+        color:'red',
+        fontWeight:'800'
       },
       win:{
         justifyContent: 'center',
@@ -565,8 +578,9 @@ const styles = StyleSheet.create ({
       },
       score:{
         textAlign:'center',
-        fontSize:22,
-        marginTop:5
+        fontSize:18,
+        marginTop:5,
+        fontWeight:'900'
       },
       scroll2:{
         padding: 10
@@ -576,19 +590,22 @@ const styles = StyleSheet.create ({
           fontSize:18
       },
       congo:{
-        fontSize:30,
+        fontSize:20,
         textAlign:'center',
-        color:'green'
+        color:'green',
+        fontWeight:'800'
        },
       correctScore:{
-        fontSize:20,
+        fontSize:18,
         textAlign: 'center',
-        color:'green'
+        color:'green',
+        fontWeight:'800'
       },
       wrongScore:{
         fontSize:18,
         textAlign: 'center',
-        color:'red'
+        color:'red',
+        fontWeight:'800'
       },
       footerBox:{
         borderBottomColor:'#96271f',
@@ -618,5 +635,18 @@ const styles = StyleSheet.create ({
         padding:8,
         width:40,
         backgroundColor: "#96271f",
+      },
+      scoreboard:{
+        marginTop: 5,
+        borderRadius:5,
+        height:'auto',
+        backgroundColor:'#fff',
+        padding:4,
+        width:'60%',
+        borderColor:'#96271f',
+        borderWidth:0.5,
+        shadowColor:'#96271f',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
       }
  })
