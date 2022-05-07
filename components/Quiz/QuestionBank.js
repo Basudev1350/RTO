@@ -77,7 +77,12 @@ const styles = StyleSheet.create ({
       paddingLeft:'5%',
       paddingTop:'2%',
       paddingBottom:'3%',
-      borderRadius:5
+      borderRadius:5,
+      borderColor:'#96271f',
+      borderWidth:0.5,
+      shadowColor:'#96271f',
+      shadowOpacity:0.3,
+      shadowRadius: 0.4,
         },
         scroll:{
             padding: 10,
