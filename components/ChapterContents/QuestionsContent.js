@@ -53,7 +53,7 @@ class QuestionsContent extends Component {
             <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate('QuestionBank',{chapterId:data.id,totalQ:data.noOfQuestions})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
-                  <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}
+                  <Image source={require('../img/manual.jpg')}
                   style={{width: 50, height: 50}} />
                   <Text style = {styles.boxfont}>{data.chapterTitle}</Text>
                 </View>
@@ -87,67 +87,72 @@ class QuestionsContent extends Component {
 export default QuestionsContent
 
 const styles = StyleSheet.create ({
-    box1:{
-      marginTop: 10,
-      borderRadius:5,
-    //   height:100,
-      backgroundColor:'#fff',
-      padding:15,
-      width:'100%'
+  box1:{
+    marginTop: 10,
+    borderRadius:5,
+  //   height:100,
+    backgroundColor:'#fff',
+    padding:15,
+    width:'100%',
+    borderColor:'#96271f',
+    borderWidth:0.5,
+    shadowColor:'#96271f',
+    shadowOpacity:0.3,
+    shadowRadius: 0.4,
+      },
+      scroll:{
+          padding: 10,
+          backgroundColor:'transparent'
+          
+       },
+        boxfont:{
+          flex: 1, 
+          flexWrap: 'wrap',
+          fontSize: 16,
+          color: '#000',
+          fontWeight:'800',
+          margin: 10
         },
-        scroll:{
-            padding: 10,
-            backgroundColor:'transparent'
-            
-         },
-          boxfont:{
-            flex: 1, 
-            flexWrap: 'wrap',
-            fontSize: 20,
-            color: '#000',
-            fontWeight:'800',
-            margin: 10
-          },
-          boxsubfont:{
-            fontSize: 16,
-            textAlign: 'left',
-            margin: 5,
-            fontWeight: '600'
-          },
-          boxsmallfont:{
-            fontSize: 13,
-            textAlign: 'left',
-            margin: 5,
-            fontWeight: '900'
-          },
-          boxfontcolor:{
-            fontSize: 16,
-            fontWeight:'900',
-            textAlign: 'right',
-          },
-          box12:{
-            display:'flex',
-            flexDirection:'row'
-          },
-          box13:{
-            display:'flex',
-            justifyContent:'space-between',
-            flexDirection:'row'
-          },
-          box14:{
-            borderRadius:100,
-            padding:10,
-            backgroundColor:'#4F7942',
-          },
-          box15:{
-            borderRadius:100,
-            padding:10,
-            backgroundColor:'#CD212A',
-          },
-          boxbutton:{
-            fontSize:18,
-            fontWeight:'800',
-            textAlign:'center',
-            color:'#fff'
-          },
+        boxsubfont:{
+          fontSize: 16,
+          textAlign: 'left',
+          margin: 5,
+          fontWeight: '600'
+        },
+        boxsmallfont:{
+          fontSize: 12,
+          textAlign: 'left',
+          margin: 5,
+          fontWeight: '900'
+        },
+        boxfontcolor:{
+          fontSize: 16,
+          fontWeight:'900',
+          textAlign: 'right',
+        },
+        box12:{
+          display:'flex',
+          flexDirection:'row'
+        },
+        box13:{
+          display:'flex',
+          justifyContent:'space-between',
+          flexDirection:'row'
+        },
+        box14:{
+          borderRadius:100,
+          padding:10,
+          backgroundColor:'#4F7942',
+          borderColor:'#4F7942',
+          borderWidth:0.9,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4
+        },
+        boxbutton:{
+          fontSize:18,
+          fontWeight:'800',
+          textAlign:'center',
+          color:'#fff'
+        },
  })

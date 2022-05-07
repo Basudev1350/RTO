@@ -53,7 +53,7 @@ class PracticeContent extends Component {
             <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate('PracticeBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
-                  <Image source={{uri: 'https://freepngimg.com/thumb/paper_sheet/50192-9-exam-image-hq-image-free-png.png'}}
+                  <Image source={require('../img/manual.jpg')}
                   style={{width: 50, height: 50}} />
                   <Text style = {styles.boxfont}>{data.chapterTitle}</Text>
                 </View>
@@ -88,7 +88,12 @@ const styles = StyleSheet.create ({
   //   height:100,
     backgroundColor:'#fff',
     padding:15,
-    width:'100%'
+    width:'100%',
+    borderColor:'#96271f',
+    borderWidth:0.5,
+    shadowColor:'#96271f',
+    shadowOpacity:0.3,
+    shadowRadius: 0.4,
       },
       scroll:{
           padding: 10,
@@ -98,7 +103,7 @@ const styles = StyleSheet.create ({
         boxfont:{
           flex: 1, 
           flexWrap: 'wrap',
-          fontSize: 20,
+          fontSize: 16,
           color: '#000',
           fontWeight:'800',
           margin: 10
@@ -110,7 +115,7 @@ const styles = StyleSheet.create ({
           fontWeight: '600'
         },
         boxsmallfont:{
-          fontSize: 13,
+          fontSize: 12,
           textAlign: 'left',
           margin: 5,
           fontWeight: '900'
@@ -133,6 +138,11 @@ const styles = StyleSheet.create ({
           borderRadius:100,
           padding:10,
           backgroundColor:'#4F7942',
+          borderColor:'#4F7942',
+          borderWidth:0.9,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4
         },
         boxbutton:{
           fontSize:18,
