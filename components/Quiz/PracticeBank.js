@@ -168,30 +168,34 @@ class PracticeBank extends Component {
             return (
               <View key={index} style = {styles.box2}>
                 <View style = {styles.box4}>
-                  <View style = {styles.box5}>
-                    <Text key={index} style = {styles.boxfont}>Q{this.state.index + 1}) {data.question}</Text>
-                    <TouchableOpacity onPress={() => speak(data.question)}>
-                    <Icon name="volume-up" size={30} />
-                    </TouchableOpacity>
+                  <View style={styles.numberbox}>
+                    <Text style = {styles.numberq}>{this.state.index + 1}</Text>
                   </View>
+                  <View style = {styles.box5}>
+                    <Image  source={require('../img/qsymbol.jpg')} style={{width: 30 , height: 30}}></Image>
+                    <Text key={index} style = {styles.boxfont}>{data.question}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => speak(data.question)}>
+                    <Icon name="volume-up" size={30} style = {{ marginStart: 2 }} />
+                  </TouchableOpacity>
                   {data.getcorrectansid.filePath == '' ? <Text></Text>: 
                   <Text></Text>}
                   {/* {data.filePath == null? 
                   <View></View>:
                   <Image source={{uri:data.filePath}} style={{ width: 75, height: 75, backgroundColor:'#000' }}  />} */}
-                  <View style = {styles.box5}>
+                  {/* <View style = {styles.box5}>
                     {data.getcorrectansid.filePath == '' ? <Text></Text>:<Image source={{uri: data.getcorrectansid.filePath}}
                     style={{width: 100,height:100}} />}
                     <TouchableOpacity style = {styles.languagebutton} onPress={() => this.setTranslatorModalVisible(true)} >
                     <Icon name="language" size={30} color={'#fff'}/>
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                 </View>
                 <TouchableOpacity style = { this.state.correctOption === data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
-                  <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
+                  <Text style = {this.state.correctOption === data.getchoice1stid.id ? styles.correctsubfont : styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
                 </TouchableOpacity>
                 <TouchableOpacity style = {this.state.correctOption === data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
-                  <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+                  <Text style = {this.state.correctOption ===data.getchoice2ndid.id ? styles.correctsubfont : styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
                 </TouchableOpacity >
                 {data.getchoice3rdid == null ? <Text></Text>: <TouchableOpacity style = {this.state.correctOption === data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
                   <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
@@ -304,15 +308,15 @@ class PracticeBank extends Component {
           </View>
           {/** End of Translator modal */}
           {this.state.index+1 == (totalQ+1) ? <View></View>:
-            <View style = {styles.box12}>
+            <View style = {styles.footerBox}>
               <View style = {styles.show}>
               <View style = {styles.right}>
               <Text style = {styles.boxfontcolor}><Icon name="check" size={25} color="#fff" />
-              : {this.state.writeAnswer}</Text>
+               {this.state.writeAnswer}</Text>
               </View>  
               <View style = {styles.wrong}>
               <Text style = {styles.boxfontcolor}><Icon name="close" size={25} color="#fff"/>
-                : {this.state.wrongAnswer}</Text>
+               {this.state.wrongAnswer}</Text>
               </View>
               </View> 
               <TouchableOpacity onPress={() => this.setExplainModalVisible(true)}>
@@ -366,11 +370,10 @@ const styles = StyleSheet.create ({
            paddingRight:5
          },
          box31:{
-            borderRadius:5,
+           borderRadius:5,
            width:'25%',
            height:'90%',
            backgroundColor:'#008080',
-           
          },
          languagebutton:{
           backgroundColor:'#008080',
@@ -387,12 +390,27 @@ const styles = StyleSheet.create ({
           // shadowColor:'blue'
          },
          box2:{
-            marginTop: 20,
-            padding:10
+          backgroundColor:'#fff',
+          borderRadius:5,
+          margin:4,
+          padding:4,
+          borderColor:'#96271f',
+          borderWidth:0.5,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
           },
           box1:{
-            borderTopColor:'#000',
-            borderTopWidth:1,
+            borderRadius: 10,
+            margin:4,
+            padding:4,
+            borderColor:'#96271f',
+            borderWidth:0.5,
+            shadowColor:'#96271f',
+            shadowOpacity:0.3,
+            shadowRadius: 0.4,
+            // borderTopColor:'#000',
+            // borderTopWidth:1,
             backgroundColor:'#fff',
             paddingRight:'10%',
             paddingTop:'2%',
@@ -404,19 +422,20 @@ const styles = StyleSheet.create ({
       //     borderTopWidth:1
       //  },
          boxCorrect:{
-          borderTopColor:'#000',
-          borderTopWidth:1,
+          color:'#ffff',
+          margin:4,
+          padding:4,
+          borderRadius: 10,
+          borderColor:'#008000',
+          borderWidth:0.5,
+          shadowColor:'#008000',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
+          // borderTopColor:'#000',
+          // borderTopWidth:1,
           backgroundColor:'#008000',
           paddingRight:'10%',
           paddingTop:'2%',
-
-          // borderTopColor:'#000',
-          // borderTopWidth:1,
-          // backgroundColor:'#008000',
-          // paddingRight:'10%',
-          // paddingTop:'2%',
-          // borderWidth: 5,
-          // borderColor: '#008000',
          },
          box4:{
           backgroundColor:'#fff',
@@ -439,7 +458,16 @@ const styles = StyleSheet.create ({
             fontWeight:'800',
             margin: 10
           },
+          correctsubfont:{
+            fontSize: 18,
+            fontWeight:'800',
+            margin: 10,
+            color:'#fff'
+          },
           box5:{
+            margin:0,
+            padding:0,
+            flex: 1,
             flexDirection:'row',
             justifyContent:'space-between',
           },
@@ -561,5 +589,34 @@ const styles = StyleSheet.create ({
         fontSize:18,
         textAlign: 'center',
         color:'red'
+      },
+      footerBox:{
+        borderBottomColor:'#96271f',
+        borderTopColor:'#008000',
+        borderWidth:0.5,
+        shadowColor:'#008000',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
+        backgroundColor:'#fff',
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent:'space-around',
+        paddingTop:'5%',
+        paddingBottom:'5%',
+        position: 'relative',
+        bottom: 0
+      },
+      numberq:{
+        textAlign:'center',
+        fontSize:20,
+        color: '#fff',
+        fontWeight:'800'
+      },
+      numberbox:{
+        alignContent:'flex-end',
+        borderRadius:80,
+        padding:8,
+        width:40,
+        backgroundColor: "#96271f",
       }
  })
