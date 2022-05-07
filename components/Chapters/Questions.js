@@ -77,65 +77,71 @@ class Questions extends Component {
 export default Questions
 
 const styles = StyleSheet.create ({
-    box1:{
-      marginTop: 10,
-      borderRadius:5,
-    //   height:100,
-      backgroundColor:'#fff',
-      padding:15,
-      width:'100%'
+  box1:{
+    marginTop: 10,
+    borderRadius:5,
+  //   height:100,
+    backgroundColor:'#fff',
+    padding:15,
+    width:'100%',
+    borderColor:'#96271f',
+    borderWidth:0.5,
+    shadowColor:'#96271f',
+    shadowOpacity:0.3,
+    shadowRadius: 0.4,
+  },
+      scroll:{
+          padding: 10,
+          backgroundColor:'transparent'
+       },
+        boxfont:{
+          alignContent:'center',
+          flex: 1, 
+          flexWrap: 'wrap',
+          fontSize: 16,
+          color: '#000',
+          fontWeight:'500',
+          margin: 5
         },
-        scroll:{
-            padding: 10,
-            backgroundColor:'transparent'
-         },
-          boxfont:{
-            flex: 1, 
-            flexWrap: 'wrap',
-            fontSize: 20,
-            color: '#000',
-            fontWeight:'800',
-            margin: 10
-          },
-          boxsubfont:{
-            fontSize: 16,
-            textAlign: 'left',
-            margin: 5,
-            fontWeight: '600'
-          },
-          boxsmallfont:{
-            fontSize: 13,
-            textAlign: 'left',
-            margin: 5,
-            fontWeight: '900'
-          },
-          boxfontcolor:{
-            fontSize: 16,
-            fontWeight:'900',
-            textAlign: 'right',
-          },
-          box12:{
-            display:'flex',
-            flexDirection:'row'
-          },
-          box13:{
-            display:'flex',
-            justifyContent:'space-between',
-            flexDirection:'row'
-          },
-          box14:{
-            borderRadius: 100,
-            backgroundColor:'#4F7942',
-            marginRight:2,
-            width: 50,
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          boxbutton:{
-            fontSize:18,
-            fontWeight:'800',
-            textAlign:'center',
-            color:'#fff'
-          },
+        boxsubfont:{
+          fontSize: 16,
+          textAlign: 'left',
+          margin: 5,
+          fontWeight: '600'
+        },
+        boxsmallfont:{
+          fontSize: 13,
+          textAlign: 'left',
+          margin: 5,
+          fontWeight: '900'
+        },
+        boxfontcolor:{
+          fontSize: 16,
+          fontWeight:'900',
+          textAlign: 'right',
+        },
+        box12:{
+          display:'flex',
+          flexDirection:'row'
+        },
+        box13:{
+          padding:0,
+          display:'flex',
+          justifyContent:'space-between',
+          flexDirection:'row'
+        },
+        box14:{
+          borderRadius: 0,
+          backgroundColor:'#4F7942',
+          width: 50,
+          height: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        boxbutton:{
+          fontSize:18,
+          fontWeight:'800',
+          textAlign:'center',
+          color:'#fff'
+        },
  })

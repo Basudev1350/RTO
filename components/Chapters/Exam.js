@@ -82,8 +82,13 @@ const styles = StyleSheet.create ({
   //   height:100,
     backgroundColor:'#fff',
     padding:15,
-    width:'100%'
-      },
+    width:'100%',
+    borderColor:'#96271f',
+    borderWidth:0.5,
+    shadowColor:'#96271f',
+    shadowOpacity:0.3,
+    shadowRadius: 0.4,
+  },
       scroll:{
           padding: 10,
           backgroundColor:'transparent'
