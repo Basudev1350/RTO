@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator,StatusBar } from 'react-native';
+import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator,StatusBar,ImageBackground } from 'react-native';
 class Home extends Component {
   constructor(){
     super();
@@ -16,14 +16,26 @@ class Home extends Component {
   }
   render() {
     return (
-    <ScrollView  style = {styles.scroll}>
-         {
-           this.state.loader ?
+        <ImageBackground
+          style={{
+            flex:1,
+            height: '100%',
+            padding:0,
+            width: '100%',
+            backgroundSize: 'cover',
+            justifyContent:'center',
+            zIndex: -1,
+          }}
+          source={require('./img/bg.jpg')}
+        >
+        <ScrollView  style = {styles.scroll}>
+          {
+            this.state.loader ?
             <ActivityIndicator size={100} color="green" marginTop={200} /> 
-           :<ScrollView>
+            :<ScrollView>
             <StatusBar backgroundColor = "#228B22" barStyle = "dark-content" hidden = {false}  translucent = {true} />  
-           <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
-           <View style = {styles.box1} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
+            <View style = {styles.box1} >
             <View style = {styles.box12}>
               <Image
               style={{width: 100, height: 100}} 
@@ -34,54 +46,55 @@ class Home extends Component {
               <Text style = {styles.boxfont}>Banca delle domande</Text>
               <Text style = {styles.boxsubfont}>Elenco di domande e risposte e significato dei segnali stradali</Text>
             </View>
-           </View>
-           </TouchableOpacity>
-         <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
-           <View style = {styles.box1}>
-           <View style = {styles.box12}>
+            </View>
+            </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
+            <View style = {styles.box1}>
+            <View style = {styles.box12}>
             <Image
               style={{width: 100, height: 100}} 
               source={require('./img/practice.jpg')}
             />
-           </View>
-           <View style = {styles.box2}>
+            </View>
+            <View style = {styles.box2}>
             <Text style = {styles.boxfont}>Pratica</Text>
             <Text style = {styles.boxsubfont}>Metti alla prova le tue conoscenze senza preoccuparti del tempo</Text>
-           </View>
-           </View>
-         </TouchableOpacity>
-         <TouchableOpacity onPress={() => this.props.navigation.navigate('Exam')}>
-           <View style = {styles.box1} >
-           <View style = {styles.box12}>
-           <Image
+            </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Exam')}>
+            <View style = {styles.box1} >
+            <View style = {styles.box12}>
+            <Image
             style={{width: 100, height: 100}} 
             source={require('./img/exam.jpg')}
-           />
-           </View>
-           <View style = {styles.box2}>
+            />
+            </View>
+            <View style = {styles.box2}>
             <Text style = {styles.boxfont}>Esame</Text>
             <Text style = {styles.boxsubfont}>Il test legato al tempo e alle domande è esattamente lo stesso del test RTO effettivo</Text>
-           </View>
-           </View>    
-         </TouchableOpacity>
-         <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
-           <View style = {styles.box1} >
-           <View style = {styles.box12}>
-             <Image
-            style={{width: 50, height: 50}} 
-            source={require('./img/s967.png')}
-           />
-           <Text style = {styles.boxfont}>Segnali stradali</Text>
-           </View>
-           <View style = {styles.box2}>
-           <Text style = {styles.boxsubfont}>Elenco dei 
-           significati dei segnali stradali</Text>
-           </View>
-           </View>
-         </TouchableOpacity>
+            </View>
+            </View>    
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
+            <View style = {styles.box1} >
+            <View style = {styles.box12}>
+              <Image
+                style={{width: 100, height: 100}} 
+                source={require('./img/signal.jpg')}
+              />
+            </View>
+            <View style = {styles.box2}>
+              <Text style = {styles.boxfont}>Segnali stradali</Text>
+              <Text style = {styles.boxsubfont}>Elenco dei 
+              significati dei segnali stradali</Text>
+            </View>
+            </View>
+          </TouchableOpacity>
           </ScrollView>
-         }
-          </ScrollView>   
+          }
+        </ScrollView>
+      </ImageBackground> 
     );
   }
 }
@@ -107,8 +120,7 @@ const styles = StyleSheet.create ({
         },
         scroll:{
             padding: 10,
-            backgroundColor:'#fff'
-            
+            backgroundColor:'transparent',
          },
          box2:{
           display:'flex',
