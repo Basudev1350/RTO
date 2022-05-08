@@ -197,10 +197,10 @@ class PracticeBank extends Component {
                   </View> */}
                 </View>
                 <TouchableOpacity style = { this.state.correctOption == data.getchoice1stid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice1stid.id,data.getcorrectansid.explanation,1)}>
-                  <Text style = {this.state.correctOption == data.getchoice1stid.id ? styles.correctsubfont : styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
+                  <Text style = {styles.boxsubfont}>a ) {data.getchoice1stid.answer}</Text>  
                 </TouchableOpacity>
                 <TouchableOpacity style = {this.state.correctOption == data.getchoice2ndid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice2ndid.id,data.getcorrectansid.explanation,2)}>
-                  <Text style = {this.state.correctOption == data.getchoice2ndid.id ? styles.correctsubfont : styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
+                  <Text style = {styles.boxsubfont}>b ) {data.getchoice2ndid.answer}</Text>  
                 </TouchableOpacity >
                 {data.getchoice3rdid == null ? <Text></Text>: <TouchableOpacity style = {this.state.correctOption == data.getchoice3rdid.id ? styles.boxCorrect:styles.box1} onPress={() => this.checkAnswer(data.getcorrectansid.id,data.getchoice3rdid.id,data.getcorrectansid.explanation,3)}>
                   <Text style = {styles.boxsubfont}>c)  {data.getchoice3rdid.answer}</Text>  
@@ -411,6 +411,7 @@ const styles = StyleSheet.create ({
           shadowRadius: 0.4,
           },
           box1:{
+            color:'#000',
             borderRadius: 10,
             margin:4,
             padding:4,
@@ -432,7 +433,7 @@ const styles = StyleSheet.create ({
       //     borderTopWidth:1
       //  },
          boxCorrect:{
-          color:'#ffff',
+          color:'#fff',
           margin:4,
           padding:4,
           borderRadius: 10,
@@ -443,7 +444,7 @@ const styles = StyleSheet.create ({
           shadowRadius: 0.4,
           // borderTopColor:'#000',
           // borderTopWidth:1,
-          backgroundColor:'#008000',
+          backgroundColor:'#baf8ba',
           paddingRight:'10%',
           paddingTop:'2%',
          },
