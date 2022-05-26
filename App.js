@@ -27,6 +27,7 @@ import ExamBank from './components/Quiz/ExamBank';
 import PracticeBank from './components/Quiz/PracticeBank';
 import QuestionBank from './components/Quiz/QuestionBank';
 import Signal from './components/Signal';
+import {strings} from './components/language/Localization';
 // import TranslatorComponent from './components/TranslatorComponent';
 
 const Stack = createStackNavigator();
@@ -37,9 +38,9 @@ function StackRoutes() {
     <Stack.Navigator
       screenOptions={{
           headerStyle: {
-            backgroundColor: '#fff',
+            backgroundColor: '#ff735b',
           },
-          headerTintColor: '#000',
+          headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
           },

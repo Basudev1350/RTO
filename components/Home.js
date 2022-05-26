@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator,StatusBar,ImageBackground } from 'react-native';
+import { ScrollView,TouchableOpacity,Image,Text, View,StyleSheet, ActivityIndicator,StatusBar,ImageBackground,Picker } from 'react-native';
+import {strings} from './language/Localization';
 class Home extends Component {
   constructor(){
     super();
@@ -13,6 +14,18 @@ class Home extends Component {
     setTimeout(()=>{
       this.setState({loader:false})
     },3000)
+  }
+  overLang(){
+    strings.setLanguage('ben');
+    this.setState({});
+  }
+  engLang(){
+    strings.setLanguage('eng');
+    this.setState({});
+  }
+  itLang(){
+    strings.setLanguage('it');
+    this.setState({});
   }
   render() {
     return (
@@ -33,7 +46,8 @@ class Home extends Component {
             this.state.loader ?
             <ActivityIndicator size={100} color="green" marginTop={200} /> 
             :<ScrollView>
-            <StatusBar backgroundColor = "#228B22" barStyle = "dark-content" hidden = {false}  translucent = {true} />  
+            <StatusBar backgroundColor = "#78e178" barStyle = "white" hidden = {false}  translucent = {true} />  
+             <View style={styles.box}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
             <View style = {styles.box1} >
             <View style = {styles.box12}>
@@ -43,12 +57,12 @@ class Home extends Component {
               />
             </View>
             <View style = {styles.box2}>
-              <Text style = {styles.boxfont}>Banca delle domande</Text>
-              <Text style = {styles.boxsubfont}>Elenco di domande e risposte e significato dei segnali stradali</Text>
+              <Text style = {styles.boxfont}>{strings.banca}</Text>
+              <Text style = {styles.boxsubfont}>{strings.bancasubtitle}</Text>
             </View>
             </View>
             </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Practice')}>
             <View style = {styles.box1}>
             <View style = {styles.box12}>
             <Image
@@ -57,12 +71,12 @@ class Home extends Component {
             />
             </View>
             <View style = {styles.box2}>
-            <Text style = {styles.boxfont}>Pratica</Text>
-            <Text style = {styles.boxsubfont}>Metti alla prova le tue conoscenze senza preoccuparti del tempo</Text>
+            <Text style = {styles.boxfont}>{strings.pratica}</Text>
+            <Text style = {styles.boxsubfont}>{strings.praticasubtitle}</Text>
             </View>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Exam')}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Exam')}>
             <View style = {styles.box1} >
             <View style = {styles.box12}>
             <Image
@@ -71,12 +85,12 @@ class Home extends Component {
             />
             </View>
             <View style = {styles.box2}>
-            <Text style = {styles.boxfont}>Esame</Text>
-            <Text style = {styles.boxsubfont}>Il test legato al tempo e alle domande è esattamente lo stesso del test RTO effettivo</Text>
+            <Text style = {styles.boxfont}>{strings.Esame}</Text>
+            <Text style = {styles.boxsubfont}>{strings.Esamesubtitle}</Text>
             </View>
             </View>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Signal')}>
             <View style = {styles.box1} >
             <View style = {styles.box12}>
               <Image
@@ -85,12 +99,55 @@ class Home extends Component {
               />
             </View>
             <View style = {styles.box2}>
-              <Text style = {styles.boxfont}>Segnali stradali</Text>
-              <Text style = {styles.boxsubfont}>Elenco dei 
-              significati dei segnali stradali</Text>
+              <Text style = {styles.boxfont}>{strings.Segnali}</Text>
+              <Text style = {styles.boxsubfont}>{strings.Segnalisubtitle}</Text>
             </View>
             </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            </View>
+            <View style = {styles.box123} >
+            <TouchableOpacity onPress={() => {this.overLang()}}>
+            <View style = {styles.box12}>
+            <View style = {styles.box12}>
+            <Image
+                style={{width: 40, height: 40}} 
+                source={require('../assets/googletranslate.png')}
+              />
+            </View>
+            <View style = {styles.box12}>
+             
+                <Text style = {styles.boxsubfont2}>বাংলা</Text>
+              {/* </TouchableOpacity> */}
+            </View>
+            </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {this.engLang()}}>
+            <View style = {styles.box12}>
+            <View style = {styles.box12}>
+            <Image
+                style={{width: 40, height: 40}} 
+                source={require('../assets/googletranslate.png')}
+              />
+            </View>
+            <View style = {styles.box12}>
+                <Text style = {styles.boxsubfont2}>English</Text>
+            </View>
+            </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {this.itLang()}}>
+            <View style = {styles.box12}>
+            <View style = {styles.box12}>
+            <Image
+                style={{width: 40, height: 40}} 
+                source={require('../assets/googletranslate.png')}
+              />
+            </View>
+            <View style = {styles.box12}>
+                <Text style = {styles.boxsubfont2}>Italia</Text>
+            </View>
+            </View>
+            </TouchableOpacity>
+            </View>
           </ScrollView>
           }
         </ScrollView>
@@ -101,6 +158,9 @@ class Home extends Component {
 export default Home;
 
 const styles = StyleSheet.create ({
+  box:{
+    padding: 10
+  },
     box1:{
       display:'flex',
       flexDirection:'row',
@@ -118,8 +178,19 @@ const styles = StyleSheet.create ({
       alignContent:'center',
       width:'100%'
         },
+        box123:{
+          display:'flex',
+          flexDirection:'row',
+          marginTop: 5,
+          backgroundColor:'#ff735b',
+          paddingTop:10,
+          paddingBottom:10,
+          justifyContent:'space-around',
+          flex: 1,
+          marginTop: '35%'
+        },
         scroll:{
-            padding: 10,
+            // padding: 10,
             backgroundColor:'transparent',
          },
          box2:{
@@ -136,14 +207,19 @@ const styles = StyleSheet.create ({
           },
           boxsubfont:{
             padding: 4,
-            // flex: 5, 
             flexWrap: 'wrap',
-            // margin: 10,
             flexShrink: 1,
             fontSize: 15,
             color: '#000',
             textAlign: 'left',
-            // marginTop: 5
+          },
+          boxsubfont2:{
+            padding: 4,
+            flexWrap: 'wrap',
+            flexShrink: 1,
+            fontSize: 18,
+            color: '#fff',
+            textAlign: 'left',
           },
           box12:{
             display:'flex',

@@ -28,6 +28,18 @@ class Practice extends Component {
         this.props.navigation.navigate('Home');
       });
   }
+  // bengLang(){
+  //   axios.get('https://rto-patente.herokuapp.com/api/translate-data-bengali?_token=H9t16nlGZdeOc9WQjsWnN5WaTUIbJ0qdqbCgdbfZ&data=')
+  //   .then(res => {
+  //     if(res != null)
+  //     {
+  //       const chapters     = res.data;
+  //       this.setState({ chapters });
+  //     }
+  //   }).catch(error => {
+  //     Alert.alert("OOps ! Server issue");
+  //   });
+  // }
   render() {
     return (
       <ImageBackground
@@ -61,6 +73,14 @@ class Practice extends Component {
                   <Pressable style={{justifyContent: 'center',alignItems: 'center'}} onPress={() => this.props.navigation.navigate('PracticeContent',{chapterId:data.id})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
+                </View>
+                <View style = {styles.box12}>
+                <TouchableOpacity>
+                  <Text>English</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text>Bengali</Text>
+                </TouchableOpacity>
                 </View>
               </View>
             </TouchableOpacity>
