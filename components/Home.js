@@ -187,7 +187,7 @@ const styles = StyleSheet.create ({
           paddingBottom:10,
           justifyContent:'space-around',
           flex: 1,
-          marginTop: '35%'
+          marginTop: '38%'
         },
         scroll:{
             // padding: 10,
