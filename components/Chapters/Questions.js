@@ -7,7 +7,9 @@ class Questions extends Component {
   constructor(){
     super();
     this.state={
-      loader:true
+      loader:true,
+      translated:"",
+      cardNo:''
     }
   }
   state = {
@@ -27,6 +29,30 @@ class Questions extends Component {
       Alert.alert("OOps ! Server issue");
       this.props.navigation.navigate('Home');
     });
+  }
+  englang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({translated : response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  benlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({translated : response2.data , cardNo : index}));
+         
+        });
+   
   }
   render() {
     
@@ -62,6 +88,15 @@ class Questions extends Component {
                   <Pressable style={{justifyContent: 'center',alignItems: 'center'}} onPress={() => this.props.navigation.navigate('QuestionsContent',{chapterId:data.id})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
+                </View>
+                <Text style = {styles.boxfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
+                <View style = {styles.box12}>
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.chapterTitle,index)} >  
+                    <Text style = {styles.buttontext}>English</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.chapterTitle,index)} >  
+                    <Text style = {styles.buttontext}>Bengali</Text>  
+                  </TouchableOpacity> 
                 </View>
               </View>
             </TouchableOpacity>
@@ -144,4 +179,21 @@ const styles = StyleSheet.create ({
           textAlign:'center',
           color:'#fff'
         },
+        buttontext:{
+          fontSize:15,
+          fontWeight:'800',
+          textAlign:'center',
+          color:'#fff'
+         },
+          box15:{
+            borderRadius:100,
+            padding:8,
+            backgroundColor:'#4F7942',
+            borderColor:'#4F7942',
+            borderWidth:0.9,
+            shadowColor:'#96271f',
+            shadowOpacity:0.3,
+            shadowRadius: 0.4,
+            marginRight:5
+          }
  })

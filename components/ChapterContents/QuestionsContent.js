@@ -7,7 +7,11 @@ class QuestionsContent extends Component {
   constructor(){
     super();
     this.state={
-      loader:true
+      loader:true,
+      cardNo:'',
+      cardNo2:'',
+      translated:'',
+      translated2:''
     }
   }
   state = {
@@ -28,6 +32,54 @@ class QuestionsContent extends Component {
       Alert.alert("OOps ! Server issue");
       this.props.navigation.navigate('Home');
     });
+  }
+  englang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  englang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
+  benlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  benlang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
   }
   render() {
     return (
@@ -57,21 +109,28 @@ class QuestionsContent extends Component {
                   style={{width: 50, height: 50}} />
                   <Text style = {styles.boxfont}>{data.chapterTitle}</Text>
                 </View>
+                <Text style = {styles.boxsubfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
                 <View  style = {styles.box13} >
+                <View  style = {styles.box16} >
                   <Text  style = {styles.boxsubfont} numberOfLines={4}>{data.chapterSubTitle}</Text>
+                  <Text style = {styles.boxsubfont}> {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
+                  </View>
+                  <View>
                   <Pressable onPress={() => this.props.navigation.navigate('QuestionBank',{chapterId:data.id,totalQ:data.noOfQuestions})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
+                  </View>
                 </View>
                 <View  style = {styles.box12} >
                   <View  style = {styles.box14} >
                     <Text  style = {styles.boxbutton} >{data.noOfQuestions} Questions</Text>
                   </View>
-                  {/* <Pressable>
-                  <View  style = {styles.box15} >
-                    <Text  style = {styles.boxbutton} >Open chapter</Text>
-                  </View>
-                  </Pressable> */}
+                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.englang(data.chapterTitle,index)} onPressIn={()=>this.englang2(data.chapterSubTitle,index)}>  
+                    <Text style = {styles.boxbutton}>English</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.benlang(data.chapterTitle,index)} onPressIn={()=>this.benlang2(data.chapterSubTitle,index)} >  
+                    <Text style = {styles.boxbutton}>Bengali</Text>  
+                  </TouchableOpacity> 
                 </View>
               </View>
             </TouchableOpacity>
@@ -155,4 +214,9 @@ const styles = StyleSheet.create ({
           textAlign:'center',
           color:'#fff'
         },
+        box16:{
+          display:'flex',
+          justifyContent:'flex-start',
+          flexDirection:'row'
+        }
  })
