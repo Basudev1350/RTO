@@ -20,6 +20,7 @@ class ExamBank extends Component  {
     answeredOption: 0,
     correctOption:  0,
     toggle:true,
+    modalVisible: true
    
   };
   constructor(props) {
@@ -39,6 +40,13 @@ class ExamBank extends Component  {
       loader:true,
       pressed:false,
       checked:true,
+      modalVisible: false,
+      cardNo:'',
+      translated:'',
+      cardNo2:'',
+      translated2:'',
+      cardNo3:'',
+      translated3:''
     };
     
   };
@@ -56,6 +64,9 @@ class ExamBank extends Component  {
     //   alert(error)
     //   }
     //   }
+ setModalVisible = (visible) => {
+   this.setState({ modalVisible: visible });
+  }
   onNext = () => {
     let i = this.state.index < this.state.questions.length ? this.state.index += 1 : 0;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
@@ -64,12 +75,12 @@ class ExamBank extends Component  {
     let i = this.state.index < this.state.questions.length ? this.state.index -=1:1                                           ;
     this.setState({ index: i ,answeredOption: 0,correctOption: 0});
   };
-  setExplainModalVisible = (visible) => {
-    this.setState({ explainModalVisible: visible });
-  };
-  setTranslatorModalVisible = (visible) => {
-    this.setState({ translatorModalVisible: visible });
-  };
+  // setExplainModalVisible = (visible) => {
+  //   this.setState({ explainModalVisible: visible });
+  // };
+  // setTranslatorModalVisible = (visible) => {
+  //   this.setState({ translatorModalVisible: visible });
+  // };
   checkAnswer = (answerId,questionId,explain,answeredOption) =>{
     var explain = explain;
     var correctOption = this.state.correctOption;
@@ -92,6 +103,42 @@ class ExamBank extends Component  {
     var scorePercentage = (this.state.writeAnswer / totalQ)*100 ;
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId,scorePercentage :Math.round(scorePercentage)});
   };
+  benlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  benlang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
+  benlang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated3 :response2.data , cardNo3 : index}));
+         
+        });
+   
+  }
   renderResult(){
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(this.state.index+1);
@@ -173,8 +220,9 @@ class ExamBank extends Component  {
     // const {toggle} = this.state;
     // const buttonBg = toggle ? "blue" : "white";
   
-    const { explainModalVisible } = this.state.explainModalVisible;
-    const {translatorModalVisible} = this.state.translatorModalVisible;
+    // const { explainModalVisible } = this.state.explainModalVisible;
+    // const {translatorModalVisible} = this.state.translatorModalVisible;
+    const { modalVisible } = this.state;
     const { chapterId ,totalQ} = this.props.route.params;
       return (
         <ImageBackground
@@ -215,9 +263,42 @@ class ExamBank extends Component  {
                     <Image  source={require('../img/qsymbol.jpg')} style={{width: 30 , height: 30}}></Image>
                     <Text style = {styles.boxfont}>{data.question}</Text>
                   </View>
+                  <View style={styles.box123}>
                   <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} style = {{ marginStart: 2 }} />
                   </TouchableOpacity>
+                  <View style={styles.centeredView}>
+                 <Modal
+                  transparent={true}
+                  visible={this.state.modalVisible}
+                  onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  this.setModalVisible(!this.state.modalVisible);
+                  }}
+                  >
+                 <View style={styles.centeredView2}>
+                <View style={styles.modalView}>
+                <Text style = {styles.modalText}> {this.state.cardNo == index ? this.state.translated : '' } </Text>
+                <Text style = {styles.modalText}> a) {this.state.cardNo2 == index ? this.state.translated2 : '' } </Text>
+                <Text style = {styles.modalText}> b) {this.state.cardNo3 == index ? this.state.translated3 : '' } </Text>
+                <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!this.state.modalVisible) } 
+                 >
+                <Text style={styles.textStyle}>Hide</Text>
+              </Pressable>
+              </View>
+              </View>
+             </Modal>
+             <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible) || this.benlang(data.question,index) ||
+                this.benlang2(data.getchoice1stid.answer,index) || this.benlang3(data.getchoice2ndid.answer,index) }>
+              <Image
+                style={{width: 40, height: 40}} 
+                source={require('../img/googletranslate.png')}
+              />
+             </TouchableOpacity>
+            </View>
+            </View>
                   {data.getcorrectansid.filePath == '' ? <Text></Text>: 
                   <Text></Text>}
                   <View style = {styles.box53}>
@@ -287,7 +368,37 @@ class ExamBank extends Component  {
                  }
                  </RadioButton.Group>
                 </View>
-                
+                {/* <View style={styles.centeredView}>
+                 <Modal
+                  transparent={true}
+                  visible={this.state.modalVisible}
+                  onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  this.setModalVisible(!this.state.modalVisible);
+                  }}
+                  >
+                 <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                <Text style = {styles.modalText}> {this.state.cardNo == index ? this.state.translated : null } </Text>
+                <Text style = {styles.modalText}> a) {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
+                <Text style = {styles.modalText}> b) {this.state.cardNo3 == index ? this.state.translated3 : null } </Text>
+                <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!this.state.modalVisible) || this.benlang(data.question,index) ||
+                this.benlang2(data.getchoice1stid.answer,index) || this.benlang3(data.getchoice2ndid.answer,index)  } 
+                 >
+                <Text style={styles.textStyle}>Hide</Text>
+              </Pressable>
+              </View>
+              </View>
+             </Modal>
+             <Pressable
+             style={[styles.button, styles.buttonOpen]}
+             onPress={() => this.setModalVisible(true)}
+              >
+              <Text style={styles.textStyle}>Bengali</Text>
+             </Pressable>
+            </View> */}
                 {/* <View style= {styles.box2}>
                   <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
                 </View> */}
@@ -295,7 +406,7 @@ class ExamBank extends Component  {
             );
           }
         })}
-
+          
           {/** Translator modal */}
           <View style={styles.centeredView}>
             <Modal
@@ -321,6 +432,7 @@ class ExamBank extends Component  {
                   </Pressable>
                 </View>
               </View> */}
+
               <View style={styles.centeredView}>
               <View style={styles.modalView}>
               {this.state.questions.slice(this.state.index, this.state.index+1).map((data,index) => {
@@ -331,6 +443,42 @@ class ExamBank extends Component  {
                 }else{
                 return (
                 <View key={index}>
+                   <View style={styles.box123}>
+                  <TouchableOpacity onPress={() => speak(data.question)}>
+                    <Icon name="volume-up" size={30} style = {{ marginStart: 2 }} />
+                  </TouchableOpacity>
+                  <View style={styles.centeredView}>
+                 <Modal
+                  transparent={true}
+                  visible={this.state.modalVisible}
+                  onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  this.setModalVisible(!this.state.modalVisible);
+                  }}
+                  >
+                 <View style={styles.centeredView2}>
+                <View style={styles.modalView}>
+                <Text style = {styles.modalText}> {this.state.cardNo == index ? this.state.translated : '' } </Text>
+                <Text style = {styles.modalText}> a) {this.state.cardNo2 == index ? this.state.translated2 : '' } </Text>
+                <Text style = {styles.modalText}> b) {this.state.cardNo3 == index ? this.state.translated3 : '' } </Text>
+                <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!this.state.modalVisible) } 
+                 >
+                <Text style={styles.textStyle}>Hide</Text>
+              </Pressable>
+              </View>
+              </View>
+             </Modal>
+             <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible) || this.benlang(data.question,index) ||
+                this.benlang2(data.getchoice1stid.answer,index) || this.benlang3(data.getchoice2ndid.answer,index) }>
+              <Image
+                style={{width: 40, height: 40}} 
+                source={require('../img/googletranslate.png')}
+              />
+             </TouchableOpacity>
+            </View>
+            </View>
                   <View  style = {styles.box12} >
                     <Text  style = {styles.boxfont} >{this.state.index + 1}) {data.question}</Text>
                   </View>
@@ -381,6 +529,35 @@ class ExamBank extends Component  {
               </Pressable> 
          } 
           </View>
+          {/* <View style={styles.centeredView}>
+        <Modal
+        
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            this.setModalVisible(!this.state.modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!this.state.modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => this.setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable>
+          </View> */}
           </ScrollView>
         }
         </ScrollView>
@@ -442,9 +619,6 @@ const styles = StyleSheet.create ({
             paddingRight:'10%',
             paddingTop:'2%',
          },
-        //  boxxx:{
-        //   backgroundColor:'#000',
-        //  },
          boxyy:{
           backgroundColor:'#fff',
          },
@@ -502,6 +676,11 @@ const styles = StyleSheet.create ({
             paddingTop:'5%',
             paddingBottom:'5%'
         },
+        box123:{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-around',
+      },
         right:{
           backgroundColor:"#008080",
           borderTopStartRadius:10,
@@ -535,9 +714,14 @@ const styles = StyleSheet.create ({
       },
       centeredView: {
         flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
+      },
+      centeredView2: {
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 5
       },
       modalView: {
         margin: 20,
