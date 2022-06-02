@@ -32,7 +32,14 @@ class PracticeBank extends Component {
       translatorModalVisible: false,
       answeredOption: 0,
       correctOption:  0,
-      loader:true
+      loader:true,
+      modalVisible: false,
+      cardNo:'',
+      translated:'',
+      cardNo2:'',
+      translated2:'',
+      cardNo3:'',
+      translated3:''
     };
   };
   onPrevious = () => {
@@ -71,6 +78,45 @@ class PracticeBank extends Component {
     var scorePercentage = (this.state.writeAnswer / totalQ)*100 ;
     this.setState({writeAnswer: writeAnswer,wrongAnswer: wrongAnswer,explain: explain,correctOption :answerId,scorePercentage :Math.round(scorePercentage)});
   };
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+   }
+  benlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  benlang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
+  benlang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated3 :response2.data , cardNo3 : index}));
+         
+        });
+   
+  }
   renderResult(){
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(this.state.index+1);
@@ -180,9 +226,42 @@ class PracticeBank extends Component {
                     <Image  source={require('../img/qsymbol.jpg')} style={{width: 30 , height: 30}}></Image>
                     <Text key={index} style = {styles.boxfont}>{data.question}</Text>
                   </View>
+                  <View style={styles.box123}>
                   <TouchableOpacity onPress={() => speak(data.question)}>
                     <Icon name="volume-up" size={30} style = {{ marginStart: 2 }} />
                   </TouchableOpacity>
+                  <View style={styles.centeredView}>
+                 <Modal
+                  transparent={true}
+                  visible={this.state.modalVisible}
+                  onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  this.setModalVisible(!this.state.modalVisible);
+                  }}
+                  >
+                 <View style={styles.centeredView2}>
+                <View style={styles.modalView}>
+                <Text style = {styles.modalText}> {this.state.cardNo == index ? this.state.translated : '' } </Text>
+                <Text style = {styles.modalText}> a) {this.state.cardNo2 == index ? this.state.translated2 : '' } </Text>
+                <Text style = {styles.modalText}> b) {this.state.cardNo3 == index ? this.state.translated3 : '' } </Text>
+                <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!this.state.modalVisible) } 
+                 >
+                <Text style={styles.textStyle}>Hide</Text>
+              </Pressable>
+              </View>
+              </View>
+             </Modal>
+             <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible) || this.benlang(data.question,index) ||
+                this.benlang2(data.getchoice1stid.answer,index) || this.benlang3(data.getchoice2ndid.answer,index) }>
+              <Image
+                style={{width: 40, height: 40}} 
+                source={require('../img/googletranslate.png')}
+              />
+             </TouchableOpacity>
+            </View>
+            </View>
                   {data.getcorrectansid.filePath == '' ? <Text></Text>: 
                   <Text></Text>}
                   {/* {data.filePath == null? 
@@ -654,5 +733,21 @@ const styles = StyleSheet.create ({
         shadowColor:'#96271f',
         shadowOpacity:0.3,
         shadowRadius: 0.4,
-      }
+      },
+      centeredView: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
+      },
+      centeredView2: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 5
+      },
+      box123:{
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'space-around',
+    },
  })

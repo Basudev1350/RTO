@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { ScrollView,Text, View,StyleSheet,ActivityIndicator,ImageBackground } from 'react-native';
+import { ScrollView,Text, View,StyleSheet,ActivityIndicator,ImageBackground,TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 class Questionbank extends Component { 
   constructor(){
     super();
     this.state={
-      loader:true
+      loader:true,
+      cardNo:'',
+      cardNo2:'',
+      translated:'',
+      translated2:''
     }
   }
   state = {
@@ -26,6 +30,54 @@ class Questionbank extends Component {
         this.setState({loader:false})
       },3000)
    }
+   benlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  benlang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
+  englang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  englang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
   render() {
     return (
       <ImageBackground
@@ -52,10 +104,22 @@ class Questionbank extends Component {
               <Text style = {styles.boxfontNo} >Q {index+1}:</Text>
               <Text  style = {styles.boxfont} >{data.question}</Text>
             </View>
+            <View  style = {styles.box12} >
+            <Text style = {styles.boxsubfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
+            </View>
             <View style = {styles.box12} >
               <Text style = {styles.boxsubfontAns} >Ans:</Text>
               <Text style = {styles.boxsubfont} >{data.getcorrectansid.answer}</Text>
+              <Text style = {styles.boxsubfont}> {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
             </View>
+            <View  style = {styles.box12} > 
+                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.benlang(data.question,index) || this.benlang2(data.getcorrectansid.answer,index)}  >  
+                    <Text style = {styles.boxbutton}>Bengali</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.englang(data.question,index) || this.englang2(data.getcorrectansid.answer,index)}  >  
+                    <Text style = {styles.boxbutton}>English</Text>  
+                  </TouchableOpacity> 
+                </View>
           </View>
          );
       })}  
@@ -83,6 +147,16 @@ const styles = StyleSheet.create ({
       shadowColor:'#96271f',
       shadowOpacity:0.3,
       shadowRadius: 0.4,
+        },
+        box14:{
+          borderRadius:100,
+          backgroundColor:'#4F7942',
+          borderColor:'#4F7942',
+          borderWidth:0.9,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
+          marginLeft:5
         },
         scroll:{
             padding: 10,
@@ -125,7 +199,7 @@ const styles = StyleSheet.create ({
           backgroundColor:'#008080'
         },
         boxbutton:{
-          fontSize:18,
+          fontSize:15,
           color:'rgb(241, 226, 226)',
           fontWeight:'800',
           textAlign:'center',
