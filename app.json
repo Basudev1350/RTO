@@ -4,9 +4,9 @@
     "slug": "LMBanglaPatente",
     "version": "1.2.0",
     "orientation": "portrait",
-    "icon": "./assets/RTO.png",
+    "icon": "./assets/rto1.png",
     "splash": {
-      "image": "./assets/RTO.png",
+      "image": "./assets/rto1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,14 +23,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/RTO.png",
+        "foregroundImage": "./assets/rto1.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.srkptech.lmbanglapatente",
       "versionCode": 3
     },
     "web": {
-      "favicon": "./assets/RTO.png"
+      "favicon": "./assets/rto1.png"
     },
     "description": ""
   }

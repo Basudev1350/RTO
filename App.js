@@ -38,7 +38,7 @@ function StackRoutes() {
     <Stack.Navigator
       screenOptions={{
           headerStyle: {
-            backgroundColor: '#ff735b',
+            backgroundColor: '#008b00',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {

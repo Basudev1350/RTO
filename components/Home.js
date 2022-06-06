@@ -117,7 +117,7 @@ class Home extends Component {
             <View style = {styles.box12}>
              
                 <Text style = {styles.boxsubfont2}>বাংলা</Text>
-              {/* </TouchableOpacity> */}
+            
             </View>
             </View>
             </TouchableOpacity>
@@ -187,7 +187,8 @@ const styles = StyleSheet.create ({
           paddingBottom:10,
           justifyContent:'space-around',
           flex: 1,
-          marginTop: '38%'
+          marginBottom:0,
+          marginTop:'12%',
         },
         scroll:{
             // padding: 10,
