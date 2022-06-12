@@ -27,6 +27,7 @@ import ExamBank from './components/Quiz/ExamBank';
 import PracticeBank from './components/Quiz/PracticeBank';
 import QuestionBank from './components/Quiz/QuestionBank';
 import Signal from './components/Signal';
+import Welcome from './components/Welcome';
 import {strings} from './components/language/Localization';
 // import TranslatorComponent from './components/TranslatorComponent';
 
@@ -51,6 +52,12 @@ function StackRoutes() {
          * Home component
          */
       }
+     <Stack.Screen 
+       options={{headerShown: false}} 
+       name="Welcome" 
+       component={Welcome} 
+       />
+
       <Stack.Screen 
         name="Home" 
         component={Home}
