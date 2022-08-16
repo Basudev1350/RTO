@@ -46,7 +46,7 @@ class Home extends Component {
             this.state.loader ?
             <ActivityIndicator size={100} color="green" marginTop={200} /> 
             :<ScrollView>
-            <StatusBar backgroundColor = "#78e178" barStyle = "white" hidden = {false}  translucent = {true} />  
+            <StatusBar backgroundColor = "#008b00" barStyle = "white" hidden = {false}  translucent = {true} />  
              <View style={styles.box}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Questions')}>
             <View style = {styles.box1} >
