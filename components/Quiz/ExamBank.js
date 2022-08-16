@@ -368,40 +368,7 @@ class ExamBank extends Component  {
                  }
                  </RadioButton.Group>
                 </View>
-                {/* <View style={styles.centeredView}>
-                 <Modal
-                  transparent={true}
-                  visible={this.state.modalVisible}
-                  onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  this.setModalVisible(!this.state.modalVisible);
-                  }}
-                  >
-                 <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                <Text style = {styles.modalText}> {this.state.cardNo == index ? this.state.translated : null } </Text>
-                <Text style = {styles.modalText}> a) {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
-                <Text style = {styles.modalText}> b) {this.state.cardNo3 == index ? this.state.translated3 : null } </Text>
-                <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => this.setModalVisible(!this.state.modalVisible) || this.benlang(data.question,index) ||
-                this.benlang2(data.getchoice1stid.answer,index) || this.benlang3(data.getchoice2ndid.answer,index)  } 
-                 >
-                <Text style={styles.textStyle}>Hide</Text>
-              </Pressable>
-              </View>
-              </View>
-             </Modal>
-             <Pressable
-             style={[styles.button, styles.buttonOpen]}
-             onPress={() => this.setModalVisible(true)}
-              >
-              <Text style={styles.textStyle}>Bengali</Text>
-             </Pressable>
-            </View> */}
-                {/* <View style= {styles.box2}>
-                  <Text style = {styles.boxsubfont}>{this.state.explain}</Text>
-                </View> */}
+                
               </View>
             );
           }

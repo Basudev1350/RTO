@@ -10,18 +10,18 @@ class ExamContent extends Component {
       loader:true,
       cardNo:'',
       cardNo2:'',
+      cardNo3:'',
       translated:'',
       translated2:'',
+      translated3:'',
     }
   }
   state = {
     chapters: [],
     noOfChapters: 0,
-    modalVisible: false
+    
    }
-   setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
-  }
+   
   componentDidMount() {
     const { chapterId } = this.props.route.params;
     axios.get(`https://rto-patente.herokuapp.com/api/get-all-chapte-content/`+chapterId)
@@ -61,6 +61,18 @@ class ExamContent extends Component {
         });
    
   }
+  englang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated3 :response2.data , cardNo3 : index}));
+         
+        });
+   
+  }
   benlang(data,index){
     axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
@@ -81,6 +93,18 @@ class ExamContent extends Component {
             _token:response.data,
             data:data })
           .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
+  benlang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated3 :response2.data , cardNo3 : index}));
          
         });
    
@@ -112,60 +136,28 @@ class ExamContent extends Component {
                 <View style = {styles.box12}>
                   <Image source={require('../img/manual.jpg')}
                   style={{width: 80, height: 80}} />
-                  <Text style = {styles.boxfont}>{data.chapterTitle}</Text>
+                  <Text style = {styles.boxfont}>{this.state.cardNo !== index ?  data.chapterTitle : this.state.translated }</Text>
                   {/* <Pressable onPress={() => this.props.navigation.navigate('PracticeBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable> */}
                 </View>
-                <Text style = {styles.boxsubfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
-                <View style={styles.centeredView}>
-                <Modal
-                   animationType="slide"
-                   transparent={true}
-                   visible={modalVisible}
-                   onRequestClose={() => {
-                   Alert.alert("Modal has been closed.");
-                   this.setModalVisible(!modalVisible);
-                 }}
-                >
-               <View style={styles.centeredView}>
-               <View style={styles.modalView}>
-               <Text style={styles.modalText}>{data.chapterTitle}</Text>
-               <Pressable
-                 style={[styles.button, styles.buttonClose]}
-                 onPress={() => this.setModalVisible(!modalVisible)}
-               >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-               </Pressable>
-               </View>
-              </View>
-              </Modal>
-             <Pressable
-              style={[styles.button, styles.buttonOpen]}
-              onPress={() => this.setModalVisible(true)}
-             >
-              <Text style={styles.textStyle}>Show Modal</Text>
-              </Pressable>
-                </View>
                 <View  style = {styles.box13} >
-                <View  style = {styles.box16} >
-                  <Text  style = {styles.boxsubfont} numberOfLines={4}>{data.chapterSubTitle}</Text>
-                  <Text style = {styles.boxsubfont}> {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
-                  </View>
-                  <View >
+                <Text style = {styles.boxfont3}> {this.state.cardNo2 !== index ?  data.chapterSubTitle : this.state.translated2  }</Text>
+                <View >
                   <Pressable onPress={() => this.props.navigation.navigate('ExamBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
                   </View>
                 </View>
+                <Text style = {styles.boxfont2}> {this.state.cardNo3 !== index ?  data.content : this.state.translated3  }</Text>
                 <View  style = {styles.box12} >
                   <View  style = {styles.box14} >
                     <Text  style = {styles.boxbutton} >{data.noOfQuestions} Questions</Text>
                   </View>
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.englang(data.chapterTitle,index)} onPressIn={()=>this.englang2(data.chapterSubTitle,index)}>  
+                  <TouchableOpacity style = {styles.box14}  onPress ={()=>{this.englang(data.chapterTitle,index); this.englang2(data.chapterSubTitle,index); this.englang3(data.content,index);}}>  
                     <Text style = {styles.boxbutton}>English</Text>  
                   </TouchableOpacity> 
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.benlang(data.chapterTitle,index)} onPressIn={()=>this.benlang2(data.chapterSubTitle,index)} >  
+                  <TouchableOpacity style = {styles.box14} onPress ={()=>{this.benlang(data.chapterTitle,index); this.benlang2(data.chapterSubTitle,index); this.benlang3(data.content,index);}} >  
                     <Text style = {styles.boxbutton}>Bengali</Text>  
                   </TouchableOpacity> 
                 </View>
@@ -201,14 +193,32 @@ const styles = StyleSheet.create ({
           backgroundColor:'transparent'
           
        },
-        boxfont:{
-          flex: 1, 
-          flexWrap: 'wrap',
-          fontSize: 16,
-          color: '#000',
-          fontWeight:'800',
-          margin: 10
-        },
+       boxfont:{
+        flex: 1, 
+        flexWrap: 'wrap',
+        fontSize: 20,
+        color: '#000',
+        fontWeight:'800',
+        margin: 4
+      },
+      boxfont2:{
+        flex: 1, 
+        flexWrap: 'wrap',
+        fontSize: 15,
+        color: '#000',
+        fontWeight:'800',
+        marginTop:15,
+       marginBottom:10
+      },
+      boxfont3:{
+        flex: 1, 
+        flexWrap: 'wrap',
+        fontSize: 18,
+        color: '#000',
+        fontWeight:'800',
+        marginTop:5,
+       marginBottom:5
+      },
         boxsubfont:{
           fontSize: 16,
           textAlign: 'left',

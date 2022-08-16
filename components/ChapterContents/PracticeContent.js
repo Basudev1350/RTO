@@ -4,24 +4,28 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
 class PracticeContent extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
+      questions:  [],
       loader:true,
       cardNo:'',
       cardNo2:'',
+      cardNo3:'',
       translated:'',
-      translated2:''
+      translated2:'',
+      translated3:'',
+      modalVisible: false
     }
   }
   state = {
     chapters: [],
     noOfChapters: 0,
-    modalVisible: false
+  
    }
    setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
-  }
+   }
 
   componentDidMount() {
     const { chapterId } = this.props.route.params;
@@ -62,6 +66,18 @@ class PracticeContent extends Component {
         });
    
   }
+  englang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated3 :response2.data , cardNo3 : index}));
+         
+        });
+   
+  }
   benlang(data,index){
     axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
@@ -86,8 +102,21 @@ class PracticeContent extends Component {
         });
    
   }
+  benlang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated3 :response2.data , cardNo3 : index}));
+         
+        });
+   
+  }
   render() {
     const { modalVisible } = this.state;
+    const { chapterId ,totalQ} = this.props.route.params;
     return (
       <ImageBackground
           style={{
@@ -113,57 +142,25 @@ class PracticeContent extends Component {
                 <View style = {styles.box12}>
                   <Image source={require('../img/manual.jpg')}
                   style={{width: 50, height: 50}} />
-                  <Text style = {styles.boxfont}>{data.chapterTitle}</Text>
+                  <Text style = {styles.boxfont}>{this.state.cardNo !== index ?  data.chapterTitle : this.state.translated }</Text>
                 </View>
-                <View style={styles.centeredView}>
-                <Modal
-                   animationType="slide"
-                   transparent={true}
-                   visible={modalVisible}
-                   onRequestClose={() => {
-                   Alert.alert("Modal has been closed.");
-                   this.setModalVisible(!modalVisible);
-                 }}
-                >
-               <View style={styles.centeredView}>
-               <View style={styles.modalView}>
-               <Text style={styles.modalText}>{data.chapterTitle}</Text>
-               <Pressable
-                 style={[styles.button, styles.buttonClose]}
-                 onPress={() => this.setModalVisible(!modalVisible)}
-               >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-               </Pressable>
-               </View>
-              </View>
-              </Modal>
-             <Pressable
-              style={[styles.button, styles.buttonOpen]}
-              onPress={() => this.setModalVisible(true)}
-             >
-            <Text style={styles.textStyle}>Show Modal</Text>
-             </Pressable>
-                </View>
-                <Text style = {styles.boxsubfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
                 <View  style = {styles.box13} >
-                <View  style = {styles.box16} >
-                  <Text  style = {styles.boxsubfont} numberOfLines={4}>{data.chapterSubTitle}</Text>
-                  <Text style = {styles.boxsubfont}> {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
-                  </View>
-                  <View >
-                  <Pressable onPress={() => this.props.navigation.navigate('PracticeBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
+                 <Text style = {styles.boxfont3}> {this.state.cardNo2 !== index ?  data.chapterSubTitle : this.state.translated2  }</Text>
+                 <View >
+                  <Pressable onPress={() => this.props.navigation.navigate('ExamBank',{chapterId:data.id , totalQ:data.noOfQuestions})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
                   </View>
-                </View>
+                  </View>
+                 <Text style = {styles.boxfont2}> {this.state.cardNo3 !== index ?  data.content : this.state.translated3  }</Text>
                 <View  style = {styles.box12} >
                   <View  style = {styles.box14} >
                     <Text  style = {styles.boxbutton} >{data.noOfQuestions} Questions</Text>
                   </View>
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.englang(data.chapterTitle,index)} onPressIn={()=>this.englang2(data.chapterSubTitle,index)}>  
+                  <TouchableOpacity style = {styles.box14} onPress ={()=>{this.englang(data.chapterTitle,index); this.englang2(data.chapterSubTitle,index); this.englang3(data.content,index);}} >  
                     <Text style = {styles.boxbutton}>English</Text>  
                   </TouchableOpacity> 
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.benlang(data.chapterTitle,index)} onPressIn={()=>this.benlang2(data.chapterSubTitle,index)} >  
+                  <TouchableOpacity style = {styles.box14}  onPress ={()=>{this.benlang(data.chapterTitle,index); this.benlang2(data.chapterSubTitle,index); this.benlang3(data.content,index);}}>  
                     <Text style = {styles.boxbutton}>Bengali</Text>  
                   </TouchableOpacity> 
                 </View>
@@ -202,10 +199,28 @@ const styles = StyleSheet.create ({
         boxfont:{
           flex: 1, 
           flexWrap: 'wrap',
-          fontSize: 16,
+          fontSize: 20,
           color: '#000',
           fontWeight:'800',
-          margin: 10
+          margin: 4
+        },
+        boxfont2:{
+          flex: 1, 
+          flexWrap: 'wrap',
+          fontSize: 15,
+          color: '#000',
+          fontWeight:'800',
+          marginTop:15,
+         marginBottom:10
+        },
+        boxfont3:{
+          flex: 1, 
+          flexWrap: 'wrap',
+          fontSize: 18,
+          color: '#000',
+          fontWeight:'800',
+          marginTop:5,
+         marginBottom:5
         },
         boxsubfont:{
           fontSize: 16,
@@ -249,50 +264,57 @@ const styles = StyleSheet.create ({
           flexDirection:'row'
         },
         boxbutton:{
-          fontSize:18,
+          fontSize:15,
           fontWeight:'800',
           textAlign:'center',
           color:'#fff'
         },
-        centeredView: {
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 22
-        },
-        modalView: {
-          margin: 20,
-          backgroundColor: "white",
-          borderRadius: 20,
-          padding: 35,
-          alignItems: "center",
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 4,
-          elevation: 5
-        },
-        button: {
-          borderRadius: 20,
-          padding: 10,
-          elevation: 2
-        },
-        buttonOpen: {
-          backgroundColor: "#F194FF",
-        },
-        buttonClose: {
-          backgroundColor: "#2196F3",
-        },
-        textStyle: {
-          color: "white",
-          fontWeight: "bold",
-          textAlign: "center"
-        },
-        modalText: {
-          marginBottom: 15,
-          textAlign: "center"
-        }
+        // centeredView: {
+        //   flex: 1,
+        //   justifyContent: 'flex-start',
+        //   alignItems: 'flex-start'
+        // },
+        // modalView: {
+        //   margin: 20,
+        //   backgroundColor: "white",
+        //   borderRadius: 20,
+        //   padding: 35,
+        //   alignItems: "center",
+        //   shadowColor: "#000",
+        //   shadowOffset: {
+        //   width: 0,
+        //   height: 2
+        //   },
+        //   shadowOpacity: 0.25,
+        //   shadowRadius: 4,
+        //   elevation: 5
+        // },
+        // button: {
+        //   borderRadius: 20,
+        //   padding: 10,
+        //   elevation: 2
+        // },
+        // buttonOpen: {
+        //   backgroundColor: "#F194FF",
+        // },
+        // buttonClose: {
+        //   backgroundColor: "#2196F3",
+        // },
+        // textStyle: {
+        //   color: "white",
+        //   fontWeight: "bold",
+        //   textAlign: "center"
+        // },
+        // modalText: {
+        //   fontSize:18,
+        //   marginBottom: 15,
+        //   fontWeight: "bold",
+        //   textAlign: "left"
+        // },
+        // centeredView2: {
+        //   flex: 1,
+        //   justifyContent: "center",
+        //   alignItems: "center",
+        //   marginTop: 5
+        // }
 })
