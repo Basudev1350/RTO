@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
 class signal extends Component {
   constructor(){
     super();
     this.state={
       loader:true,
       errorMessage: '',
-      location: {}
+      location: {},
+      signals: [],
+      noOfSignals: 0,
     }
   }
+  state = {
+    signals: [],
+    noOfSignals: 0,
+   }
   componentDidMount(){
     setTimeout(()=>{
       this.setState({loader:false})
     },3000)
+    axios.get(`http://127.0.0.1:8000/api/get-all-signals/`)
+      .then(res => {
+        const signals = res.data;
+        const noOfSignals = res.length;
+        this.setState({ signals, noOfSignals});
+      })
+      setTimeout(()=>{
+        this.setState({loader:false})
+      },3000)
   }
   render() {
     return (
     <ScrollView  style = {styles.scroll}>
-          <View style = {styles.box1}>
+          {/* <View style = {styles.box1}>
               <Image
             style={{width: 100, height: 100}} 
             source={require('./img/s41.png')}
@@ -31,7 +47,22 @@ class signal extends Component {
             source={require('./img/s220.png')}
            />
             <Text style = {styles.boxfontNo} >SOS</Text>
-          </View>
+          </View> */}
+            {
+      this.state.loader ?
+      <ActivityIndicator size={100} color="green" marginTop={200} /> :
+        <ScrollView>
+        {this.state.signals.map((data, index) => {
+         return (
+          <View style = {styles.box1}>
+           <Text style = {styles.boxfontNo} >Q {index+1}:</Text>
+           <Text  style = {styles.boxfontNo} >{data.signalName}</Text>
+         </View>
+       
+         );
+      })}  
+        </ScrollView>
+         }
     </ScrollView>   
     );
   }
