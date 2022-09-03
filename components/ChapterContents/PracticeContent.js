@@ -157,11 +157,13 @@ class PracticeContent extends Component {
                   <View  style = {styles.box14} >
                     <Text  style = {styles.boxbutton} >{data.noOfQuestions} Questions</Text>
                   </View>
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>{this.englang(data.chapterTitle,index); this.englang2(data.chapterSubTitle,index); this.englang3(data.content,index);}} >  
-                    <Text style = {styles.boxbutton}>English</Text>  
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>{this.englang(data.chapterTitle,index); this.englang2(data.chapterSubTitle,index); this.englang3(data.content,index);}} >  
+                    <Icon name="language" size={23} color="#fff" />
+                    <Text style = {styles.buttontext}>English</Text>  
                   </TouchableOpacity> 
-                  <TouchableOpacity style = {styles.box14}  onPress ={()=>{this.benlang(data.chapterTitle,index); this.benlang2(data.chapterSubTitle,index); this.benlang3(data.content,index);}}>  
-                    <Text style = {styles.boxbutton}>Bengali</Text>  
+                  <TouchableOpacity style = {styles.box15}  onPress ={()=>{this.benlang(data.chapterTitle,index); this.benlang2(data.chapterSubTitle,index); this.benlang3(data.content,index);}}>  
+                    <Icon name="language" size={23} color="#fff" />
+                    <Text style = {styles.buttontext}>Bengali</Text>  
                   </TouchableOpacity> 
                 </View>
               </View>
@@ -250,13 +252,35 @@ const styles = StyleSheet.create ({
         },
         box14:{
           borderRadius:100,
-          padding:10,
+          paddingLeft:8,
+          paddingRight:8,
+          paddingTop:5,
+          paddingBottom:5,
           backgroundColor:'#4F7942',
           borderColor:'#4F7942',
           borderWidth:0.9,
           shadowColor:'#96271f',
           shadowOpacity:0.3,
-          shadowRadius: 0.4
+          shadowRadius: 0.4,
+          marginRight:5,
+        },
+        box15:{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-around',
+          borderRadius:100,
+          paddingLeft:8,
+          paddingRight:8,
+          paddingTop:5,
+          paddingBottom:5,
+          backgroundColor:'#4F7942',
+          borderColor:'#4F7942',
+          borderWidth:0.9,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
+          marginRight:5,
+         
         },
         box16:{
           display:'flex',
@@ -269,6 +293,13 @@ const styles = StyleSheet.create ({
           textAlign:'center',
           color:'#fff'
         },
+        buttontext:{
+          fontSize:15,
+          fontWeight:'800',
+          textAlign:'center',
+          color:'#fff',
+          marginLeft:5
+         },
         // centeredView: {
         //   flex: 1,
         //   justifyContent: 'flex-start',

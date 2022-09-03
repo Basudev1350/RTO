@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView,Text, View,StyleSheet,ActivityIndicator,ImageBackground,TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
 class Questionbank extends Component { 
@@ -113,11 +114,13 @@ class Questionbank extends Component {
               <Text style = {styles.boxsubfont}> {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
             </View>
             <View  style = {styles.box12} > 
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.benlang(data.question,index) || this.benlang2(data.getcorrectansid.answer,index)}  >  
-                    <Text style = {styles.boxbutton}>Bengali</Text>  
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.question,index) || this.benlang2(data.getcorrectansid.answer,index)}  >  
+                    <Icon name="language" size={23} color="#fff" /> 
+                    <Text style = {styles.buttontext}>Bengali</Text>  
                   </TouchableOpacity> 
-                  <TouchableOpacity style = {styles.box14} onPress ={()=>this.englang(data.question,index) || this.englang2(data.getcorrectansid.answer,index)}  >  
-                    <Text style = {styles.boxbutton}>English</Text>  
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.question,index) || this.englang2(data.getcorrectansid.answer,index)}  >  
+                    <Icon name="language" size={23} color="#fff" /> 
+                    <Text style = {styles.buttontext}>English</Text>  
                   </TouchableOpacity> 
                 </View>
           </View>
@@ -148,15 +151,22 @@ const styles = StyleSheet.create ({
       shadowOpacity:0.3,
       shadowRadius: 0.4,
         },
-        box14:{
+        box15:{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-around',
           borderRadius:100,
+          paddingLeft:8,
+          paddingRight:8,
+          paddingTop:5,
+          paddingBottom:5,
           backgroundColor:'#4F7942',
           borderColor:'#4F7942',
           borderWidth:0.9,
           shadowColor:'#96271f',
           shadowOpacity:0.3,
           shadowRadius: 0.4,
-          marginLeft:5
+          marginRight:5,
         },
         scroll:{
             padding: 10,
@@ -198,12 +208,11 @@ const styles = StyleSheet.create ({
           width:'40%',
           backgroundColor:'#008080'
         },
-        boxbutton:{
+        buttontext:{
           fontSize:15,
-          color:'rgb(241, 226, 226)',
           fontWeight:'800',
           textAlign:'center',
-          margin:10,
-          color:'#fff'
-          }
+          color:'#fff',
+          marginLeft:5
+         },
  })

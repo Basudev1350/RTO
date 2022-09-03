@@ -94,9 +94,11 @@ class Practice extends Component  {
               
                 <View style = {styles.box12}>
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.chapterTitle,index)} >  
+                    <Icon name="language" size={23} color="#fff" />
                     <Text style = {styles.buttontext}>English</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.chapterTitle,index)} >  
+                    <Icon name="language" size={22} color="#fff" />
                     <Text style = {styles.buttontext}>Bengali</Text>  
                   </TouchableOpacity> 
                 </View>
@@ -180,18 +182,26 @@ const styles = StyleSheet.create ({
         fontSize:15,
         fontWeight:'800',
         textAlign:'center',
-        color:'#fff'
+        color:'#fff',
+        marginLeft:5
        },
         box15:{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-around',
           borderRadius:100,
-          padding:8,
+          paddingLeft:8,
+          paddingRight:8,
+          paddingTop:5,
+          paddingBottom:5,
           backgroundColor:'#4F7942',
           borderColor:'#4F7942',
           borderWidth:0.9,
           shadowColor:'#96271f',
           shadowOpacity:0.3,
           shadowRadius: 0.4,
-          marginRight:5
+          marginRight:5,
+          width:'28%'
         },
         boxbutton:{
           fontSize:18,
