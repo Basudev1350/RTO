@@ -54,6 +54,18 @@ class Exam extends Component {
         });
    
   }
+  engitlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
   render() {
     return (
       <ImageBackground
@@ -83,12 +95,11 @@ class Exam extends Component {
                   </View>
                   {/* <Image source={{uri: 'https://cdn-icons-png.flaticon.com/512/5453/5453711.png'}}
                   style={{width: 50, height: 50}} /> */}
-                  <Text style = {styles.boxfont}>{data.chapterTitle}</Text>
+                   <Text style = {styles.boxfont}> {this.state.cardNo !== index ?  data.chapterTitle : this.state.translated  }</Text>
                   <Pressable style={{justifyContent: 'center',alignItems: 'center'}} onPress={() => this.props.navigation.navigate('ExamContent',{chapterId:data.id})}>
                     <Text style = {styles.boxfontcolor}><Icon name="angle-right" size={25} color="#4F7942"/></Text>
                   </Pressable>
                 </View>
-                <Text style = {styles.boxfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
                 <View style = {styles.box12}>
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.chapterTitle,index)} >  
                     <Icon name="language" size={22} color="#fff" />
@@ -97,6 +108,10 @@ class Exam extends Component {
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.chapterTitle,index)} >  
                     <Icon name="language" size={22} color="#fff" />
                     <Text style = {styles.buttontext}>Bengali</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.engitlang(data.chapterTitle,index)} >  
+                    <Icon name="language" size={22} color="#fff" />
+                    <Text style = {styles.buttontext}>Italy</Text>  
                   </TouchableOpacity> 
                 </View>
               </View>
@@ -158,7 +173,8 @@ const styles = StyleSheet.create ({
         },
         box12:{
           display:'flex',
-          flexDirection:'row'
+          flexDirection:'row',
+          marginTop:15
         },
         box13:{
           padding:0,
@@ -203,6 +219,6 @@ const styles = StyleSheet.create ({
           shadowOpacity:0.3,
           shadowRadius: 0.4,
           marginRight:5,
-          width:'28%'
+          width:'25%'
           }
 })

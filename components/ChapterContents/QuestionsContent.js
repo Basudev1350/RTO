@@ -111,6 +111,42 @@ class QuestionsContent extends Component {
         });
    
   }
+  engitlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  engitlang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
+  engitlang3(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({  translated3 :response2.data , cardNo3 : index}));
+         
+        });
+   
+  }
   render() {
     const { modalVisible } = this.state;
     return (
@@ -160,6 +196,10 @@ class QuestionsContent extends Component {
                   <TouchableOpacity style = {styles.box15} onPress ={()=>{this.benlang(data.chapterTitle,index); this.benlang2(data.chapterSubTitle,index); this.benlang3(data.content,index);}} >  
                     <Icon name="language" size={23} color="#fff" /> 
                     <Text style = {styles.buttontext}>Bengali</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box15}  onPress ={()=>{this.engitlang(data.chapterTitle,index); this.engitlang2(data.chapterSubTitle,index); this.engitlang3(data.content,index);}}>  
+                    <Icon name="language" size={23} color="#fff" />
+                    <Text style = {styles.buttontext}>Italy</Text>  
                   </TouchableOpacity> 
                 </View>
               </View>
@@ -265,8 +305,8 @@ const styles = StyleSheet.create ({
           flexDirection:'row',
           justifyContent:'space-around',
           borderRadius:100,
-          paddingLeft:8,
-          paddingRight:8,
+          paddingLeft:7,
+          paddingRight:7,
           paddingTop:5,
           paddingBottom:5,
           backgroundColor:'#4F7942',

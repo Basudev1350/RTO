@@ -79,6 +79,30 @@ class Questionbank extends Component {
         });
    
   }
+  engitlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  engitlang2(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated2 :response2.data , cardNo2 : index}));
+         
+        });
+   
+  }
   render() {
     return (
       <ImageBackground
@@ -103,15 +127,12 @@ class Questionbank extends Component {
           <View key={index} style = {styles.box1}>
             <View  style = {styles.box12} >
               <Text style = {styles.boxfontNo} >Q {index+1}:</Text>
-              <Text  style = {styles.boxfont} >{data.question}</Text>
+              <Text style = {styles.boxfont}> {this.state.cardNo !== index ?  data.question : this.state.translated  }</Text>
             </View>
-            <View  style = {styles.box12} >
-            <Text style = {styles.boxsubfont}> {this.state.cardNo == index ? this.state.translated : null } </Text>
-            </View>
+          
             <View style = {styles.box12} >
               <Text style = {styles.boxsubfontAns} >Ans:</Text>
-              <Text style = {styles.boxsubfont} >{data.getcorrectansid.answer}</Text>
-              <Text style = {styles.boxsubfont}> {this.state.cardNo2 == index ? this.state.translated2 : null } </Text>
+              <Text style = {styles.boxfont}> {this.state.cardNo2 !== index ?  data.getcorrectansid.answer : this.state.translated2  }</Text>
             </View>
             <View  style = {styles.box12} > 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.question,index) || this.benlang2(data.getcorrectansid.answer,index)}  >  
@@ -121,6 +142,10 @@ class Questionbank extends Component {
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.question,index) || this.englang2(data.getcorrectansid.answer,index)}  >  
                     <Icon name="language" size={23} color="#fff" /> 
                     <Text style = {styles.buttontext}>English</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.engitlang(data.question,index) || this.engitlang2(data.getcorrectansid.answer,index)}  >  
+                    <Icon name="language" size={23} color="#fff" /> 
+                    <Text style = {styles.buttontext}>Italy</Text>  
                   </TouchableOpacity> 
                 </View>
           </View>
@@ -167,6 +192,7 @@ const styles = StyleSheet.create ({
           shadowOpacity:0.3,
           shadowRadius: 0.4,
           marginRight:5,
+          width:'25%'
         },
         scroll:{
             padding: 10,
@@ -201,7 +227,8 @@ const styles = StyleSheet.create ({
           },
           box12:{
             display:'flex',
-            flexDirection:'row'
+            flexDirection:'row',
+            marginTop:15
         },
         box3:{
           borderRadius:10,
