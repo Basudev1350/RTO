@@ -21,7 +21,7 @@ class Questionbank extends Component {
    componentDidMount() {
     const { chapterId } = this.props.route.params;
     console.log(chapterId);
-    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test/`+chapterId)
+    axios.get(`https://lmpatente.srkptechnologies.com/api/get-question-and-asnwer/test/`+chapterId)
       .then(res => {
         const questions = res.data;
         const noOfQuestion = res.length;
@@ -32,9 +32,9 @@ class Questionbank extends Component {
       },3000)
    }
    benlang(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -44,9 +44,9 @@ class Questionbank extends Component {
    
   }
   benlang2(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -56,9 +56,9 @@ class Questionbank extends Component {
    
   }
   englang(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -68,9 +68,9 @@ class Questionbank extends Component {
    
   }
   englang2(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -80,9 +80,9 @@ class Questionbank extends Component {
    
   }
   engitlang(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -92,9 +92,9 @@ class Questionbank extends Component {
    
   }
   engitlang2(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })

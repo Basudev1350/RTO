@@ -21,7 +21,7 @@ class signal extends Component {
     setTimeout(()=>{
       this.setState({loader:false})
     },3000)
-    axios.get(`http://127.0.0.1:8000/api/get-all-signals/`)
+    axios.get(`http://lmpatente.srkptechnologies.com/api/get-all-signals/`)
       .then(res => {
         const signals = res.data;
         const noOfSignals = res.length;
@@ -44,7 +44,7 @@ class signal extends Component {
           <View style = {styles.box1}>
               <Image
             style={{width: 100, height: 100}} 
-            source={require('./img/s220.png')}
+            source={require('{data.signalPath}')}
            />
             <Text style = {styles.boxfontNo} >SOS</Text>
           </View> */}
@@ -53,9 +53,12 @@ class signal extends Component {
       <ActivityIndicator size={100} color="green" marginTop={200} /> :
         <ScrollView>
         {this.state.signals.map((data, index) => {
+  
          return (
           <View style = {styles.box1}>
            <Text style = {styles.boxfontNo} >Q {index+1}:</Text>
+           <Image source={{uri: data.signalPath}}
+                    style={{width: 100,height:100}}/>
            <Text  style = {styles.boxfontNo} >{data.signalName}</Text>
          </View>
        
@@ -75,7 +78,7 @@ const styles = StyleSheet.create ({
         backgroundColor:'#ccc'
      },
     box1:{
-        marginTop: 12,
+        marginTop: 15,
         backgroundColor:'#fff',
         width:'100%',
         paddingRight:'10%',

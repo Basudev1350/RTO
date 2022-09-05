@@ -82,9 +82,9 @@ class PracticeBank extends Component {
     this.setState({ modalVisible: visible });
    }
   benlang(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -94,9 +94,9 @@ class PracticeBank extends Component {
    
   }
   benlang2(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -106,9 +106,9 @@ class PracticeBank extends Component {
    
   }
   benlang3(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -172,7 +172,7 @@ class PracticeBank extends Component {
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(chapterId);
     this.state.noOfQuestion = totalQ;
-    axios.get(`https://rto-patente.herokuapp.com/api/get-question-and-asnwer/test/`+chapterId)
+    axios.get(`https://lmpatente.srkptechnologies.com/api/get-question-and-asnwer/test/`+chapterId)
       .then(res => {
         const questions = res.data;
         this.setState({ questions:questions});
