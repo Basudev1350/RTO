@@ -55,9 +55,9 @@ class Questions extends Component {
    
   }
   engitlang(data,index){
-    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
         .then(response =>{
-          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
