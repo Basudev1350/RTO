@@ -21,12 +21,32 @@ class Questionbank extends Component {
    componentDidMount() {
     const { chapterId } = this.props.route.params;
     console.log(chapterId);
+    // axios.get(`https://lmpatente.srkptechnologies.com/api/get-question-and-asnwer/test/`+chapterId)
+    //   .then(res => {
+    //     const questions = res.data;
+    //     const noOfQuestion = res.length;
+    //     this.setState({ questions, noOfQuestion});
+    //   })
     axios.get(`https://lmpatente.srkptechnologies.com/api/get-question-and-asnwer/test/`+chapterId)
-      .then(res => {
+    .then(res => {
+      if(res != null)
+      {
         const questions = res.data;
         const noOfQuestion = res.length;
         this.setState({ questions, noOfQuestion});
-      })
+      }
+    }).catch(error => {
+      if(error != null)
+      {
+        const questions = error.response.data;
+        const noOfQuestion = error.response.length;
+        this.setState({ questions, noOfQuestion});
+      }
+      else{
+      Alert.alert("OOps ! Server iss");
+      this.props.navigation.navigate('Home');
+      }
+    });
       setTimeout(()=>{
         this.setState({loader:false})
       },3000)

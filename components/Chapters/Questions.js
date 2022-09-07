@@ -26,8 +26,16 @@ class Questions extends Component {
         this.setState({ chapters, noOfChapters,loader:false});
       }
     }).catch(error => {
-      Alert.alert("OOps ! Server issue");
+      if(error != null)
+      {
+        const chapters     = error.response.data;
+        const noOfChapters = error.response.length;
+        this.setState({ chapters, noOfChapters,loader:false});
+      }
+      else{
+      Alert.alert("OOps ! Server iss");
       this.props.navigation.navigate('Home');
+      }
     });
   }
   englang(data,index){

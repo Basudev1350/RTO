@@ -194,11 +194,29 @@ class ExamBank extends Component  {
     const { chapterId ,totalQ} = this.props.route.params;
     console.log(chapterId);
     this.state.noOfQuestion = totalQ;
+    // axios.get(`https://lmpatente.srkptechnologies.com/api/get-question-and-asnwer/test/`+chapterId)
+    //   .then(res => {
+    //     const questions = res.data;
+    //     this.setState({ questions:questions});
+    //   })
     axios.get(`https://lmpatente.srkptechnologies.com/api/get-question-and-asnwer/test/`+chapterId)
-      .then(res => {
+    .then(res => {
+      if(res != null)
+      {
         const questions = res.data;
         this.setState({ questions:questions});
-      })
+      }
+    }).catch(error => {
+      if(error != null)
+      {
+        const questions = error.response.data;
+        this.setState({ questions:questions});
+      }
+      else{
+      Alert.alert("OOps ! Server iss");
+      this.props.navigation.navigate('Home');
+      }
+    });
       setTimeout(()=>{
         this.setState({loader:false})
       },3000)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image } from 'react-native';
+import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 class signal extends Component {
@@ -9,8 +9,6 @@ class signal extends Component {
       loader:true,
       errorMessage: '',
       location: {},
-      signals: [],
-      noOfSignals: 0,
     }
   }
   state = {
@@ -21,52 +19,59 @@ class signal extends Component {
     setTimeout(()=>{
       this.setState({loader:false})
     },3000)
-    axios.get(`http://lmpatente.srkptechnologies.com/api/get-all-signals/`)
+    // axios.get(`http://lmpatente.srkptechnologies.com/api/get-all-signals/`)
+    //   .then(res => {
+    //     const signals = res.data;
+    //     const noOfSignals = res.length;
+    //     this.setState({ signals, noOfSignals});
+    //   })
+      axios.get('https://lmpatente.srkptechnologies.com/api/get-all-signals/')
       .then(res => {
-        const signals = res.data;
-        const noOfSignals = res.length;
-        this.setState({ signals, noOfSignals});
-      })
+        if(res != null)
+        {
+          const signals     = res.data;
+          const noOfSignals = res.length;
+          this.setState({ signals, noOfSignals,loader:false});
+        }
+      }).catch(error => {
+        if(error != null)
+        {
+          const signals     = error.response.data;
+          const noOfSignals = error.response.length;
+          this.setState({ signals, noOfSignals,loader:false});
+        }
+        else{
+        Alert.alert("OOps ! Server iss");
+        this.props.navigation.navigate('Home');
+        }
+      });
       setTimeout(()=>{
         this.setState({loader:false})
       },3000)
+      
   }
   render() {
     return (
-    <ScrollView  style = {styles.scroll}>
-          {/* <View style = {styles.box1}>
-              <Image
-            style={{width: 100, height: 100}} 
-            source={require('./img/s41.png')}
-           />
-            <Text style = {styles.boxfontNo} >Stop</Text>
-          </View>
-          <View style = {styles.box1}>
-              <Image
-            style={{width: 100, height: 100}} 
-            source={require('{data.signalPath}')}
-           />
-            <Text style = {styles.boxfontNo} >SOS</Text>
-          </View> */}
-            {
+      <ScrollView  style = {styles.scroll}>
+      {
       this.state.loader ?
       <ActivityIndicator size={100} color="green" marginTop={200} /> :
-        <ScrollView>
+      <ScrollView>
         {this.state.signals.map((data, index) => {
-  
-         return (
-          <View style = {styles.box1}>
-           <Text style = {styles.boxfontNo} >Q {index+1}:</Text>
-           <Image source={{uri: data.signalPath}}
-                    style={{width: 100,height:100}}/>
-           <Text  style = {styles.boxfontNo} >{data.signalName}</Text>
-         </View>
-       
-         );
-      })}  
-        </ScrollView>
-         }
-    </ScrollView>   
+          return (
+              <View style = {styles.box1} >
+                <View style = {styles.box12}>
+                  <Text style = {styles.boxfontNo} >{index+1}:</Text>
+                  <Image source={{uri: data.signalPath}}
+                    style={{width: 90,height:90}}/>
+                   <Text  style = {styles.boxfontNo} >{data.signalName}</Text>
+                </View>
+              </View>
+          );
+        })}  
+      </ScrollView>
+       }
+       </ScrollView> 
     );
   }
 }
@@ -93,7 +98,7 @@ const styles = StyleSheet.create ({
             flexDirection:'row'
         },
         boxfontNo:{
-            fontSize: 20,
+            fontSize: 15,
             margin: 5,
             fontWeight: '900',
             marginTop:30,
