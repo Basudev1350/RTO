@@ -41,9 +41,9 @@ class Practice extends Component  {
       });
   }
   englang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -53,9 +53,9 @@ class Practice extends Component  {
    
   }
   benlang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -65,9 +65,9 @@ class Practice extends Component  {
    
   }
   engitlang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -113,15 +113,15 @@ class Practice extends Component  {
                 <View style = {styles.box12}>
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.chapterTitle,index)} >  
                     <Icon name="language" size={23} color="#fff" />
-                    <Text style = {styles.buttontext}>English</Text>  
+                    <Text style = {styles.buttontext}>EN</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.chapterTitle,index)} >  
                     <Icon name="language" size={22} color="#fff" />
-                    <Text style = {styles.buttontext}>Bengali</Text>  
+                    <Text style = {styles.buttontext}>BN</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.engitlang(data.chapterTitle,index)} >  
                     <Icon name="language" size={22} color="#fff" />
-                    <Text style = {styles.buttontext}>Italy</Text>  
+                    <Text style = {styles.buttontext}>IT</Text>  
                   </TouchableOpacity> 
                 </View>
               </View>
@@ -206,13 +206,12 @@ const styles = StyleSheet.create ({
         fontWeight:'800',
         textAlign:'center',
         color:'#fff',
-        marginLeft:5
        },
         box15:{
           display:'flex',
           flexDirection:'row',
           justifyContent:'space-around',
-          borderRadius:100,
+          borderRadius:8,
           paddingLeft:8,
           paddingRight:8,
           paddingTop:5,
@@ -224,7 +223,7 @@ const styles = StyleSheet.create ({
           shadowOpacity:0.3,
           shadowRadius: 0.4,
           marginRight:5,
-          width:'25%'
+          width:'22%'
         },
         boxbutton:{
           fontSize:18,

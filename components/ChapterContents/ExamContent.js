@@ -46,9 +46,9 @@ class ExamContent extends Component {
     });
   }
   englang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -58,9 +58,9 @@ class ExamContent extends Component {
    
   }
   englang2(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -70,9 +70,9 @@ class ExamContent extends Component {
    
   }
   englang3(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -82,9 +82,9 @@ class ExamContent extends Component {
    
   }
   benlang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -94,9 +94,9 @@ class ExamContent extends Component {
    
   }
   benlang2(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -106,9 +106,9 @@ class ExamContent extends Component {
    
   }
   benlang3(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -118,9 +118,9 @@ class ExamContent extends Component {
    
   }
   engitlang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -130,9 +130,9 @@ class ExamContent extends Component {
    
   }
   engitlang2(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -142,9 +142,9 @@ class ExamContent extends Component {
    
   }
   engitlang3(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -200,15 +200,15 @@ class ExamContent extends Component {
                   </View>
                   <TouchableOpacity style = {styles.box15}  onPress ={()=>{this.englang(data.chapterTitle,index); this.englang2(data.chapterSubTitle,index); this.englang3(data.content,index);}}>  
                     <Icon name="language" size={23} color="#fff" />
-                    <Text style = {styles.buttontext}>English</Text>  
+                    <Text style = {styles.buttontext}>EN</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>{this.benlang(data.chapterTitle,index); this.benlang2(data.chapterSubTitle,index); this.benlang3(data.content,index);}} >  
                     <Icon name="language" size={23} color="#fff" /> 
-                    <Text style = {styles.buttontext}>Bengali</Text>  
+                    <Text style = {styles.buttontext}>BN</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15}  onPress ={()=>{this.engitlang(data.chapterTitle,index); this.engitlang2(data.chapterSubTitle,index); this.engitlang3(data.content,index);}}>  
                     <Icon name="language" size={23} color="#fff" />
-                    <Text style = {styles.buttontext}>Italy</Text>  
+                    <Text style = {styles.buttontext}>IT</Text>  
                   </TouchableOpacity> 
                 </View>
               </View>
@@ -296,7 +296,7 @@ const styles = StyleSheet.create ({
           flexDirection:'row'
         },
         box14:{
-          borderRadius:100,
+          borderRadius:8,
           paddingLeft:8,
           paddingRight:8,
           paddingTop:5,
@@ -313,7 +313,7 @@ const styles = StyleSheet.create ({
           display:'flex',
           flexDirection:'row',
           justifyContent:'space-around',
-          borderRadius:100,
+          borderRadius:8,
           paddingLeft:7,
           paddingRight:7,
           paddingTop:5,
@@ -325,6 +325,7 @@ const styles = StyleSheet.create ({
           shadowOpacity:0.3,
           shadowRadius: 0.4,
           marginRight:5,
+          width:'22%'
         },
         box16:{
           display:'flex',

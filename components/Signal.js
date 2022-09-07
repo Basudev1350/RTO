@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image,TouchableOpacity } from 'react-native';
+import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image,TouchableOpacity,ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 class signal extends Component {
@@ -52,6 +52,18 @@ class signal extends Component {
   }
   render() {
     return (
+      <ImageBackground
+      style={{
+        flex:1,
+        height: '100%',
+        padding:0,
+        width: '100%',
+        backgroundSize: 'cover',
+        justifyContent:'center',
+        zIndex: -1,
+      }}
+      source={require('./img/bg.jpg')}
+    >
       <ScrollView  style = {styles.scroll}>
       {
       this.state.loader ?
@@ -72,6 +84,7 @@ class signal extends Component {
       </ScrollView>
        }
        </ScrollView> 
+       </ImageBackground>  
     );
   }
 }
@@ -80,7 +93,6 @@ export default signal;
 const styles = StyleSheet.create ({
     scroll:{
         padding: 10,
-        backgroundColor:'#ccc'
      },
     box1:{
         marginTop: 15,
@@ -91,7 +103,12 @@ const styles = StyleSheet.create ({
         paddingBottom:'3%',
         borderRadius:5,
         display:'flex',
-        flexDirection:'row'
+        flexDirection:'row',
+        borderColor:'#96271f',
+        borderWidth:0.5,
+        shadowColor:'#96271f',
+        shadowOpacity:0.3,
+        shadowRadius: 0.4,
           },
           box12:{
             display:'flex',

@@ -52,9 +52,9 @@ class Questionbank extends Component {
       },3000)
    }
    benlang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -64,9 +64,9 @@ class Questionbank extends Component {
    
   }
   benlang2(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-bengali', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
           {
             _token:response.data,
             data:data })
@@ -76,9 +76,9 @@ class Questionbank extends Component {
    
   }
   englang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -88,9 +88,9 @@ class Questionbank extends Component {
    
   }
   englang2(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-english', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
           {
             _token:response.data,
             data:data })
@@ -100,9 +100,9 @@ class Questionbank extends Component {
    
   }
   engitlang(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -112,9 +112,9 @@ class Questionbank extends Component {
    
   }
   engitlang2(data,index){
-    axios.get('https://lmpatente.srkptechnologies.com/api/show-token')
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
         .then(response =>{
-          axios.post('https://lmpatente.srkptechnologies.com/api/translate-data-eng-to-italy', 
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
           {
             _token:response.data,
             data:data })
@@ -157,15 +157,15 @@ class Questionbank extends Component {
             <View  style = {styles.box12} > 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(data.question,index) || this.benlang2(data.getcorrectansid.answer,index)}  >  
                     <Icon name="language" size={23} color="#fff" /> 
-                    <Text style = {styles.buttontext}>Bengali</Text>  
+                    <Text style = {styles.buttontext}>BN</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(data.question,index) || this.englang2(data.getcorrectansid.answer,index)}  >  
                     <Icon name="language" size={23} color="#fff" /> 
-                    <Text style = {styles.buttontext}>English</Text>  
+                    <Text style = {styles.buttontext}>EN</Text>  
                   </TouchableOpacity> 
                   <TouchableOpacity style = {styles.box15} onPress ={()=>this.engitlang(data.question,index) || this.engitlang2(data.getcorrectansid.answer,index)}  >  
                     <Icon name="language" size={23} color="#fff" /> 
-                    <Text style = {styles.buttontext}>Italy</Text>  
+                    <Text style = {styles.buttontext}>IT</Text>  
                   </TouchableOpacity> 
                 </View>
           </View>
@@ -200,7 +200,7 @@ const styles = StyleSheet.create ({
           display:'flex',
           flexDirection:'row',
           justifyContent:'space-around',
-          borderRadius:100,
+          borderRadius:8,
           paddingLeft:8,
           paddingRight:8,
           paddingTop:5,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create ({
           shadowOpacity:0.3,
           shadowRadius: 0.4,
           marginRight:5,
-          width:'25%'
+          width:'22%'
         },
         scroll:{
             padding: 10,
@@ -259,7 +259,6 @@ const styles = StyleSheet.create ({
           fontSize:15,
           fontWeight:'800',
           textAlign:'center',
-          color:'#fff',
-          marginLeft:5
+          color:'#fff'
          },
  })
