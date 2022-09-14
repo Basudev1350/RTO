@@ -75,7 +75,7 @@ class signal extends Component {
                 <View style = {styles.box12}>
                   <Text style = {styles.boxfontNo} >{index+1}:</Text>
                   <Image source={{uri: data.signalPath}}
-                    style={{width: 90,height:90}}/>
+                    style={{width: '50%'}}/>
                    <Text  style = {styles.boxfontNo} >{data.signalName}</Text>
                 </View>
               </View>
