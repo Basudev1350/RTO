@@ -103,8 +103,8 @@ const styles = StyleSheet.create ({
         backgroundColor:'#fff',
         width:'100%',
         paddingRight:'10%',
-        paddingTop:'2%',
-        paddingBottom:'3%',
+        paddingTop:'5%',
+        paddingBottom:'5%',
         borderRadius:5,
         display:'flex',
         flexDirection:'row',
@@ -117,28 +117,32 @@ const styles = StyleSheet.create ({
         box12:{
           display:'flex',
           width:'100%',
-          height: 120,
+          height: 125,
           flexDirection:'row',
           padding: 10,
+          paddingTop:0,
+          paddingBottom:0
         },
         boxfontNo:{
-          fontSize: 12,
+          fontSize: 14,
           marginRight:0,
           fontWeight: '900',
           marginTop:30,
         },
         boxfont:{
-          fontSize: 12,
+          fontSize: 14,
           margin:15,
           fontWeight: '800',
           marginTop:30,
-          
+          width:'60%'
         },
         boximg:{
-          padding: 5,
-          width:'38%',
+          width:'37.5%',
+          marginTop:2,
+          marginBottom:2,
         },
         box14:{
           width: '100%',
+        
         }
  })
