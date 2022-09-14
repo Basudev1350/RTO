@@ -74,9 +74,13 @@ class signal extends Component {
               <View style = {styles.box1} >
                 <View style = {styles.box12}>
                   <Text style = {styles.boxfontNo} >{index+1}:</Text>
+                  <View style = {styles.boximg}>
                   <Image source={{uri: data.signalPath}}
-                    style={{width: '50%'}}/>
-                   <Text  style = {styles.boxfontNo} >{data.signalName}</Text>
+                    style={{width: '100%',height:'100%',}}/>
+                    </View>
+                  <View style = {styles.box14}>
+                   <Text  style = {styles.boxfont} >{data.signalName}</Text>
+                  </View>
                 </View>
               </View>
           );
@@ -110,14 +114,31 @@ const styles = StyleSheet.create ({
         shadowOpacity:0.3,
         shadowRadius: 0.4,
           },
-          box12:{
-            display:'flex',
-            flexDirection:'row'
+        box12:{
+          display:'flex',
+          width:'100%',
+          height: 120,
+          flexDirection:'row',
+          padding: 10,
         },
         boxfontNo:{
-            fontSize: 15,
-            margin: 5,
-            fontWeight: '900',
-            marginTop:30,
-          }
+          fontSize: 12,
+          marginRight:0,
+          fontWeight: '900',
+          marginTop:30,
+        },
+        boxfont:{
+          fontSize: 12,
+          margin:15,
+          fontWeight: '800',
+          marginTop:30,
+          
+        },
+        boximg:{
+          padding: 5,
+          width:'38%',
+        },
+        box14:{
+          width: '100%',
+        }
  })
