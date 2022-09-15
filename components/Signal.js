@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image,TouchableOpacity,ImageBackground} from 'react-native';
+import { ScrollView,Text, View,StyleSheet, ActivityIndicator,StatusBar,Image,FlatList,TouchableOpacity,ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 class signal extends Component {
@@ -72,7 +72,7 @@ class signal extends Component {
         {this.state.signals.map((data, index) => {
           return (
               <View style = {styles.box1} >
-                <View style = {styles.box12}>
+                {/* <View style = {styles.box12}>
                   <Text style = {styles.boxfontNo} >{index+1}:</Text>
                   <View style = {styles.boximg}>
                   <Image source={{uri: data.signalPath}}
@@ -81,7 +81,21 @@ class signal extends Component {
                   <View style = {styles.box14}>
                    <Text  style = {styles.boxfont} >{data.signalName}</Text>
                   </View>
-                </View>
+                </View> */}
+                 <FlatList 
+        data={data}
+        renderItem={({ data }) =>  <View style = {styles.box12}>
+        <Text style = {styles.boxfontNo} >{index+1}:</Text>
+        <View style = {styles.boximg}>
+        <Image source={{uri: data.signalPath}}
+          style={{width: '100%',height:'100%',}}/>
+          </View>
+        <View style = {styles.box14}>
+         <Text  style = {styles.boxfont} >{data.signalName}</Text>
+        </View>
+      </View> }
+        keyExtractor={(data) => data.id}
+      />
               </View>
           );
         })}  
