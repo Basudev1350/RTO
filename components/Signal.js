@@ -9,6 +9,8 @@ class signal extends Component {
       loader:true,
       // errorMessage: '',
       // location: {},
+      translated:"",
+      cardNo:''
     }
   }
   state = {
@@ -54,6 +56,42 @@ class signal extends Component {
     const json = await response.json();
     this.setState({ data: json})
   };
+  englang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-english', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({translated : response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  benlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-bengali', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({translated : response2.data , cardNo : index}));
+         
+        });
+   
+  }
+  engitlang(data,index){
+    axios.get('https://rto-patente.herokuapp.com/api/show-token')
+        .then(response =>{
+          axios.post('https://rto-patente.herokuapp.com/api/translate-data-eng-to-italy', 
+          {
+            _token:response.data,
+            data:data })
+          .then(response2 => this.setState({ translated :response2.data , cardNo : index}));
+         
+        });
+   
+  }
   render() {
     return (
       <ImageBackground
@@ -84,8 +122,23 @@ class signal extends Component {
                style={{width: '100%', height:'100%'}}/>
                </View>
              <View style = {styles.box14}>
-              <Text  style = {styles.boxfont} >{item.signalName}</Text>
-             </View>
+              <Text  style = {styles.boxfont} >{this.state.cardNo !== index ?  item.signalName : this.state.translated  }</Text>
+              <View style = {styles.box12}>
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.englang(item.signalName,index)} >  
+                    <Icon name="language" size={23} color="#fff" />
+                    <Text style = {styles.buttontext}>EN</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.benlang(item.signalName,index)} >  
+                    <Icon name="language" size={22} color="#fff" />
+                    <Text style = {styles.buttontext}>BN</Text>  
+                  </TouchableOpacity> 
+                  <TouchableOpacity style = {styles.box15} onPress ={()=>this.engitlang(item.signalName,index)} >  
+                    <Icon name="language" size={22} color="#fff" />
+                    <Text style = {styles.buttontext}>IT</Text>  
+                  </TouchableOpacity> 
+                </View>
+             </View> 
+             
            </View>
          </View>
           }
@@ -118,6 +171,12 @@ const styles = StyleSheet.create ({
         shadowOpacity:0.3,
         shadowRadius: 0.4,
           },
+          buttontext:{
+            fontSize:15,
+            fontWeight:'800',
+            textAlign:'center',
+            color:'#fff',
+           },
         box12:{
           display:'flex',
           width:'100%',
@@ -139,6 +198,25 @@ const styles = StyleSheet.create ({
           fontWeight: '800',
           marginTop:30,
           width:'60%'
+        },
+        box15:{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-around',
+          borderRadius:8,
+          paddingLeft:8,
+          paddingRight:8,
+          paddingTop:5,
+          paddingBottom:5,
+          backgroundColor:'#4F7942',
+          borderColor:'#4F7942',
+          borderWidth:0.9,
+          shadowColor:'#96271f',
+          shadowOpacity:0.3,
+          shadowRadius: 0.4,
+          marginRight:5,
+          width:'22%',
+          height:'22%'
         },
         boximg:{
           width:'37.5%',
