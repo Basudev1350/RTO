@@ -172,7 +172,7 @@ const styles = StyleSheet.create ({
         shadowRadius: 0.4,
           },
           buttontext:{
-            fontSize:15,
+            fontSize:12,
             fontWeight:'800',
             textAlign:'center',
             color:'#fff',
@@ -197,7 +197,7 @@ const styles = StyleSheet.create ({
           margin:15,
           fontWeight: '800',
           marginTop:30,
-          width:'60%'
+          width:'58%'
         },
         box15:{
           display:'flex',
