@@ -195,9 +195,9 @@ const styles = StyleSheet.create ({
         boxfont:{
           fontSize: 14,
           margin:15,
-          fontWeight: '800',
           marginTop:30,
-          width:'58%'
+          width:'55%',
+          textAlign:'left'
         },
         box15:{
           display:'flex',
