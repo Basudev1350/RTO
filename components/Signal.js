@@ -173,7 +173,6 @@ const styles = StyleSheet.create ({
           },
           buttontext:{
             fontSize:12,
-            fontWeight:'800',
             textAlign:'center',
             color:'#fff',
            },
@@ -189,7 +188,6 @@ const styles = StyleSheet.create ({
         boxfontNo:{
           fontSize: 14,
           marginRight:0,
-          fontWeight: '900',
           marginTop:30,
         },
         boxfont:{
